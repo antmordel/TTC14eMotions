@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<notation:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:gcs="http://www.lcc.uma.es/GCS/1.0" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.1/notation" xmi:id="_v_oekatqEeOMedhQ2XR9Zg" type="GCS" name="movies.gcs_diagram" measurementUnit="Pixel">
+  <children xmi:type="notation:Node" xmi:id="_wCV0UKtqEeOMedhQ2XR9Zg" type="2001">
+    <children xmi:type="notation:Node" xmi:id="_wCWbYKtqEeOMedhQ2XR9Zg" type="5002"/>
+    <children xmi:type="notation:Node" xmi:id="_wCXCcKtqEeOMedhQ2XR9Zg" type="7001">
+      <children xmi:type="notation:Node" xmi:id="_wCciAKtqEeOMedhQ2XR9Zg" type="3001">
+        <children xmi:type="notation:Node" xmi:id="_wCdJEKtqEeOMedhQ2XR9Zg" type="5001"/>
+        <styles xmi:type="notation:ShapeStyle" xmi:id="_wCciAatqEeOMedhQ2XR9Zg" fontName="Segoe UI"/>
+        <element xmi:type="gcs:ClassGD" href="movies.gcs#//@packagesGD.0/@classesGD.0"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_wCciAqtqEeOMedhQ2XR9Zg" x="30" y="31"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_wCdJEatqEeOMedhQ2XR9Zg" type="3001">
+        <children xmi:type="notation:Node" xmi:id="_wCdJFKtqEeOMedhQ2XR9Zg" type="5001"/>
+        <styles xmi:type="notation:ShapeStyle" xmi:id="_wCdJEqtqEeOMedhQ2XR9Zg" fontName="Segoe UI"/>
+        <element xmi:type="gcs:ClassGD" href="movies.gcs#//@packagesGD.0/@classesGD.1"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_wCdJE6tqEeOMedhQ2XR9Zg" x="140" y="31"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_wCdJFatqEeOMedhQ2XR9Zg" type="3001">
+        <children xmi:type="notation:Node" xmi:id="_wCdwIKtqEeOMedhQ2XR9Zg" type="5001"/>
+        <styles xmi:type="notation:ShapeStyle" xmi:id="_wCdJFqtqEeOMedhQ2XR9Zg" fontName="Segoe UI"/>
+        <element xmi:type="gcs:ClassGD" href="movies.gcs#//@packagesGD.0/@classesGD.2"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_wCdJF6tqEeOMedhQ2XR9Zg" x="255" y="31"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_wCdwIatqEeOMedhQ2XR9Zg" type="3001">
+        <children xmi:type="notation:Node" xmi:id="_wCdwJKtqEeOMedhQ2XR9Zg" type="5001"/>
+        <styles xmi:type="notation:ShapeStyle" xmi:id="_wCdwIqtqEeOMedhQ2XR9Zg" fontName="Segoe UI"/>
+        <element xmi:type="gcs:ClassGD" href="movies.gcs#//@packagesGD.0/@classesGD.3"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_wCdwI6tqEeOMedhQ2XR9Zg" x="365" y="31"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_wCdwJatqEeOMedhQ2XR9Zg" type="3001">
+        <children xmi:type="notation:Node" xmi:id="_wCdwKKtqEeOMedhQ2XR9Zg" type="5001"/>
+        <styles xmi:type="notation:ShapeStyle" xmi:id="_wCdwJqtqEeOMedhQ2XR9Zg" fontName="Segoe UI"/>
+        <element xmi:type="gcs:ClassGD" href="movies.gcs#//@packagesGD.0/@classesGD.4"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_wCdwJ6tqEeOMedhQ2XR9Zg" x="480" y="31"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_wCdwKatqEeOMedhQ2XR9Zg" type="3001">
+        <children xmi:type="notation:Node" xmi:id="_wCeXMKtqEeOMedhQ2XR9Zg" type="5001"/>
+        <styles xmi:type="notation:ShapeStyle" xmi:id="_wCdwKqtqEeOMedhQ2XR9Zg" fontName="Segoe UI"/>
+        <element xmi:type="gcs:ClassGD" href="movies.gcs#//@packagesGD.0/@classesGD.5"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_wCdwK6tqEeOMedhQ2XR9Zg" x="590" y="31"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_wCeXMatqEeOMedhQ2XR9Zg" type="3001">
+        <children xmi:type="notation:Node" xmi:id="_wCe-QKtqEeOMedhQ2XR9Zg" type="5001"/>
+        <styles xmi:type="notation:ShapeStyle" xmi:id="_wCeXMqtqEeOMedhQ2XR9Zg" fontName="Segoe UI"/>
+        <element xmi:type="gcs:ClassGD" href="movies.gcs#//@packagesGD.0/@classesGD.6"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_wCeXM6tqEeOMedhQ2XR9Zg" x="700" y="31"/>
+      </children>
+      <styles xmi:type="notation:DrawerStyle" xmi:id="_wCXCcatqEeOMedhQ2XR9Zg"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_wCXCcqtqEeOMedhQ2XR9Zg"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_wCXCc6tqEeOMedhQ2XR9Zg"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_wCXCdKtqEeOMedhQ2XR9Zg" type="7002">
+      <styles xmi:type="notation:DrawerStyle" xmi:id="_wCXCdatqEeOMedhQ2XR9Zg"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_wCXCdqtqEeOMedhQ2XR9Zg"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_wCXCd6tqEeOMedhQ2XR9Zg"/>
+    </children>
+    <styles xmi:type="notation:ShapeStyle" xmi:id="_wCV0UatqEeOMedhQ2XR9Zg" fontName="Segoe UI"/>
+    <element xmi:type="gcs:PackageGD" href="movies.gcs#//@packagesGD.0"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_wCV0UqtqEeOMedhQ2XR9Zg" x="30" y="30"/>
+  </children>
+  <styles xmi:type="notation:DiagramStyle" xmi:id="_v_oekqtqEeOMedhQ2XR9Zg"/>
+  <element xmi:type="gcs:MetamodelGD" href="movies.gcs#/"/>
+</notation:Diagram>
