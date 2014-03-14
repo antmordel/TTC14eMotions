@@ -1,0 +1,11 @@
+
+
+mod N100 is
+	eq n100 =
+		_`{_`}( @movies@ , __( none , none , <_:_|_>( '/ , Parameter@movies , _#_( _:_( n@Parameter@movies , 100 ) , empty , empty ) ) ) )
+	.
+	protecting @MOVIES@
+	.
+	op n100 : -> @Model
+	.
+endm
