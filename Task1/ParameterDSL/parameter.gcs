@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gcs:MetamodelGD xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:gcs="http://www.lcc.uma.es/GCS/1.0" name="@PARAMETER@">
+  <packagesGD name="parameter">
+    <classesGD name="Parameter">
+      <class href="parameter.ecore#//Parameter"/>
+    </classesGD>
+    <package href="parameter.ecore#/"/>
+  </packagesGD>
+</gcs:MetamodelGD>

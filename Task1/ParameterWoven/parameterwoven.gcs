@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gcs:MetamodelGD xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:gcs="http://www.lcc.uma.es/GCS/1.0" name="@MOVIES@">
+  <packagesGD name="movies">
+    <classesGD name="Person">
+      <class href="parameterwoven.ecore#//Person"/>
+    </classesGD>
+    <classesGD name="Actor" figurePath="\TTC14eMotions\ConcreteSyntax\img\actor.png">
+      <class href="parameterwoven.ecore#//Actor"/>
+    </classesGD>
+    <classesGD name="Actress" figurePath="\TTC14eMotions\ConcreteSyntax\img\actress.png">
+      <class href="parameterwoven.ecore#//Actress"/>
+    </classesGD>
+    <classesGD name="Couple">
+      <class href="parameterwoven.ecore#//Couple"/>
+    </classesGD>
+    <classesGD name="Movie" figurePath="\TTC14eMotions\ConcreteSyntax\img\movie.png">
+      <class href="parameterwoven.ecore#//Movie"/>
+    </classesGD>
+    <classesGD name="Group">
+      <class href="parameterwoven.ecore#//Group"/>
+    </classesGD>
+    <classesGD name="Clique">
+      <class href="parameterwoven.ecore#//Clique"/>
+    </classesGD>
+    <classesGD name="Parameter" figurePath="\TTC14eMotions\Task1\ParameterDSL\parameter.png">
+      <class href="parameterwoven.ecore#//Parameter"/>
+    </classesGD>
+    <package href="parameterwoven.ecore#/"/>
+  </packagesGD>
+</gcs:MetamodelGD>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<behavior:Behavior xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:behavior="http://www.lcc.uma.es/Behavior/1.0">
+  <metamodelGD href="ParameterWoven/parameterwoven.gcs#/"/>
+  <rules xsi:type="behavior:AtomicRule" name="createPositive" lhs="//@rules.0/@patterns.0" rhs="//@rules.0/@patterns.1" maxDuration="0">
+    <vbles name="n" type="Integer" value="p.n - 1"/>
+    <patterns name="LHS">
+      <els xsi:type="behavior:Object" id="p">
+        <classGD href="ParameterWoven/parameterwoven.gcs#//@packagesGD.0/@classesGD.7"/>
+      </els>
+      <els xsi:type="behavior:Condition" oclValue="p.n > 0"/>
+    </patterns>
+    <patterns name="RHS">
+      <els xsi:type="behavior:Object" id="p">
+        <sfs oclValue="p.n - 1">
+          <sf href="ParameterWoven/parameterwoven.ecore#//Parameter/n"/>
+        </sfs>
+        <classGD href="ParameterWoven/parameterwoven.gcs#//@packagesGD.0/@classesGD.7"/>
+      </els>
+      <els xsi:type="behavior:Object" id="m1">
+        <sfs oclValue="10 * n">
+          <sf href="ParameterWoven/parameterwoven.ecore#//Movie/rating"/>
+        </sfs>
+        <classGD href="ParameterWoven/parameterwoven.gcs#//@packagesGD.0/@classesGD.4"/>
+      </els>
+      <els xsi:type="behavior:Object" id="m2">
+        <sfs oclValue="10 * n + 1">
+          <sf href="ParameterWoven/parameterwoven.ecore#//Movie/rating"/>
+        </sfs>
+        <classGD href="ParameterWoven/parameterwoven.gcs#//@packagesGD.0/@classesGD.4"/>
+      </els>
+      <els xsi:type="behavior:Object" id="m3">
+        <sfs oclValue="10 * n + 2">
+          <sf href="ParameterWoven/parameterwoven.ecore#//Movie/rating"/>
+        </sfs>
+        <classGD href="ParameterWoven/parameterwoven.gcs#//@packagesGD.0/@classesGD.4"/>
+      </els>
+      <els xsi:type="behavior:Object" id="m4">
+        <sfs oclValue="10 * n + 3">
+          <sf href="ParameterWoven/parameterwoven.ecore#//Movie/rating"/>
+        </sfs>
+        <classGD href="ParameterWoven/parameterwoven.gcs#//@packagesGD.0/@classesGD.4"/>
+      </els>
+      <els xsi:type="behavior:Object" id="m5">
+        <sfs oclValue="10 * n + 4">
+          <sf href="ParameterWoven/parameterwoven.ecore#//Movie/rating"/>
+        </sfs>
+        <classGD href="ParameterWoven/parameterwoven.gcs#//@packagesGD.0/@classesGD.4"/>
+      </els>
+      <els xsi:type="behavior:Object" id="a">
+        <sfs oclValue="1.toString()">
+          <sf href="ParameterWoven/parameterwoven.ecore#//Person/name"/>
+        </sfs>
+        <classGD href="ParameterWoven/parameterwoven.gcs#//@packagesGD.0/@classesGD.1"/>
+      </els>
+    </patterns>
+  </rules>
+</behavior:Behavior>
