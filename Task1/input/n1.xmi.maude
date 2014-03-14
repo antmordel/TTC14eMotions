@@ -1,11 +1,11 @@
 
 
 mod N1 is
-	protecting @MOVIES@
-	.
 	eq n1 =
 		_`{_`}( @movies@ , __( none , none , <_:_|_>( '/ , Parameter@movies , _#_( _:_( n@Parameter@movies , 1 ) , empty , empty ) ) ) )
 	.
 	op n1 : -> @Model
+	.
+	protecting @MOVIES@
 	.
 endm

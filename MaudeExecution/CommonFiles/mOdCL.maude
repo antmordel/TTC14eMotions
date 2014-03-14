@@ -1636,7 +1636,7 @@ mod EVAL is
     eq eval(E1 . div(E2),Cf,Cf') = eval(E1,Cf,Cf') quo eval(E2,Cf,Cf') .
     eq eval(E1 . mod(E2),Cf,Cf') = eval(E1,Cf,Cf') rem eval(E2,Cf,Cf') .
     
-    eq eval(E1 . toString(),Cf,Cf') = string(rat(eval(E1,Cf,Cf')),10) .
+    eq eval(E1 . toString(),Cf,Cf') = string(rat(eval(E1,Cf,Cf') * 1.0),10) .
     
    ---
    --- Real    

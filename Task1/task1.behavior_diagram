@@ -10,7 +10,7 @@
       <styles xmi:type="notation:ShapeStyle" xmi:id="_lHZQEatyEeOMedhQ2XR9Zg" fontName="Segoe UI"/>
       <styles xmi:type="notation:HintedDiagramLinkStyle" xmi:id="_lHZQEqtyEeOMedhQ2XR9Zg" diagramLink="_l2ULkKtyEeOMedhQ2XR9Zg" hint="Rule"/>
       <element xmi:type="behavior:AtomicRule" href="task1.behavior#createPositive"/>
-      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_lHZQE6tyEeOMedhQ2XR9Zg" x="247" y="146"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_lHZQE6tyEeOMedhQ2XR9Zg" x="395" y="95"/>
     </children>
     <styles xmi:type="notation:DiagramStyle" xmi:id="_kVy0AatyEeOMedhQ2XR9Zg"/>
     <element xmi:type="behavior:Behavior" href="task1.behavior#/"/>
@@ -527,5 +527,28 @@
       <element xmi:type="behavior:Link" href="task1.behavior#//@rules.0/@patterns.1/@els.29"/>
       <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_VvFCc6uXEeO8JaOgGjZkzg" points="[-111, -32, 448, 140]$[-595, -134, -36, 38]"/>
     </edges>
+  </notation:Diagram>
+  <notation:Diagram xmi:id="_1P75wKuaEeOhE-9HYg_4Kg" type="Rule" measurementUnit="Pixel">
+    <children xmi:type="notation:Node" xmi:id="_1RRWgKuaEeOhE-9HYg_4Kg" type="2005">
+      <children xmi:type="notation:Node" xmi:id="_1RR9kKuaEeOhE-9HYg_4Kg" type="5050"/>
+      <children xmi:type="notation:Node" xmi:id="_1RR9kauaEeOhE-9HYg_4Kg" type="7008">
+        <styles xmi:type="notation:DrawerStyle" xmi:id="_1RR9kquaEeOhE-9HYg_4Kg"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_1RR9k6uaEeOhE-9HYg_4Kg"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_1RR9lKuaEeOhE-9HYg_4Kg"/>
+      </children>
+      <styles xmi:type="notation:ShapeStyle" xmi:id="_1RRWgauaEeOhE-9HYg_4Kg" fontName="Segoe UI"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_1RRWgquaEeOhE-9HYg_4Kg" width="351" height="326"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_1RSkoKuaEeOhE-9HYg_4Kg" type="2005">
+      <children xmi:type="notation:Node" xmi:id="_1RSko6uaEeOhE-9HYg_4Kg" type="5050"/>
+      <children xmi:type="notation:Node" xmi:id="_1RSkpKuaEeOhE-9HYg_4Kg" type="7008">
+        <styles xmi:type="notation:DrawerStyle" xmi:id="_1RSkpauaEeOhE-9HYg_4Kg"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_1RSkpquaEeOhE-9HYg_4Kg"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_1RSkp6uaEeOhE-9HYg_4Kg"/>
+      </children>
+      <styles xmi:type="notation:ShapeStyle" xmi:id="_1RSkoauaEeOhE-9HYg_4Kg" fontName="Segoe UI"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_1RSkoquaEeOhE-9HYg_4Kg" x="360" width="301" height="326"/>
+    </children>
+    <styles xmi:type="notation:DiagramStyle" xmi:id="_1P75wauaEeOhE-9HYg_4Kg"/>
   </notation:Diagram>
 </xmi:XMI>
