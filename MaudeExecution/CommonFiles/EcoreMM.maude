@@ -1,0 +1,2786 @@
+**** Printable line length ***************************************************
+******************************************************************************
+
+--- ECORE METAMODEL 
+--- This metamodel has been obtained automatically through our EcoreMM2Maude
+--- model transformation. It has only been modified to perform the 
+--- corresponding time-related renamings here not include them in all 
+--- metamodel transformations 
+
+mod @ECORE@ is
+  protecting MAUDELING .
+        
+  op @Ecore@ : -> @Metamodel
+  .
+  eq name( @Ecore@ ) =
+    "Ecore"
+  .
+  eq packages( @Ecore@ ) =
+    ecore
+  .
+  op ecore : -> @Package
+  .
+  eq name( ecore ) =
+    "ecore"
+  .
+  eq metamodel( ecore ) =
+    @Ecore@
+  .
+  eq superPackage( ecore ) =
+    null
+  .
+  eq subPackages( ecore ) =
+    nil
+  .
+  eq classes( ecore ) =
+    __( EAttribute@ecore , EAnnotation@ecore , EClass@ecore , EClassifier@ecore , EDataType@ecore , EEnum@ecore , EEnumLiteral@ecore , EFactory@ecore , EModelElement@ecore , ENamedElement@ecore , EObject@ecore , EOperation@ecore , EPackage@ecore , EParameter@ecore , EReference@ecore , EStructuralFeature@ecore , ETypedElement@ecore , EStringToStringMapEntry@ecore , EGenericType@ecore , ETypeParameter@ecore )
+  .
+  sort EAttribute@ecore
+  .
+  subsorts EAttribute@ecore < EStructuralFeature@ecore
+  .
+  op EAttribute@ecore : -> EAttribute@ecore
+  .
+  eq name( EAttribute@ecore ) =
+    "EAttribute"
+  .
+  eq isAbstract( EAttribute@ecore ) =
+    false
+  .
+  eq package( EAttribute@ecore ) =
+    ecore
+  .
+  eq superTypes( EAttribute@ecore ) =
+    EStructuralFeature@ecore
+  .
+  eq references( EAttribute@ecore ) =
+    eAttributeType@EAttribute@ecore
+  .
+  eq attributes( EAttribute@ecore ) =
+    iD@EAttribute@ecore
+  .
+  sort EAnnotation@ecore
+  .
+  subsorts EAnnotation@ecore < EModelElement@ecore
+  .
+  op EAnnotation@ecore : -> EAnnotation@ecore
+  .
+  eq name( EAnnotation@ecore ) =
+    "EAnnotation"
+  .
+  eq isAbstract( EAnnotation@ecore ) =
+    false
+  .
+  eq package( EAnnotation@ecore ) =
+    ecore
+  .
+  eq superTypes( EAnnotation@ecore ) =
+    EModelElement@ecore
+  .
+  eq references( EAnnotation@ecore ) =
+    __( details@EAnnotation@ecore , eModelElement@EAnnotation@ecore , contents@EAnnotation@ecore , references@EAnnotation@ecore )
+  .
+  eq attributes( EAnnotation@ecore ) =
+    source@EAnnotation@ecore
+  .
+  sort EClass@ecore
+  .
+  subsorts EClass@ecore < EClassifier@ecore
+  .
+  op EClass@ecore : -> EClass@ecore
+  .
+  eq name( EClass@ecore ) =
+    "EClass"
+  .
+  eq isAbstract( EClass@ecore ) =
+    false
+  .
+  eq package( EClass@ecore ) =
+    ecore
+  .
+  eq superTypes( EClass@ecore ) =
+    EClassifier@ecore
+  .
+  eq references( EClass@ecore ) =
+    __( eSuperTypes@EClass@ecore , eOperations@EClass@ecore , eAllAttributes@EClass@ecore , eAllReferences@EClass@ecore , eReferences@EClass@ecore , eAttributes@EClass@ecore , eAllContainments@EClass@ecore , eAllOperations@EClass@ecore , eAllStructuralFeatures@EClass@ecore , eAllSuperTypes@EClass@ecore , eIDAttribute@EClass@ecore , eStructuralFeatures@EClass@ecore , eGenericSuperTypes@EClass@ecore , eAllGenericSuperTypes@EClass@ecore )
+  .
+  eq attributes( EClass@ecore ) =
+    __( abstract@EClass@ecore , interface@EClass@ecore )
+  .
+  sort EClassifier@ecore
+  .
+  subsorts EClassifier@ecore < ENamedElement@ecore
+  .
+  op EClassifier@ecore : -> EClassifier@ecore
+  .
+  eq name( EClassifier@ecore ) =
+    "EClassifier"
+  .
+  eq isAbstract( EClassifier@ecore ) =
+    true
+  .
+  eq package( EClassifier@ecore ) =
+    ecore
+  .
+  eq superTypes( EClassifier@ecore ) =
+    ENamedElement@ecore
+  .
+  eq references( EClassifier@ecore ) =
+    __( ePackage@EClassifier@ecore , eTypeParameters@EClassifier@ecore )
+  .
+  eq attributes( EClassifier@ecore ) =
+    __( instanceClassName@EClassifier@ecore , instanceClass@EClassifier@ecore , defaultValue@EClassifier@ecore , instanceTypeName@EClassifier@ecore )
+  .
+  sort EDataType@ecore
+  .
+  subsorts EDataType@ecore < EClassifier@ecore
+  .
+  op EDataType@ecore : -> EDataType@ecore
+  .
+  eq name( EDataType@ecore ) =
+    "EDataType"
+  .
+  eq isAbstract( EDataType@ecore ) =
+    false
+  .
+  eq package( EDataType@ecore ) =
+    ecore
+  .
+  eq superTypes( EDataType@ecore ) =
+    EClassifier@ecore
+  .
+  eq references( EDataType@ecore ) =
+    nil
+  .
+  eq attributes( EDataType@ecore ) =
+    serializable@EDataType@ecore
+  .
+  sort EEnum@ecore
+  .
+  subsorts EEnum@ecore < EDataType@ecore
+  .
+  op EEnum@ecore : -> EEnum@ecore
+  .
+  eq name( EEnum@ecore ) =
+    "EEnum"
+  .
+  eq isAbstract( EEnum@ecore ) =
+    false
+  .
+  eq package( EEnum@ecore ) =
+    ecore
+  .
+  eq superTypes( EEnum@ecore ) =
+    EDataType@ecore
+  .
+  eq references( EEnum@ecore ) =
+    eLiterals@EEnum@ecore
+  .
+  eq attributes( EEnum@ecore ) =
+    nil
+  .
+  sort EEnumLiteral@ecore
+  .
+  subsorts EEnumLiteral@ecore < ENamedElement@ecore
+  .
+  op EEnumLiteral@ecore : -> EEnumLiteral@ecore
+  .
+  eq name( EEnumLiteral@ecore ) =
+    "EEnumLiteral"
+  .
+  eq isAbstract( EEnumLiteral@ecore ) =
+    false
+  .
+  eq package( EEnumLiteral@ecore ) =
+    ecore
+  .
+  eq superTypes( EEnumLiteral@ecore ) =
+    ENamedElement@ecore
+  .
+  eq references( EEnumLiteral@ecore ) =
+    eEnum@EEnumLiteral@ecore
+  .
+  eq attributes( EEnumLiteral@ecore ) =
+    __( value@EEnumLiteral@ecore , instance@EEnumLiteral@ecore , literal@EEnumLiteral@ecore )
+  .
+  sort EFactory@ecore
+  .
+  subsorts EFactory@ecore < EModelElement@ecore
+  .
+  op EFactory@ecore : -> EFactory@ecore
+  .
+  eq name( EFactory@ecore ) =
+    "EFactory"
+  .
+  eq isAbstract( EFactory@ecore ) =
+    false
+  .
+  eq package( EFactory@ecore ) =
+    ecore
+  .
+  eq superTypes( EFactory@ecore ) =
+    EModelElement@ecore
+  .
+  eq references( EFactory@ecore ) =
+    ePackage@EFactory@ecore
+  .
+  eq attributes( EFactory@ecore ) =
+    nil
+  .
+  sort EModelElement@ecore
+  .
+  subsorts EModelElement@ecore < EObject@ecore
+  .
+  op EModelElement@ecore : -> EModelElement@ecore
+  .
+  eq name( EModelElement@ecore ) =
+    "EModelElement"
+  .
+  eq isAbstract( EModelElement@ecore ) =
+    true
+  .
+  eq package( EModelElement@ecore ) =
+    ecore
+  .
+  eq superTypes( EModelElement@ecore ) =
+    EObject@ecore
+  .
+  eq references( EModelElement@ecore ) =
+    eAnnotations@EModelElement@ecore
+  .
+  eq attributes( EModelElement@ecore ) =
+    nil
+  .
+  sort ENamedElement@ecore
+  .
+  subsorts ENamedElement@ecore < EModelElement@ecore
+  .
+  op ENamedElement@ecore : -> ENamedElement@ecore
+  .
+  eq name( ENamedElement@ecore ) =
+    "ENamedElement"
+  .
+  eq isAbstract( ENamedElement@ecore ) =
+    true
+  .
+  eq package( ENamedElement@ecore ) =
+    ecore
+  .
+  eq superTypes( ENamedElement@ecore ) =
+    EModelElement@ecore
+  .
+  eq references( ENamedElement@ecore ) =
+    nil
+  .
+  eq attributes( ENamedElement@ecore ) =
+    name@ENamedElement@ecore
+  .
+  sort EObject@ecore
+  .
+  subsorts EObject@ecore < @Class
+  .
+  op EObject@ecore : -> EObject@ecore
+  .
+  eq name( EObject@ecore ) =
+    "EObject"
+  .
+  eq isAbstract( EObject@ecore ) =
+    false
+  .
+  eq package( EObject@ecore ) =
+    ecore
+  .
+  eq superTypes( EObject@ecore ) =
+    nil
+  .
+  eq references( EObject@ecore ) =
+    nil
+  .
+  eq attributes( EObject@ecore ) =
+    nil
+  .
+  sort EOperation@ecore
+  .
+  subsorts EOperation@ecore < ETypedElement@ecore
+  .
+  op EOperation@ecore : -> EOperation@ecore
+  .
+  eq name( EOperation@ecore ) =
+    "EOperation"
+  .
+  eq isAbstract( EOperation@ecore ) =
+    false
+  .
+  eq package( EOperation@ecore ) =
+    ecore
+  .
+  eq superTypes( EOperation@ecore ) =
+    ETypedElement@ecore
+  .
+  eq references( EOperation@ecore ) =
+    __( eContainingClass@EOperation@ecore , eTypeParameters@EOperation@ecore , eParameters@EOperation@ecore , eExceptions@EOperation@ecore , eGenericExceptions@EOperation@ecore )
+  .
+  eq attributes( EOperation@ecore ) =
+    nil
+  .
+  sort EPackage@ecore
+  .
+  subsorts EPackage@ecore < ENamedElement@ecore
+  .
+  op EPackage@ecore : -> EPackage@ecore
+  .
+  eq name( EPackage@ecore ) =
+    "EPackage"
+  .
+  eq isAbstract( EPackage@ecore ) =
+    false
+  .
+  eq package( EPackage@ecore ) =
+    ecore
+  .
+  eq superTypes( EPackage@ecore ) =
+    ENamedElement@ecore
+  .
+  eq references( EPackage@ecore ) =
+    __( eFactoryInstance@EPackage@ecore , eClassifiers@EPackage@ecore , eSubpackages@EPackage@ecore , eSuperPackage@EPackage@ecore )
+  .
+  eq attributes( EPackage@ecore ) =
+    __( nsURI@EPackage@ecore , nsPrefix@EPackage@ecore )
+  .
+  sort EParameter@ecore
+  .
+  subsorts EParameter@ecore < ETypedElement@ecore
+  .
+  op EParameter@ecore : -> EParameter@ecore
+  .
+  eq name( EParameter@ecore ) =
+    "EParameter"
+  .
+  eq isAbstract( EParameter@ecore ) =
+    false
+  .
+  eq package( EParameter@ecore ) =
+    ecore
+  .
+  eq superTypes( EParameter@ecore ) =
+    ETypedElement@ecore
+  .
+  eq references( EParameter@ecore ) =
+    eOperation@EParameter@ecore
+  .
+  eq attributes( EParameter@ecore ) =
+    nil
+  .
+  sort EReference@ecore
+  .
+  subsorts EReference@ecore < EStructuralFeature@ecore
+  .
+  op EReference@ecore : -> EReference@ecore
+  .
+  eq name( EReference@ecore ) =
+    "EReference"
+  .
+  eq isAbstract( EReference@ecore ) =
+    false
+  .
+  eq package( EReference@ecore ) =
+    ecore
+  .
+  eq superTypes( EReference@ecore ) =
+    EStructuralFeature@ecore
+  .
+  eq references( EReference@ecore ) =
+    __( eOpposite@EReference@ecore , eReferenceType@EReference@ecore , eKeys@EReference@ecore )
+  .
+  eq attributes( EReference@ecore ) =
+    __( containment@EReference@ecore , container@EReference@ecore , resolveProxies@EReference@ecore )
+  .
+  sort EStructuralFeature@ecore
+  .
+  subsorts EStructuralFeature@ecore < ETypedElement@ecore
+  .
+  op EStructuralFeature@ecore : -> EStructuralFeature@ecore
+  .
+  eq name( EStructuralFeature@ecore ) =
+    "EStructuralFeature"
+  .
+  eq isAbstract( EStructuralFeature@ecore ) =
+    true
+  .
+  eq package( EStructuralFeature@ecore ) =
+    ecore
+  .
+  eq superTypes( EStructuralFeature@ecore ) =
+    ETypedElement@ecore
+  .
+  eq references( EStructuralFeature@ecore ) =
+    eContainingClass@EStructuralFeature@ecore
+  .
+  eq attributes( EStructuralFeature@ecore ) =
+    __( changeable@EStructuralFeature@ecore , volatile@EStructuralFeature@ecore , transient@EStructuralFeature@ecore , defaultValueLiteral@EStructuralFeature@ecore , defaultValue@EStructuralFeature@ecore , unsettable@EStructuralFeature@ecore , derived@EStructuralFeature@ecore )
+  .
+  sort ETypedElement@ecore
+  .
+  subsorts ETypedElement@ecore < ENamedElement@ecore
+  .
+  op ETypedElement@ecore : -> ETypedElement@ecore
+  .
+  eq name( ETypedElement@ecore ) =
+    "ETypedElement"
+  .
+  eq isAbstract( ETypedElement@ecore ) =
+    true
+  .
+  eq package( ETypedElement@ecore ) =
+    ecore
+  .
+  eq superTypes( ETypedElement@ecore ) =
+    ENamedElement@ecore
+  .
+  eq references( ETypedElement@ecore ) =
+    __( eType@ETypedElement@ecore , eGenericType@ETypedElement@ecore )
+  .
+  eq attributes( ETypedElement@ecore ) =
+    __( ordered@ETypedElement@ecore , unique@ETypedElement@ecore , lowerBound@ETypedElement@ecore , upperBound@ETypedElement@ecore , many@ETypedElement@ecore , required@ETypedElement@ecore )
+  .
+  sort EStringToStringMapEntry@ecore
+  .
+  subsorts EStringToStringMapEntry@ecore < @Class
+  .
+  op EStringToStringMapEntry@ecore : -> EStringToStringMapEntry@ecore
+  .
+  eq name( EStringToStringMapEntry@ecore ) =
+    "EStringToStringMapEntry"
+  .
+  eq isAbstract( EStringToStringMapEntry@ecore ) =
+    false
+  .
+  eq package( EStringToStringMapEntry@ecore ) =
+    ecore
+  .
+  eq superTypes( EStringToStringMapEntry@ecore ) =
+    nil
+  .
+  eq references( EStringToStringMapEntry@ecore ) =
+    nil
+  .
+  eq attributes( EStringToStringMapEntry@ecore ) =
+    __( key@EStringToStringMapEntry@ecore , value@EStringToStringMapEntry@ecore )
+  .
+  sort EGenericType@ecore
+  .
+  subsorts EGenericType@ecore < EObject@ecore
+  .
+  op EGenericType@ecore : -> EGenericType@ecore
+  .
+  eq name( EGenericType@ecore ) =
+    "EGenericType"
+  .
+  eq isAbstract( EGenericType@ecore ) =
+    false
+  .
+  eq package( EGenericType@ecore ) =
+    ecore
+  .
+  eq superTypes( EGenericType@ecore ) =
+    EObject@ecore
+  .
+  eq references( EGenericType@ecore ) =
+    __( eUpperBound@EGenericType@ecore , eTypeArguments@EGenericType@ecore , eRawType@EGenericType@ecore , eLowerBound@EGenericType@ecore , eTypeParameter@EGenericType@ecore , eClassifier@EGenericType@ecore )
+  .
+  eq attributes( EGenericType@ecore ) =
+    nil
+  .
+  sort ETypeParameter@ecore
+  .
+  subsorts ETypeParameter@ecore < ENamedElement@ecore
+  .
+  op ETypeParameter@ecore : -> ETypeParameter@ecore
+  .
+  eq name( ETypeParameter@ecore ) =
+    "ETypeParameter"
+  .
+  eq isAbstract( ETypeParameter@ecore ) =
+    false
+  .
+  eq package( ETypeParameter@ecore ) =
+    ecore
+  .
+  eq superTypes( ETypeParameter@ecore ) =
+    ENamedElement@ecore
+  .
+  eq references( ETypeParameter@ecore ) =
+    eBounds@ETypeParameter@ecore
+  .
+  eq attributes( ETypeParameter@ecore ) =
+    nil
+  .
+  op eAttributeType@EAttribute@ecore : -> @Reference
+  .
+  eq name( eAttributeType@EAttribute@ecore ) =
+    "eAttributeType"
+  .
+  eq type( eAttributeType@EAttribute@ecore ) =
+    EDataType@ecore
+  .
+  eq opposite( eAttributeType@EAttribute@ecore ) =
+    null
+  .
+  eq lowerBound( eAttributeType@EAttribute@ecore ) =
+    1
+  .
+  eq upperBound( eAttributeType@EAttribute@ecore ) =
+    1
+  .
+  eq containingClass( eAttributeType@EAttribute@ecore ) =
+    EAttribute@ecore
+  .
+  eq isContainment( eAttributeType@EAttribute@ecore ) =
+    false
+  .
+  eq isOrdered( eAttributeType@EAttribute@ecore ) =
+    true
+  .
+  eq isUnique( eAttributeType@EAttribute@ecore ) =
+    true
+  .
+  op details@EAnnotation@ecore : -> @Reference
+  .
+  eq name( details@EAnnotation@ecore ) =
+    "details"
+  .
+  eq type( details@EAnnotation@ecore ) =
+    EStringToStringMapEntry@ecore
+  .
+  eq opposite( details@EAnnotation@ecore ) =
+    null
+  .
+  eq lowerBound( details@EAnnotation@ecore ) =
+    0
+  .
+  eq upperBound( details@EAnnotation@ecore ) =
+    *
+  .
+  eq containingClass( details@EAnnotation@ecore ) =
+    EAnnotation@ecore
+  .
+  eq isContainment( details@EAnnotation@ecore ) =
+    true
+  .
+  eq isOrdered( details@EAnnotation@ecore ) =
+    true
+  .
+  eq isUnique( details@EAnnotation@ecore ) =
+    true
+  .
+  op eModelElement@EAnnotation@ecore : -> @Reference
+  .
+  eq name( eModelElement@EAnnotation@ecore ) =
+    "eModelElement"
+  .
+  eq type( eModelElement@EAnnotation@ecore ) =
+    EModelElement@ecore
+  .
+  eq opposite( eModelElement@EAnnotation@ecore ) =
+    eAnnotations@EModelElement@ecore
+  .
+  eq lowerBound( eModelElement@EAnnotation@ecore ) =
+    0
+  .
+  eq upperBound( eModelElement@EAnnotation@ecore ) =
+    1
+  .
+  eq containingClass( eModelElement@EAnnotation@ecore ) =
+    EAnnotation@ecore
+  .
+  eq isContainment( eModelElement@EAnnotation@ecore ) =
+    false
+  .
+  eq isOrdered( eModelElement@EAnnotation@ecore ) =
+    true
+  .
+  eq isUnique( eModelElement@EAnnotation@ecore ) =
+    true
+  .
+  op contents@EAnnotation@ecore : -> @Reference
+  .
+  eq name( contents@EAnnotation@ecore ) =
+    "contents"
+  .
+  eq type( contents@EAnnotation@ecore ) =
+    EObject@ecore
+  .
+  eq opposite( contents@EAnnotation@ecore ) =
+    null
+  .
+  eq lowerBound( contents@EAnnotation@ecore ) =
+    0
+  .
+  eq upperBound( contents@EAnnotation@ecore ) =
+    *
+  .
+  eq containingClass( contents@EAnnotation@ecore ) =
+    EAnnotation@ecore
+  .
+  eq isContainment( contents@EAnnotation@ecore ) =
+    true
+  .
+  eq isOrdered( contents@EAnnotation@ecore ) =
+    true
+  .
+  eq isUnique( contents@EAnnotation@ecore ) =
+    true
+  .
+  op references@EAnnotation@ecore : -> @Reference
+  .
+  eq name( references@EAnnotation@ecore ) =
+    "references"
+  .
+  eq type( references@EAnnotation@ecore ) =
+    EObject@ecore
+  .
+  eq opposite( references@EAnnotation@ecore ) =
+    null
+  .
+  eq lowerBound( references@EAnnotation@ecore ) =
+    0
+  .
+  eq upperBound( references@EAnnotation@ecore ) =
+    *
+  .
+  eq containingClass( references@EAnnotation@ecore ) =
+    EAnnotation@ecore
+  .
+  eq isContainment( references@EAnnotation@ecore ) =
+    false
+  .
+  eq isOrdered( references@EAnnotation@ecore ) =
+    true
+  .
+  eq isUnique( references@EAnnotation@ecore ) =
+    true
+  .
+  op eSuperTypes@EClass@ecore : -> @Reference
+  .
+  eq name( eSuperTypes@EClass@ecore ) =
+    "eSuperTypes"
+  .
+  eq type( eSuperTypes@EClass@ecore ) =
+    EClass@ecore
+  .
+  eq opposite( eSuperTypes@EClass@ecore ) =
+    null
+  .
+  eq lowerBound( eSuperTypes@EClass@ecore ) =
+    0
+  .
+  eq upperBound( eSuperTypes@EClass@ecore ) =
+    *
+  .
+  eq containingClass( eSuperTypes@EClass@ecore ) =
+    EClass@ecore
+  .
+  eq isContainment( eSuperTypes@EClass@ecore ) =
+    false
+  .
+  eq isOrdered( eSuperTypes@EClass@ecore ) =
+    true
+  .
+  eq isUnique( eSuperTypes@EClass@ecore ) =
+    true
+  .
+  op eOperations@EClass@ecore : -> @Reference
+  .
+  eq name( eOperations@EClass@ecore ) =
+    "eOperations"
+  .
+  eq type( eOperations@EClass@ecore ) =
+    EOperation@ecore
+  .
+  eq opposite( eOperations@EClass@ecore ) =
+    eContainingClass@EOperation@ecore
+  .
+  eq lowerBound( eOperations@EClass@ecore ) =
+    0
+  .
+  eq upperBound( eOperations@EClass@ecore ) =
+    *
+  .
+  eq containingClass( eOperations@EClass@ecore ) =
+    EClass@ecore
+  .
+  eq isContainment( eOperations@EClass@ecore ) =
+    true
+  .
+  eq isOrdered( eOperations@EClass@ecore ) =
+    true
+  .
+  eq isUnique( eOperations@EClass@ecore ) =
+    true
+  .
+  op eAllAttributes@EClass@ecore : -> @Reference
+  .
+  eq name( eAllAttributes@EClass@ecore ) =
+    "eAllAttributes"
+  .
+  eq type( eAllAttributes@EClass@ecore ) =
+    EAttribute@ecore
+  .
+  eq opposite( eAllAttributes@EClass@ecore ) =
+    null
+  .
+  eq lowerBound( eAllAttributes@EClass@ecore ) =
+    0
+  .
+  eq upperBound( eAllAttributes@EClass@ecore ) =
+    *
+  .
+  eq containingClass( eAllAttributes@EClass@ecore ) =
+    EClass@ecore
+  .
+  eq isContainment( eAllAttributes@EClass@ecore ) =
+    false
+  .
+  eq isOrdered( eAllAttributes@EClass@ecore ) =
+    true
+  .
+  eq isUnique( eAllAttributes@EClass@ecore ) =
+    true
+  .
+  op eAllReferences@EClass@ecore : -> @Reference
+  .
+  eq name( eAllReferences@EClass@ecore ) =
+    "eAllReferences"
+  .
+  eq type( eAllReferences@EClass@ecore ) =
+    EReference@ecore
+  .
+  eq opposite( eAllReferences@EClass@ecore ) =
+    null
+  .
+  eq lowerBound( eAllReferences@EClass@ecore ) =
+    0
+  .
+  eq upperBound( eAllReferences@EClass@ecore ) =
+    *
+  .
+  eq containingClass( eAllReferences@EClass@ecore ) =
+    EClass@ecore
+  .
+  eq isContainment( eAllReferences@EClass@ecore ) =
+    false
+  .
+  eq isOrdered( eAllReferences@EClass@ecore ) =
+    true
+  .
+  eq isUnique( eAllReferences@EClass@ecore ) =
+    true
+  .
+  op eReferences@EClass@ecore : -> @Reference
+  .
+  eq name( eReferences@EClass@ecore ) =
+    "eReferences"
+  .
+  eq type( eReferences@EClass@ecore ) =
+    EReference@ecore
+  .
+  eq opposite( eReferences@EClass@ecore ) =
+    null
+  .
+  eq lowerBound( eReferences@EClass@ecore ) =
+    0
+  .
+  eq upperBound( eReferences@EClass@ecore ) =
+    *
+  .
+  eq containingClass( eReferences@EClass@ecore ) =
+    EClass@ecore
+  .
+  eq isContainment( eReferences@EClass@ecore ) =
+    false
+  .
+  eq isOrdered( eReferences@EClass@ecore ) =
+    true
+  .
+  eq isUnique( eReferences@EClass@ecore ) =
+    true
+  .
+  op eAttributes@EClass@ecore : -> @Reference
+  .
+  eq name( eAttributes@EClass@ecore ) =
+    "eAttributes"
+  .
+  eq type( eAttributes@EClass@ecore ) =
+    EAttribute@ecore
+  .
+  eq opposite( eAttributes@EClass@ecore ) =
+    null
+  .
+  eq lowerBound( eAttributes@EClass@ecore ) =
+    0
+  .
+  eq upperBound( eAttributes@EClass@ecore ) =
+    *
+  .
+  eq containingClass( eAttributes@EClass@ecore ) =
+    EClass@ecore
+  .
+  eq isContainment( eAttributes@EClass@ecore ) =
+    false
+  .
+  eq isOrdered( eAttributes@EClass@ecore ) =
+    true
+  .
+  eq isUnique( eAttributes@EClass@ecore ) =
+    true
+  .
+  op eAllContainments@EClass@ecore : -> @Reference
+  .
+  eq name( eAllContainments@EClass@ecore ) =
+    "eAllContainments"
+  .
+  eq type( eAllContainments@EClass@ecore ) =
+    EReference@ecore
+  .
+  eq opposite( eAllContainments@EClass@ecore ) =
+    null
+  .
+  eq lowerBound( eAllContainments@EClass@ecore ) =
+    0
+  .
+  eq upperBound( eAllContainments@EClass@ecore ) =
+    *
+  .
+  eq containingClass( eAllContainments@EClass@ecore ) =
+    EClass@ecore
+  .
+  eq isContainment( eAllContainments@EClass@ecore ) =
+    false
+  .
+  eq isOrdered( eAllContainments@EClass@ecore ) =
+    true
+  .
+  eq isUnique( eAllContainments@EClass@ecore ) =
+    true
+  .
+  op eAllOperations@EClass@ecore : -> @Reference
+  .
+  eq name( eAllOperations@EClass@ecore ) =
+    "eAllOperations"
+  .
+  eq type( eAllOperations@EClass@ecore ) =
+    EOperation@ecore
+  .
+  eq opposite( eAllOperations@EClass@ecore ) =
+    null
+  .
+  eq lowerBound( eAllOperations@EClass@ecore ) =
+    0
+  .
+  eq upperBound( eAllOperations@EClass@ecore ) =
+    *
+  .
+  eq containingClass( eAllOperations@EClass@ecore ) =
+    EClass@ecore
+  .
+  eq isContainment( eAllOperations@EClass@ecore ) =
+    false
+  .
+  eq isOrdered( eAllOperations@EClass@ecore ) =
+    true
+  .
+  eq isUnique( eAllOperations@EClass@ecore ) =
+    true
+  .
+  op eAllStructuralFeatures@EClass@ecore : -> @Reference
+  .
+  eq name( eAllStructuralFeatures@EClass@ecore ) =
+    "eAllStructuralFeatures"
+  .
+  eq type( eAllStructuralFeatures@EClass@ecore ) =
+    EStructuralFeature@ecore
+  .
+  eq opposite( eAllStructuralFeatures@EClass@ecore ) =
+    null
+  .
+  eq lowerBound( eAllStructuralFeatures@EClass@ecore ) =
+    0
+  .
+  eq upperBound( eAllStructuralFeatures@EClass@ecore ) =
+    *
+  .
+  eq containingClass( eAllStructuralFeatures@EClass@ecore ) =
+    EClass@ecore
+  .
+  eq isContainment( eAllStructuralFeatures@EClass@ecore ) =
+    false
+  .
+  eq isOrdered( eAllStructuralFeatures@EClass@ecore ) =
+    true
+  .
+  eq isUnique( eAllStructuralFeatures@EClass@ecore ) =
+    true
+  .
+  op eAllSuperTypes@EClass@ecore : -> @Reference
+  .
+  eq name( eAllSuperTypes@EClass@ecore ) =
+    "eAllSuperTypes"
+  .
+  eq type( eAllSuperTypes@EClass@ecore ) =
+    EClass@ecore
+  .
+  eq opposite( eAllSuperTypes@EClass@ecore ) =
+    null
+  .
+  eq lowerBound( eAllSuperTypes@EClass@ecore ) =
+    0
+  .
+  eq upperBound( eAllSuperTypes@EClass@ecore ) =
+    *
+  .
+  eq containingClass( eAllSuperTypes@EClass@ecore ) =
+    EClass@ecore
+  .
+  eq isContainment( eAllSuperTypes@EClass@ecore ) =
+    false
+  .
+  eq isOrdered( eAllSuperTypes@EClass@ecore ) =
+    true
+  .
+  eq isUnique( eAllSuperTypes@EClass@ecore ) =
+    true
+  .
+  op eIDAttribute@EClass@ecore : -> @Reference
+  .
+  eq name( eIDAttribute@EClass@ecore ) =
+    "eIDAttribute"
+  .
+  eq type( eIDAttribute@EClass@ecore ) =
+    EAttribute@ecore
+  .
+  eq opposite( eIDAttribute@EClass@ecore ) =
+    null
+  .
+  eq lowerBound( eIDAttribute@EClass@ecore ) =
+    0
+  .
+  eq upperBound( eIDAttribute@EClass@ecore ) =
+    1
+  .
+  eq containingClass( eIDAttribute@EClass@ecore ) =
+    EClass@ecore
+  .
+  eq isContainment( eIDAttribute@EClass@ecore ) =
+    false
+  .
+  eq isOrdered( eIDAttribute@EClass@ecore ) =
+    true
+  .
+  eq isUnique( eIDAttribute@EClass@ecore ) =
+    true
+  .
+  op eStructuralFeatures@EClass@ecore : -> @Reference
+  .
+  eq name( eStructuralFeatures@EClass@ecore ) =
+    "eStructuralFeatures"
+  .
+  eq type( eStructuralFeatures@EClass@ecore ) =
+    EStructuralFeature@ecore
+  .
+  eq opposite( eStructuralFeatures@EClass@ecore ) =
+    eContainingClass@EStructuralFeature@ecore
+  .
+  eq lowerBound( eStructuralFeatures@EClass@ecore ) =
+    0
+  .
+  eq upperBound( eStructuralFeatures@EClass@ecore ) =
+    *
+  .
+  eq containingClass( eStructuralFeatures@EClass@ecore ) =
+    EClass@ecore
+  .
+  eq isContainment( eStructuralFeatures@EClass@ecore ) =
+    true
+  .
+  eq isOrdered( eStructuralFeatures@EClass@ecore ) =
+    true
+  .
+  eq isUnique( eStructuralFeatures@EClass@ecore ) =
+    true
+  .
+  op eGenericSuperTypes@EClass@ecore : -> @Reference
+  .
+  eq name( eGenericSuperTypes@EClass@ecore ) =
+    "eGenericSuperTypes"
+  .
+  eq type( eGenericSuperTypes@EClass@ecore ) =
+    EGenericType@ecore
+  .
+  eq opposite( eGenericSuperTypes@EClass@ecore ) =
+    null
+  .
+  eq lowerBound( eGenericSuperTypes@EClass@ecore ) =
+    0
+  .
+  eq upperBound( eGenericSuperTypes@EClass@ecore ) =
+    *
+  .
+  eq containingClass( eGenericSuperTypes@EClass@ecore ) =
+    EClass@ecore
+  .
+  eq isContainment( eGenericSuperTypes@EClass@ecore ) =
+    true
+  .
+  eq isOrdered( eGenericSuperTypes@EClass@ecore ) =
+    true
+  .
+  eq isUnique( eGenericSuperTypes@EClass@ecore ) =
+    true
+  .
+  op eAllGenericSuperTypes@EClass@ecore : -> @Reference
+  .
+  eq name( eAllGenericSuperTypes@EClass@ecore ) =
+    "eAllGenericSuperTypes"
+  .
+  eq type( eAllGenericSuperTypes@EClass@ecore ) =
+    EGenericType@ecore
+  .
+  eq opposite( eAllGenericSuperTypes@EClass@ecore ) =
+    null
+  .
+  eq lowerBound( eAllGenericSuperTypes@EClass@ecore ) =
+    0
+  .
+  eq upperBound( eAllGenericSuperTypes@EClass@ecore ) =
+    *
+  .
+  eq containingClass( eAllGenericSuperTypes@EClass@ecore ) =
+    EClass@ecore
+  .
+  eq isContainment( eAllGenericSuperTypes@EClass@ecore ) =
+    false
+  .
+  eq isOrdered( eAllGenericSuperTypes@EClass@ecore ) =
+    true
+  .
+  eq isUnique( eAllGenericSuperTypes@EClass@ecore ) =
+    true
+  .
+  op ePackage@EClassifier@ecore : -> @Reference
+  .
+  eq name( ePackage@EClassifier@ecore ) =
+    "ePackage"
+  .
+  eq type( ePackage@EClassifier@ecore ) =
+    EPackage@ecore
+  .
+  eq opposite( ePackage@EClassifier@ecore ) =
+    eClassifiers@EPackage@ecore
+  .
+  eq lowerBound( ePackage@EClassifier@ecore ) =
+    0
+  .
+  eq upperBound( ePackage@EClassifier@ecore ) =
+    1
+  .
+  eq containingClass( ePackage@EClassifier@ecore ) =
+    EClassifier@ecore
+  .
+  eq isContainment( ePackage@EClassifier@ecore ) =
+    false
+  .
+  eq isOrdered( ePackage@EClassifier@ecore ) =
+    true
+  .
+  eq isUnique( ePackage@EClassifier@ecore ) =
+    true
+  .
+  op eTypeParameters@EClassifier@ecore : -> @Reference
+  .
+  eq name( eTypeParameters@EClassifier@ecore ) =
+    "eTypeParameters"
+  .
+  eq type( eTypeParameters@EClassifier@ecore ) =
+    ETypeParameter@ecore
+  .
+  eq opposite( eTypeParameters@EClassifier@ecore ) =
+    null
+  .
+  eq lowerBound( eTypeParameters@EClassifier@ecore ) =
+    0
+  .
+  eq upperBound( eTypeParameters@EClassifier@ecore ) =
+    *
+  .
+  eq containingClass( eTypeParameters@EClassifier@ecore ) =
+    EClassifier@ecore
+  .
+  eq isContainment( eTypeParameters@EClassifier@ecore ) =
+    true
+  .
+  eq isOrdered( eTypeParameters@EClassifier@ecore ) =
+    true
+  .
+  eq isUnique( eTypeParameters@EClassifier@ecore ) =
+    true
+  .
+  op eLiterals@EEnum@ecore : -> @Reference
+  .
+  eq name( eLiterals@EEnum@ecore ) =
+    "eLiterals"
+  .
+  eq type( eLiterals@EEnum@ecore ) =
+    EEnumLiteral@ecore
+  .
+  eq opposite( eLiterals@EEnum@ecore ) =
+    eEnum@EEnumLiteral@ecore
+  .
+  eq lowerBound( eLiterals@EEnum@ecore ) =
+    0
+  .
+  eq upperBound( eLiterals@EEnum@ecore ) =
+    *
+  .
+  eq containingClass( eLiterals@EEnum@ecore ) =
+    EEnum@ecore
+  .
+  eq isContainment( eLiterals@EEnum@ecore ) =
+    true
+  .
+  eq isOrdered( eLiterals@EEnum@ecore ) =
+    true
+  .
+  eq isUnique( eLiterals@EEnum@ecore ) =
+    true
+  .
+  op eEnum@EEnumLiteral@ecore : -> @Reference
+  .
+  eq name( eEnum@EEnumLiteral@ecore ) =
+    "eEnum"
+  .
+  eq type( eEnum@EEnumLiteral@ecore ) =
+    EEnum@ecore
+  .
+  eq opposite( eEnum@EEnumLiteral@ecore ) =
+    eLiterals@EEnum@ecore
+  .
+  eq lowerBound( eEnum@EEnumLiteral@ecore ) =
+    0
+  .
+  eq upperBound( eEnum@EEnumLiteral@ecore ) =
+    1
+  .
+  eq containingClass( eEnum@EEnumLiteral@ecore ) =
+    EEnumLiteral@ecore
+  .
+  eq isContainment( eEnum@EEnumLiteral@ecore ) =
+    false
+  .
+  eq isOrdered( eEnum@EEnumLiteral@ecore ) =
+    true
+  .
+  eq isUnique( eEnum@EEnumLiteral@ecore ) =
+    true
+  .
+  op ePackage@EFactory@ecore : -> @Reference
+  .
+  eq name( ePackage@EFactory@ecore ) =
+    "ePackage"
+  .
+  eq type( ePackage@EFactory@ecore ) =
+    EPackage@ecore
+  .
+  eq opposite( ePackage@EFactory@ecore ) =
+    eFactoryInstance@EPackage@ecore
+  .
+  eq lowerBound( ePackage@EFactory@ecore ) =
+    1
+  .
+  eq upperBound( ePackage@EFactory@ecore ) =
+    1
+  .
+  eq containingClass( ePackage@EFactory@ecore ) =
+    EFactory@ecore
+  .
+  eq isContainment( ePackage@EFactory@ecore ) =
+    false
+  .
+  eq isOrdered( ePackage@EFactory@ecore ) =
+    true
+  .
+  eq isUnique( ePackage@EFactory@ecore ) =
+    true
+  .
+  op eAnnotations@EModelElement@ecore : -> @Reference
+  .
+  eq name( eAnnotations@EModelElement@ecore ) =
+    "eAnnotations"
+  .
+  eq type( eAnnotations@EModelElement@ecore ) =
+    EAnnotation@ecore
+  .
+  eq opposite( eAnnotations@EModelElement@ecore ) =
+    eModelElement@EAnnotation@ecore
+  .
+  eq lowerBound( eAnnotations@EModelElement@ecore ) =
+    0
+  .
+  eq upperBound( eAnnotations@EModelElement@ecore ) =
+    *
+  .
+  eq containingClass( eAnnotations@EModelElement@ecore ) =
+    EModelElement@ecore
+  .
+  eq isContainment( eAnnotations@EModelElement@ecore ) =
+    true
+  .
+  eq isOrdered( eAnnotations@EModelElement@ecore ) =
+    true
+  .
+  eq isUnique( eAnnotations@EModelElement@ecore ) =
+    true
+  .
+  op eContainingClass@EOperation@ecore : -> @Reference
+  .
+  eq name( eContainingClass@EOperation@ecore ) =
+    "eContainingClass"
+  .
+  eq type( eContainingClass@EOperation@ecore ) =
+    EClass@ecore
+  .
+  eq opposite( eContainingClass@EOperation@ecore ) =
+    eOperations@EClass@ecore
+  .
+  eq lowerBound( eContainingClass@EOperation@ecore ) =
+    0
+  .
+  eq upperBound( eContainingClass@EOperation@ecore ) =
+    1
+  .
+  eq containingClass( eContainingClass@EOperation@ecore ) =
+    EOperation@ecore
+  .
+  eq isContainment( eContainingClass@EOperation@ecore ) =
+    false
+  .
+  eq isOrdered( eContainingClass@EOperation@ecore ) =
+    true
+  .
+  eq isUnique( eContainingClass@EOperation@ecore ) =
+    true
+  .
+  op eTypeParameters@EOperation@ecore : -> @Reference
+  .
+  eq name( eTypeParameters@EOperation@ecore ) =
+    "eTypeParameters"
+  .
+  eq type( eTypeParameters@EOperation@ecore ) =
+    ETypeParameter@ecore
+  .
+  eq opposite( eTypeParameters@EOperation@ecore ) =
+    null
+  .
+  eq lowerBound( eTypeParameters@EOperation@ecore ) =
+    0
+  .
+  eq upperBound( eTypeParameters@EOperation@ecore ) =
+    *
+  .
+  eq containingClass( eTypeParameters@EOperation@ecore ) =
+    EOperation@ecore
+  .
+  eq isContainment( eTypeParameters@EOperation@ecore ) =
+    true
+  .
+  eq isOrdered( eTypeParameters@EOperation@ecore ) =
+    true
+  .
+  eq isUnique( eTypeParameters@EOperation@ecore ) =
+    true
+  .
+  op eParameters@EOperation@ecore : -> @Reference
+  .
+  eq name( eParameters@EOperation@ecore ) =
+    "eParameters"
+  .
+  eq type( eParameters@EOperation@ecore ) =
+    EParameter@ecore
+  .
+  eq opposite( eParameters@EOperation@ecore ) =
+    eOperation@EParameter@ecore
+  .
+  eq lowerBound( eParameters@EOperation@ecore ) =
+    0
+  .
+  eq upperBound( eParameters@EOperation@ecore ) =
+    *
+  .
+  eq containingClass( eParameters@EOperation@ecore ) =
+    EOperation@ecore
+  .
+  eq isContainment( eParameters@EOperation@ecore ) =
+    true
+  .
+  eq isOrdered( eParameters@EOperation@ecore ) =
+    true
+  .
+  eq isUnique( eParameters@EOperation@ecore ) =
+    true
+  .
+  op eExceptions@EOperation@ecore : -> @Reference
+  .
+  eq name( eExceptions@EOperation@ecore ) =
+    "eExceptions"
+  .
+  eq type( eExceptions@EOperation@ecore ) =
+    EClassifier@ecore
+  .
+  eq opposite( eExceptions@EOperation@ecore ) =
+    null
+  .
+  eq lowerBound( eExceptions@EOperation@ecore ) =
+    0
+  .
+  eq upperBound( eExceptions@EOperation@ecore ) =
+    *
+  .
+  eq containingClass( eExceptions@EOperation@ecore ) =
+    EOperation@ecore
+  .
+  eq isContainment( eExceptions@EOperation@ecore ) =
+    false
+  .
+  eq isOrdered( eExceptions@EOperation@ecore ) =
+    true
+  .
+  eq isUnique( eExceptions@EOperation@ecore ) =
+    true
+  .
+  op eGenericExceptions@EOperation@ecore : -> @Reference
+  .
+  eq name( eGenericExceptions@EOperation@ecore ) =
+    "eGenericExceptions"
+  .
+  eq type( eGenericExceptions@EOperation@ecore ) =
+    EGenericType@ecore
+  .
+  eq opposite( eGenericExceptions@EOperation@ecore ) =
+    null
+  .
+  eq lowerBound( eGenericExceptions@EOperation@ecore ) =
+    0
+  .
+  eq upperBound( eGenericExceptions@EOperation@ecore ) =
+    *
+  .
+  eq containingClass( eGenericExceptions@EOperation@ecore ) =
+    EOperation@ecore
+  .
+  eq isContainment( eGenericExceptions@EOperation@ecore ) =
+    true
+  .
+  eq isOrdered( eGenericExceptions@EOperation@ecore ) =
+    true
+  .
+  eq isUnique( eGenericExceptions@EOperation@ecore ) =
+    true
+  .
+  op eFactoryInstance@EPackage@ecore : -> @Reference
+  .
+  eq name( eFactoryInstance@EPackage@ecore ) =
+    "eFactoryInstance"
+  .
+  eq type( eFactoryInstance@EPackage@ecore ) =
+    EFactory@ecore
+  .
+  eq opposite( eFactoryInstance@EPackage@ecore ) =
+    ePackage@EFactory@ecore
+  .
+  eq lowerBound( eFactoryInstance@EPackage@ecore ) =
+    1
+  .
+  eq upperBound( eFactoryInstance@EPackage@ecore ) =
+    1
+  .
+  eq containingClass( eFactoryInstance@EPackage@ecore ) =
+    EPackage@ecore
+  .
+  eq isContainment( eFactoryInstance@EPackage@ecore ) =
+    false
+  .
+  eq isOrdered( eFactoryInstance@EPackage@ecore ) =
+    true
+  .
+  eq isUnique( eFactoryInstance@EPackage@ecore ) =
+    true
+  .
+  op eClassifiers@EPackage@ecore : -> @Reference
+  .
+  eq name( eClassifiers@EPackage@ecore ) =
+    "eClassifiers"
+  .
+  eq type( eClassifiers@EPackage@ecore ) =
+    EClassifier@ecore
+  .
+  eq opposite( eClassifiers@EPackage@ecore ) =
+    ePackage@EClassifier@ecore
+  .
+  eq lowerBound( eClassifiers@EPackage@ecore ) =
+    0
+  .
+  eq upperBound( eClassifiers@EPackage@ecore ) =
+    *
+  .
+  eq containingClass( eClassifiers@EPackage@ecore ) =
+    EPackage@ecore
+  .
+  eq isContainment( eClassifiers@EPackage@ecore ) =
+    true
+  .
+  eq isOrdered( eClassifiers@EPackage@ecore ) =
+    true
+  .
+  eq isUnique( eClassifiers@EPackage@ecore ) =
+    true
+  .
+  op eSubpackages@EPackage@ecore : -> @Reference
+  .
+  eq name( eSubpackages@EPackage@ecore ) =
+    "eSubpackages"
+  .
+  eq type( eSubpackages@EPackage@ecore ) =
+    EPackage@ecore
+  .
+  eq opposite( eSubpackages@EPackage@ecore ) =
+    eSuperPackage@EPackage@ecore
+  .
+  eq lowerBound( eSubpackages@EPackage@ecore ) =
+    0
+  .
+  eq upperBound( eSubpackages@EPackage@ecore ) =
+    *
+  .
+  eq containingClass( eSubpackages@EPackage@ecore ) =
+    EPackage@ecore
+  .
+  eq isContainment( eSubpackages@EPackage@ecore ) =
+    true
+  .
+  eq isOrdered( eSubpackages@EPackage@ecore ) =
+    true
+  .
+  eq isUnique( eSubpackages@EPackage@ecore ) =
+    true
+  .
+  op eSuperPackage@EPackage@ecore : -> @Reference
+  .
+  eq name( eSuperPackage@EPackage@ecore ) =
+    "eSuperPackage"
+  .
+  eq type( eSuperPackage@EPackage@ecore ) =
+    EPackage@ecore
+  .
+  eq opposite( eSuperPackage@EPackage@ecore ) =
+    eSubpackages@EPackage@ecore
+  .
+  eq lowerBound( eSuperPackage@EPackage@ecore ) =
+    0
+  .
+  eq upperBound( eSuperPackage@EPackage@ecore ) =
+    1
+  .
+  eq containingClass( eSuperPackage@EPackage@ecore ) =
+    EPackage@ecore
+  .
+  eq isContainment( eSuperPackage@EPackage@ecore ) =
+    false
+  .
+  eq isOrdered( eSuperPackage@EPackage@ecore ) =
+    true
+  .
+  eq isUnique( eSuperPackage@EPackage@ecore ) =
+    true
+  .
+  op eOperation@EParameter@ecore : -> @Reference
+  .
+  eq name( eOperation@EParameter@ecore ) =
+    "eOperation"
+  .
+  eq type( eOperation@EParameter@ecore ) =
+    EOperation@ecore
+  .
+  eq opposite( eOperation@EParameter@ecore ) =
+    eParameters@EOperation@ecore
+  .
+  eq lowerBound( eOperation@EParameter@ecore ) =
+    0
+  .
+  eq upperBound( eOperation@EParameter@ecore ) =
+    1
+  .
+  eq containingClass( eOperation@EParameter@ecore ) =
+    EParameter@ecore
+  .
+  eq isContainment( eOperation@EParameter@ecore ) =
+    false
+  .
+  eq isOrdered( eOperation@EParameter@ecore ) =
+    true
+  .
+  eq isUnique( eOperation@EParameter@ecore ) =
+    true
+  .
+  op eOpposite@EReference@ecore : -> @Reference
+  .
+  eq name( eOpposite@EReference@ecore ) =
+    "eOpposite"
+  .
+  eq type( eOpposite@EReference@ecore ) =
+    EReference@ecore
+  .
+  eq opposite( eOpposite@EReference@ecore ) =
+    null
+  .
+  eq lowerBound( eOpposite@EReference@ecore ) =
+    0
+  .
+  eq upperBound( eOpposite@EReference@ecore ) =
+    1
+  .
+  eq containingClass( eOpposite@EReference@ecore ) =
+    EReference@ecore
+  .
+  eq isContainment( eOpposite@EReference@ecore ) =
+    false
+  .
+  eq isOrdered( eOpposite@EReference@ecore ) =
+    true
+  .
+  eq isUnique( eOpposite@EReference@ecore ) =
+    true
+  .
+  op eReferenceType@EReference@ecore : -> @Reference
+  .
+  eq name( eReferenceType@EReference@ecore ) =
+    "eReferenceType"
+  .
+  eq type( eReferenceType@EReference@ecore ) =
+    EClass@ecore
+  .
+  eq opposite( eReferenceType@EReference@ecore ) =
+    null
+  .
+  eq lowerBound( eReferenceType@EReference@ecore ) =
+    1
+  .
+  eq upperBound( eReferenceType@EReference@ecore ) =
+    1
+  .
+  eq containingClass( eReferenceType@EReference@ecore ) =
+    EReference@ecore
+  .
+  eq isContainment( eReferenceType@EReference@ecore ) =
+    false
+  .
+  eq isOrdered( eReferenceType@EReference@ecore ) =
+    true
+  .
+  eq isUnique( eReferenceType@EReference@ecore ) =
+    true
+  .
+  op eKeys@EReference@ecore : -> @Reference
+  .
+  eq name( eKeys@EReference@ecore ) =
+    "eKeys"
+  .
+  eq type( eKeys@EReference@ecore ) =
+    EAttribute@ecore
+  .
+  eq opposite( eKeys@EReference@ecore ) =
+    null
+  .
+  eq lowerBound( eKeys@EReference@ecore ) =
+    0
+  .
+  eq upperBound( eKeys@EReference@ecore ) =
+    *
+  .
+  eq containingClass( eKeys@EReference@ecore ) =
+    EReference@ecore
+  .
+  eq isContainment( eKeys@EReference@ecore ) =
+    false
+  .
+  eq isOrdered( eKeys@EReference@ecore ) =
+    true
+  .
+  eq isUnique( eKeys@EReference@ecore ) =
+    true
+  .
+  op eContainingClass@EStructuralFeature@ecore : -> @Reference
+  .
+  eq name( eContainingClass@EStructuralFeature@ecore ) =
+    "eContainingClass"
+  .
+  eq type( eContainingClass@EStructuralFeature@ecore ) =
+    EClass@ecore
+  .
+  eq opposite( eContainingClass@EStructuralFeature@ecore ) =
+    eStructuralFeatures@EClass@ecore
+  .
+  eq lowerBound( eContainingClass@EStructuralFeature@ecore ) =
+    0
+  .
+  eq upperBound( eContainingClass@EStructuralFeature@ecore ) =
+    1
+  .
+  eq containingClass( eContainingClass@EStructuralFeature@ecore ) =
+    EStructuralFeature@ecore
+  .
+  eq isContainment( eContainingClass@EStructuralFeature@ecore ) =
+    false
+  .
+  eq isOrdered( eContainingClass@EStructuralFeature@ecore ) =
+    true
+  .
+  eq isUnique( eContainingClass@EStructuralFeature@ecore ) =
+    true
+  .
+  op eType@ETypedElement@ecore : -> @Reference
+  .
+  eq name( eType@ETypedElement@ecore ) =
+    "eType"
+  .
+  eq type( eType@ETypedElement@ecore ) =
+    EClassifier@ecore
+  .
+  eq opposite( eType@ETypedElement@ecore ) =
+    null
+  .
+  eq lowerBound( eType@ETypedElement@ecore ) =
+    0
+  .
+  eq upperBound( eType@ETypedElement@ecore ) =
+    1
+  .
+  eq containingClass( eType@ETypedElement@ecore ) =
+    ETypedElement@ecore
+  .
+  eq isContainment( eType@ETypedElement@ecore ) =
+    false
+  .
+  eq isOrdered( eType@ETypedElement@ecore ) =
+    true
+  .
+  eq isUnique( eType@ETypedElement@ecore ) =
+    true
+  .
+  op eGenericType@ETypedElement@ecore : -> @Reference
+  .
+  eq name( eGenericType@ETypedElement@ecore ) =
+    "eGenericType"
+  .
+  eq type( eGenericType@ETypedElement@ecore ) =
+    EGenericType@ecore
+  .
+  eq opposite( eGenericType@ETypedElement@ecore ) =
+    null
+  .
+  eq lowerBound( eGenericType@ETypedElement@ecore ) =
+    0
+  .
+  eq upperBound( eGenericType@ETypedElement@ecore ) =
+    1
+  .
+  eq containingClass( eGenericType@ETypedElement@ecore ) =
+    ETypedElement@ecore
+  .
+  eq isContainment( eGenericType@ETypedElement@ecore ) =
+    true
+  .
+  eq isOrdered( eGenericType@ETypedElement@ecore ) =
+    true
+  .
+  eq isUnique( eGenericType@ETypedElement@ecore ) =
+    true
+  .
+  op eUpperBound@EGenericType@ecore : -> @Reference
+  .
+  eq name( eUpperBound@EGenericType@ecore ) =
+    "eUpperBound"
+  .
+  eq type( eUpperBound@EGenericType@ecore ) =
+    EGenericType@ecore
+  .
+  eq opposite( eUpperBound@EGenericType@ecore ) =
+    null
+  .
+  eq lowerBound( eUpperBound@EGenericType@ecore ) =
+    0
+  .
+  eq upperBound( eUpperBound@EGenericType@ecore ) =
+    1
+  .
+  eq containingClass( eUpperBound@EGenericType@ecore ) =
+    EGenericType@ecore
+  .
+  eq isContainment( eUpperBound@EGenericType@ecore ) =
+    true
+  .
+  eq isOrdered( eUpperBound@EGenericType@ecore ) =
+    true
+  .
+  eq isUnique( eUpperBound@EGenericType@ecore ) =
+    true
+  .
+  op eTypeArguments@EGenericType@ecore : -> @Reference
+  .
+  eq name( eTypeArguments@EGenericType@ecore ) =
+    "eTypeArguments"
+  .
+  eq type( eTypeArguments@EGenericType@ecore ) =
+    EGenericType@ecore
+  .
+  eq opposite( eTypeArguments@EGenericType@ecore ) =
+    null
+  .
+  eq lowerBound( eTypeArguments@EGenericType@ecore ) =
+    0
+  .
+  eq upperBound( eTypeArguments@EGenericType@ecore ) =
+    *
+  .
+  eq containingClass( eTypeArguments@EGenericType@ecore ) =
+    EGenericType@ecore
+  .
+  eq isContainment( eTypeArguments@EGenericType@ecore ) =
+    true
+  .
+  eq isOrdered( eTypeArguments@EGenericType@ecore ) =
+    true
+  .
+  eq isUnique( eTypeArguments@EGenericType@ecore ) =
+    true
+  .
+  op eRawType@EGenericType@ecore : -> @Reference
+  .
+  eq name( eRawType@EGenericType@ecore ) =
+    "eRawType"
+  .
+  eq type( eRawType@EGenericType@ecore ) =
+    EClassifier@ecore
+  .
+  eq opposite( eRawType@EGenericType@ecore ) =
+    null
+  .
+  eq lowerBound( eRawType@EGenericType@ecore ) =
+    1
+  .
+  eq upperBound( eRawType@EGenericType@ecore ) =
+    1
+  .
+  eq containingClass( eRawType@EGenericType@ecore ) =
+    EGenericType@ecore
+  .
+  eq isContainment( eRawType@EGenericType@ecore ) =
+    false
+  .
+  eq isOrdered( eRawType@EGenericType@ecore ) =
+    true
+  .
+  eq isUnique( eRawType@EGenericType@ecore ) =
+    true
+  .
+  op eLowerBound@EGenericType@ecore : -> @Reference
+  .
+  eq name( eLowerBound@EGenericType@ecore ) =
+    "eLowerBound"
+  .
+  eq type( eLowerBound@EGenericType@ecore ) =
+    EGenericType@ecore
+  .
+  eq opposite( eLowerBound@EGenericType@ecore ) =
+    null
+  .
+  eq lowerBound( eLowerBound@EGenericType@ecore ) =
+    0
+  .
+  eq upperBound( eLowerBound@EGenericType@ecore ) =
+    1
+  .
+  eq containingClass( eLowerBound@EGenericType@ecore ) =
+    EGenericType@ecore
+  .
+  eq isContainment( eLowerBound@EGenericType@ecore ) =
+    true
+  .
+  eq isOrdered( eLowerBound@EGenericType@ecore ) =
+    true
+  .
+  eq isUnique( eLowerBound@EGenericType@ecore ) =
+    true
+  .
+  op eTypeParameter@EGenericType@ecore : -> @Reference
+  .
+  eq name( eTypeParameter@EGenericType@ecore ) =
+    "eTypeParameter"
+  .
+  eq type( eTypeParameter@EGenericType@ecore ) =
+    ETypeParameter@ecore
+  .
+  eq opposite( eTypeParameter@EGenericType@ecore ) =
+    null
+  .
+  eq lowerBound( eTypeParameter@EGenericType@ecore ) =
+    0
+  .
+  eq upperBound( eTypeParameter@EGenericType@ecore ) =
+    1
+  .
+  eq containingClass( eTypeParameter@EGenericType@ecore ) =
+    EGenericType@ecore
+  .
+  eq isContainment( eTypeParameter@EGenericType@ecore ) =
+    false
+  .
+  eq isOrdered( eTypeParameter@EGenericType@ecore ) =
+    true
+  .
+  eq isUnique( eTypeParameter@EGenericType@ecore ) =
+    true
+  .
+  op eClassifier@EGenericType@ecore : -> @Reference
+  .
+  eq name( eClassifier@EGenericType@ecore ) =
+    "eClassifier"
+  .
+  eq type( eClassifier@EGenericType@ecore ) =
+    EClassifier@ecore
+  .
+  eq opposite( eClassifier@EGenericType@ecore ) =
+    null
+  .
+  eq lowerBound( eClassifier@EGenericType@ecore ) =
+    0
+  .
+  eq upperBound( eClassifier@EGenericType@ecore ) =
+    1
+  .
+  eq containingClass( eClassifier@EGenericType@ecore ) =
+    EGenericType@ecore
+  .
+  eq isContainment( eClassifier@EGenericType@ecore ) =
+    false
+  .
+  eq isOrdered( eClassifier@EGenericType@ecore ) =
+    true
+  .
+  eq isUnique( eClassifier@EGenericType@ecore ) =
+    true
+  .
+  op eBounds@ETypeParameter@ecore : -> @Reference
+  .
+  eq name( eBounds@ETypeParameter@ecore ) =
+    "eBounds"
+  .
+  eq type( eBounds@ETypeParameter@ecore ) =
+    EGenericType@ecore
+  .
+  eq opposite( eBounds@ETypeParameter@ecore ) =
+    null
+  .
+  eq lowerBound( eBounds@ETypeParameter@ecore ) =
+    0
+  .
+  eq upperBound( eBounds@ETypeParameter@ecore ) =
+    *
+  .
+  eq containingClass( eBounds@ETypeParameter@ecore ) =
+    ETypeParameter@ecore
+  .
+  eq isContainment( eBounds@ETypeParameter@ecore ) =
+    true
+  .
+  eq isOrdered( eBounds@ETypeParameter@ecore ) =
+    true
+  .
+  eq isUnique( eBounds@ETypeParameter@ecore ) =
+    true
+  .
+  op iD@EAttribute@ecore : -> @Attribute
+  .
+  eq name( iD@EAttribute@ecore ) =
+    "iD"
+  .
+  eq type( iD@EAttribute@ecore ) =
+    @Bool
+  .
+  eq lowerBound( iD@EAttribute@ecore ) =
+    0
+  .
+  eq upperBound( iD@EAttribute@ecore ) =
+    1
+  .
+  eq containingClass( iD@EAttribute@ecore ) =
+    EAttribute@ecore
+  .
+  eq isId( iD@EAttribute@ecore ) =
+    false
+  .
+  eq isOrdered( iD@EAttribute@ecore ) =
+    true
+  .
+  eq isUnique( iD@EAttribute@ecore ) =
+    true
+  .
+  op source@EAnnotation@ecore : -> @Attribute
+  .
+  eq name( source@EAnnotation@ecore ) =
+    "source"
+  .
+  eq type( source@EAnnotation@ecore ) =
+    @String
+  .
+  eq lowerBound( source@EAnnotation@ecore ) =
+    0
+  .
+  eq upperBound( source@EAnnotation@ecore ) =
+    1
+  .
+  eq containingClass( source@EAnnotation@ecore ) =
+    EAnnotation@ecore
+  .
+  eq isId( source@EAnnotation@ecore ) =
+    false
+  .
+  eq isOrdered( source@EAnnotation@ecore ) =
+    true
+  .
+  eq isUnique( source@EAnnotation@ecore ) =
+    true
+  .
+  op abstract@EClass@ecore : -> @Attribute
+  .
+  eq name( abstract@EClass@ecore ) =
+    "abstract"
+  .
+  eq type( abstract@EClass@ecore ) =
+    @Bool
+  .
+  eq lowerBound( abstract@EClass@ecore ) =
+    0
+  .
+  eq upperBound( abstract@EClass@ecore ) =
+    1
+  .
+  eq containingClass( abstract@EClass@ecore ) =
+    EClass@ecore
+  .
+  eq isId( abstract@EClass@ecore ) =
+    false
+  .
+  eq isOrdered( abstract@EClass@ecore ) =
+    true
+  .
+  eq isUnique( abstract@EClass@ecore ) =
+    true
+  .
+  op interface@EClass@ecore : -> @Attribute
+  .
+  eq name( interface@EClass@ecore ) =
+    "interface"
+  .
+  eq type( interface@EClass@ecore ) =
+    @Bool
+  .
+  eq lowerBound( interface@EClass@ecore ) =
+    0
+  .
+  eq upperBound( interface@EClass@ecore ) =
+    1
+  .
+  eq containingClass( interface@EClass@ecore ) =
+    EClass@ecore
+  .
+  eq isId( interface@EClass@ecore ) =
+    false
+  .
+  eq isOrdered( interface@EClass@ecore ) =
+    true
+  .
+  eq isUnique( interface@EClass@ecore ) =
+    true
+  .
+  op instanceClassName@EClassifier@ecore : -> @Attribute
+  .
+  eq name( instanceClassName@EClassifier@ecore ) =
+    "instanceClassName"
+  .
+  eq type( instanceClassName@EClassifier@ecore ) =
+    @String
+  .
+  eq lowerBound( instanceClassName@EClassifier@ecore ) =
+    0
+  .
+  eq upperBound( instanceClassName@EClassifier@ecore ) =
+    1
+  .
+  eq containingClass( instanceClassName@EClassifier@ecore ) =
+    EClassifier@ecore
+  .
+  eq isId( instanceClassName@EClassifier@ecore ) =
+    false
+  .
+  eq isOrdered( instanceClassName@EClassifier@ecore ) =
+    true
+  .
+  eq isUnique( instanceClassName@EClassifier@ecore ) =
+    true
+  .
+  op instanceClass@EClassifier@ecore : -> @Attribute
+  .
+  eq name( instanceClass@EClassifier@ecore ) =
+    "instanceClass"
+  .
+  eq type( instanceClass@EClassifier@ecore ) =
+    @DataType
+  .
+  eq lowerBound( instanceClass@EClassifier@ecore ) =
+    0
+  .
+  eq upperBound( instanceClass@EClassifier@ecore ) =
+    1
+  .
+  eq containingClass( instanceClass@EClassifier@ecore ) =
+    EClassifier@ecore
+  .
+  eq isId( instanceClass@EClassifier@ecore ) =
+    false
+  .
+  eq isOrdered( instanceClass@EClassifier@ecore ) =
+    true
+  .
+  eq isUnique( instanceClass@EClassifier@ecore ) =
+    true
+  .
+  op defaultValue@EClassifier@ecore : -> @Attribute
+  .
+  eq name( defaultValue@EClassifier@ecore ) =
+    "defaultValue"
+  .
+  eq type( defaultValue@EClassifier@ecore ) =
+    @DataType
+  .
+  eq lowerBound( defaultValue@EClassifier@ecore ) =
+    0
+  .
+  eq upperBound( defaultValue@EClassifier@ecore ) =
+    1
+  .
+  eq containingClass( defaultValue@EClassifier@ecore ) =
+    EClassifier@ecore
+  .
+  eq isId( defaultValue@EClassifier@ecore ) =
+    false
+  .
+  eq isOrdered( defaultValue@EClassifier@ecore ) =
+    true
+  .
+  eq isUnique( defaultValue@EClassifier@ecore ) =
+    true
+  .
+  op instanceTypeName@EClassifier@ecore : -> @Attribute
+  .
+  eq name( instanceTypeName@EClassifier@ecore ) =
+    "instanceTypeName"
+  .
+  eq type( instanceTypeName@EClassifier@ecore ) =
+    @String
+  .
+  eq lowerBound( instanceTypeName@EClassifier@ecore ) =
+    0
+  .
+  eq upperBound( instanceTypeName@EClassifier@ecore ) =
+    1
+  .
+  eq containingClass( instanceTypeName@EClassifier@ecore ) =
+    EClassifier@ecore
+  .
+  eq isId( instanceTypeName@EClassifier@ecore ) =
+    false
+  .
+  eq isOrdered( instanceTypeName@EClassifier@ecore ) =
+    true
+  .
+  eq isUnique( instanceTypeName@EClassifier@ecore ) =
+    true
+  .
+  op serializable@EDataType@ecore : -> @Attribute
+  .
+  eq name( serializable@EDataType@ecore ) =
+    "serializable"
+  .
+  eq type( serializable@EDataType@ecore ) =
+    @Bool
+  .
+  eq lowerBound( serializable@EDataType@ecore ) =
+    0
+  .
+  eq upperBound( serializable@EDataType@ecore ) =
+    1
+  .
+  eq containingClass( serializable@EDataType@ecore ) =
+    EDataType@ecore
+  .
+  eq isId( serializable@EDataType@ecore ) =
+    false
+  .
+  eq isOrdered( serializable@EDataType@ecore ) =
+    true
+  .
+  eq isUnique( serializable@EDataType@ecore ) =
+    true
+  .
+  eq specificDefaultValue( serializable@EDataType@ecore ) =
+    true
+  .
+  op value@EEnumLiteral@ecore : -> @Attribute
+  .
+  eq name( value@EEnumLiteral@ecore ) =
+    "value"
+  .
+  eq type( value@EEnumLiteral@ecore ) =
+    @Int
+  .
+  eq lowerBound( value@EEnumLiteral@ecore ) =
+    0
+  .
+  eq upperBound( value@EEnumLiteral@ecore ) =
+    1
+  .
+  eq containingClass( value@EEnumLiteral@ecore ) =
+    EEnumLiteral@ecore
+  .
+  eq isId( value@EEnumLiteral@ecore ) =
+    false
+  .
+  eq isOrdered( value@EEnumLiteral@ecore ) =
+    true
+  .
+  eq isUnique( value@EEnumLiteral@ecore ) =
+    true
+  .
+  op instance@EEnumLiteral@ecore : -> @Attribute
+  .
+  eq name( instance@EEnumLiteral@ecore ) =
+    "instance"
+  .
+  eq type( instance@EEnumLiteral@ecore ) =
+    @DataType
+  .
+  eq lowerBound( instance@EEnumLiteral@ecore ) =
+    0
+  .
+  eq upperBound( instance@EEnumLiteral@ecore ) =
+    1
+  .
+  eq containingClass( instance@EEnumLiteral@ecore ) =
+    EEnumLiteral@ecore
+  .
+  eq isId( instance@EEnumLiteral@ecore ) =
+    false
+  .
+  eq isOrdered( instance@EEnumLiteral@ecore ) =
+    true
+  .
+  eq isUnique( instance@EEnumLiteral@ecore ) =
+    true
+  .
+  op literal@EEnumLiteral@ecore : -> @Attribute
+  .
+  eq name( literal@EEnumLiteral@ecore ) =
+    "literal"
+  .
+  eq type( literal@EEnumLiteral@ecore ) =
+    @String
+  .
+  eq lowerBound( literal@EEnumLiteral@ecore ) =
+    0
+  .
+  eq upperBound( literal@EEnumLiteral@ecore ) =
+    1
+  .
+  eq containingClass( literal@EEnumLiteral@ecore ) =
+    EEnumLiteral@ecore
+  .
+  eq isId( literal@EEnumLiteral@ecore ) =
+    false
+  .
+  eq isOrdered( literal@EEnumLiteral@ecore ) =
+    true
+  .
+  eq isUnique( literal@EEnumLiteral@ecore ) =
+    true
+  .
+  op name@ENamedElement@ecore : -> @Attribute
+  .
+  eq name( name@ENamedElement@ecore ) =
+    "name"
+  .
+  eq type( name@ENamedElement@ecore ) =
+    @String
+  .
+  eq lowerBound( name@ENamedElement@ecore ) =
+    0
+  .
+  eq upperBound( name@ENamedElement@ecore ) =
+    1
+  .
+  eq containingClass( name@ENamedElement@ecore ) =
+    ENamedElement@ecore
+  .
+  eq isId( name@ENamedElement@ecore ) =
+    false
+  .
+  eq isOrdered( name@ENamedElement@ecore ) =
+    true
+  .
+  eq isUnique( name@ENamedElement@ecore ) =
+    true
+  .
+  op nsURI@EPackage@ecore : -> @Attribute
+  .
+  eq name( nsURI@EPackage@ecore ) =
+    "nsURI"
+  .
+  eq type( nsURI@EPackage@ecore ) =
+    @String
+  .
+  eq lowerBound( nsURI@EPackage@ecore ) =
+    0
+  .
+  eq upperBound( nsURI@EPackage@ecore ) =
+    1
+  .
+  eq containingClass( nsURI@EPackage@ecore ) =
+    EPackage@ecore
+  .
+  eq isId( nsURI@EPackage@ecore ) =
+    false
+  .
+  eq isOrdered( nsURI@EPackage@ecore ) =
+    true
+  .
+  eq isUnique( nsURI@EPackage@ecore ) =
+    true
+  .
+  op nsPrefix@EPackage@ecore : -> @Attribute
+  .
+  eq name( nsPrefix@EPackage@ecore ) =
+    "nsPrefix"
+  .
+  eq type( nsPrefix@EPackage@ecore ) =
+    @String
+  .
+  eq lowerBound( nsPrefix@EPackage@ecore ) =
+    0
+  .
+  eq upperBound( nsPrefix@EPackage@ecore ) =
+    1
+  .
+  eq containingClass( nsPrefix@EPackage@ecore ) =
+    EPackage@ecore
+  .
+  eq isId( nsPrefix@EPackage@ecore ) =
+    false
+  .
+  eq isOrdered( nsPrefix@EPackage@ecore ) =
+    true
+  .
+  eq isUnique( nsPrefix@EPackage@ecore ) =
+    true
+  .
+  op containment@EReference@ecore : -> @Attribute
+  .
+  eq name( containment@EReference@ecore ) =
+    "containment"
+  .
+  eq type( containment@EReference@ecore ) =
+    @Bool
+  .
+  eq lowerBound( containment@EReference@ecore ) =
+    0
+  .
+  eq upperBound( containment@EReference@ecore ) =
+    1
+  .
+  eq containingClass( containment@EReference@ecore ) =
+    EReference@ecore
+  .
+  eq isId( containment@EReference@ecore ) =
+    false
+  .
+  eq isOrdered( containment@EReference@ecore ) =
+    true
+  .
+  eq isUnique( containment@EReference@ecore ) =
+    true
+  .
+  op container@EReference@ecore : -> @Attribute
+  .
+  eq name( container@EReference@ecore ) =
+    "container"
+  .
+  eq type( container@EReference@ecore ) =
+    @Bool
+  .
+  eq lowerBound( container@EReference@ecore ) =
+    0
+  .
+  eq upperBound( container@EReference@ecore ) =
+    1
+  .
+  eq containingClass( container@EReference@ecore ) =
+    EReference@ecore
+  .
+  eq isId( container@EReference@ecore ) =
+    false
+  .
+  eq isOrdered( container@EReference@ecore ) =
+    true
+  .
+  eq isUnique( container@EReference@ecore ) =
+    true
+  .
+  op resolveProxies@EReference@ecore : -> @Attribute
+  .
+  eq name( resolveProxies@EReference@ecore ) =
+    "resolveProxies"
+  .
+  eq type( resolveProxies@EReference@ecore ) =
+    @Bool
+  .
+  eq lowerBound( resolveProxies@EReference@ecore ) =
+    0
+  .
+  eq upperBound( resolveProxies@EReference@ecore ) =
+    1
+  .
+  eq containingClass( resolveProxies@EReference@ecore ) =
+    EReference@ecore
+  .
+  eq isId( resolveProxies@EReference@ecore ) =
+    false
+  .
+  eq isOrdered( resolveProxies@EReference@ecore ) =
+    true
+  .
+  eq isUnique( resolveProxies@EReference@ecore ) =
+    true
+  .
+  eq specificDefaultValue( resolveProxies@EReference@ecore ) =
+    true
+  .
+  op changeable@EStructuralFeature@ecore : -> @Attribute
+  .
+  eq name( changeable@EStructuralFeature@ecore ) =
+    "changeable"
+  .
+  eq type( changeable@EStructuralFeature@ecore ) =
+    @Bool
+  .
+  eq lowerBound( changeable@EStructuralFeature@ecore ) =
+    0
+  .
+  eq upperBound( changeable@EStructuralFeature@ecore ) =
+    1
+  .
+  eq containingClass( changeable@EStructuralFeature@ecore ) =
+    EStructuralFeature@ecore
+  .
+  eq isId( changeable@EStructuralFeature@ecore ) =
+    false
+  .
+  eq isOrdered( changeable@EStructuralFeature@ecore ) =
+    true
+  .
+  eq isUnique( changeable@EStructuralFeature@ecore ) =
+    true
+  .
+  eq specificDefaultValue( changeable@EStructuralFeature@ecore ) =
+    true
+  .
+  op volatile@EStructuralFeature@ecore : -> @Attribute
+  .
+  eq name( volatile@EStructuralFeature@ecore ) =
+    "volatile"
+  .
+  eq type( volatile@EStructuralFeature@ecore ) =
+    @Bool
+  .
+  eq lowerBound( volatile@EStructuralFeature@ecore ) =
+    0
+  .
+  eq upperBound( volatile@EStructuralFeature@ecore ) =
+    1
+  .
+  eq containingClass( volatile@EStructuralFeature@ecore ) =
+    EStructuralFeature@ecore
+  .
+  eq isId( volatile@EStructuralFeature@ecore ) =
+    false
+  .
+  eq isOrdered( volatile@EStructuralFeature@ecore ) =
+    true
+  .
+  eq isUnique( volatile@EStructuralFeature@ecore ) =
+    true
+  .
+  op transient@EStructuralFeature@ecore : -> @Attribute
+  .
+  eq name( transient@EStructuralFeature@ecore ) =
+    "transient"
+  .
+  eq type( transient@EStructuralFeature@ecore ) =
+    @Bool
+  .
+  eq lowerBound( transient@EStructuralFeature@ecore ) =
+    0
+  .
+  eq upperBound( transient@EStructuralFeature@ecore ) =
+    1
+  .
+  eq containingClass( transient@EStructuralFeature@ecore ) =
+    EStructuralFeature@ecore
+  .
+  eq isId( transient@EStructuralFeature@ecore ) =
+    false
+  .
+  eq isOrdered( transient@EStructuralFeature@ecore ) =
+    true
+  .
+  eq isUnique( transient@EStructuralFeature@ecore ) =
+    true
+  .
+  op defaultValueLiteral@EStructuralFeature@ecore : -> @Attribute
+  .
+  eq name( defaultValueLiteral@EStructuralFeature@ecore ) =
+    "defaultValueLiteral"
+  .
+  eq type( defaultValueLiteral@EStructuralFeature@ecore ) =
+    @String
+  .
+  eq lowerBound( defaultValueLiteral@EStructuralFeature@ecore ) =
+    0
+  .
+  eq upperBound( defaultValueLiteral@EStructuralFeature@ecore ) =
+    1
+  .
+  eq containingClass( defaultValueLiteral@EStructuralFeature@ecore ) =
+    EStructuralFeature@ecore
+  .
+  eq isId( defaultValueLiteral@EStructuralFeature@ecore ) =
+    false
+  .
+  eq isOrdered( defaultValueLiteral@EStructuralFeature@ecore ) =
+    true
+  .
+  eq isUnique( defaultValueLiteral@EStructuralFeature@ecore ) =
+    true
+  .
+  op defaultValue@EStructuralFeature@ecore : -> @Attribute
+  .
+  eq name( defaultValue@EStructuralFeature@ecore ) =
+    "defaultValue"
+  .
+  eq type( defaultValue@EStructuralFeature@ecore ) =
+    @DataType
+  .
+  eq lowerBound( defaultValue@EStructuralFeature@ecore ) =
+    0
+  .
+  eq upperBound( defaultValue@EStructuralFeature@ecore ) =
+    1
+  .
+  eq containingClass( defaultValue@EStructuralFeature@ecore ) =
+    EStructuralFeature@ecore
+  .
+  eq isId( defaultValue@EStructuralFeature@ecore ) =
+    false
+  .
+  eq isOrdered( defaultValue@EStructuralFeature@ecore ) =
+    true
+  .
+  eq isUnique( defaultValue@EStructuralFeature@ecore ) =
+    true
+  .
+  op unsettable@EStructuralFeature@ecore : -> @Attribute
+  .
+  eq name( unsettable@EStructuralFeature@ecore ) =
+    "unsettable"
+  .
+  eq type( unsettable@EStructuralFeature@ecore ) =
+    @Bool
+  .
+  eq lowerBound( unsettable@EStructuralFeature@ecore ) =
+    0
+  .
+  eq upperBound( unsettable@EStructuralFeature@ecore ) =
+    1
+  .
+  eq containingClass( unsettable@EStructuralFeature@ecore ) =
+    EStructuralFeature@ecore
+  .
+  eq isId( unsettable@EStructuralFeature@ecore ) =
+    false
+  .
+  eq isOrdered( unsettable@EStructuralFeature@ecore ) =
+    true
+  .
+  eq isUnique( unsettable@EStructuralFeature@ecore ) =
+    true
+  .
+  op derived@EStructuralFeature@ecore : -> @Attribute
+  .
+  eq name( derived@EStructuralFeature@ecore ) =
+    "derived"
+  .
+  eq type( derived@EStructuralFeature@ecore ) =
+    @Bool
+  .
+  eq lowerBound( derived@EStructuralFeature@ecore ) =
+    0
+  .
+  eq upperBound( derived@EStructuralFeature@ecore ) =
+    1
+  .
+  eq containingClass( derived@EStructuralFeature@ecore ) =
+    EStructuralFeature@ecore
+  .
+  eq isId( derived@EStructuralFeature@ecore ) =
+    false
+  .
+  eq isOrdered( derived@EStructuralFeature@ecore ) =
+    true
+  .
+  eq isUnique( derived@EStructuralFeature@ecore ) =
+    true
+  .
+  op ordered@ETypedElement@ecore : -> @Attribute
+  .
+  eq name( ordered@ETypedElement@ecore ) =
+    "ordered"
+  .
+  eq type( ordered@ETypedElement@ecore ) =
+    @Bool
+  .
+  eq lowerBound( ordered@ETypedElement@ecore ) =
+    0
+  .
+  eq upperBound( ordered@ETypedElement@ecore ) =
+    1
+  .
+  eq containingClass( ordered@ETypedElement@ecore ) =
+    ETypedElement@ecore
+  .
+  eq isId( ordered@ETypedElement@ecore ) =
+    false
+  .
+  eq isOrdered( ordered@ETypedElement@ecore ) =
+    true
+  .
+  eq isUnique( ordered@ETypedElement@ecore ) =
+    true
+  .
+  eq specificDefaultValue( ordered@ETypedElement@ecore ) =
+    true
+  .
+  op unique@ETypedElement@ecore : -> @Attribute
+  .
+  eq name( unique@ETypedElement@ecore ) =
+    "unique"
+  .
+  eq type( unique@ETypedElement@ecore ) =
+    @Bool
+  .
+  eq lowerBound( unique@ETypedElement@ecore ) =
+    0
+  .
+  eq upperBound( unique@ETypedElement@ecore ) =
+    1
+  .
+  eq containingClass( unique@ETypedElement@ecore ) =
+    ETypedElement@ecore
+  .
+  eq isId( unique@ETypedElement@ecore ) =
+    false
+  .
+  eq isOrdered( unique@ETypedElement@ecore ) =
+    true
+  .
+  eq isUnique( unique@ETypedElement@ecore ) =
+    true
+  .
+  eq specificDefaultValue( unique@ETypedElement@ecore ) =
+    true
+  .
+  op lowerBound@ETypedElement@ecore : -> @Attribute
+  .
+  eq name( lowerBound@ETypedElement@ecore ) =
+    "lowerBound"
+  .
+  eq type( lowerBound@ETypedElement@ecore ) =
+    @Int
+  .
+  eq lowerBound( lowerBound@ETypedElement@ecore ) =
+    0
+  .
+  eq upperBound( lowerBound@ETypedElement@ecore ) =
+    1
+  .
+  eq containingClass( lowerBound@ETypedElement@ecore ) =
+    ETypedElement@ecore
+  .
+  eq isId( lowerBound@ETypedElement@ecore ) =
+    false
+  .
+  eq isOrdered( lowerBound@ETypedElement@ecore ) =
+    true
+  .
+  eq isUnique( lowerBound@ETypedElement@ecore ) =
+    true
+  .
+  op upperBound@ETypedElement@ecore : -> @Attribute
+  .
+  eq name( upperBound@ETypedElement@ecore ) =
+    "upperBound"
+  .
+  eq type( upperBound@ETypedElement@ecore ) =
+    @Int
+  .
+  eq lowerBound( upperBound@ETypedElement@ecore ) =
+    0
+  .
+  eq upperBound( upperBound@ETypedElement@ecore ) =
+    1
+  .
+  eq containingClass( upperBound@ETypedElement@ecore ) =
+    ETypedElement@ecore
+  .
+  eq isId( upperBound@ETypedElement@ecore ) =
+    false
+  .
+  eq isOrdered( upperBound@ETypedElement@ecore ) =
+    true
+  .
+  eq isUnique( upperBound@ETypedElement@ecore ) =
+    true
+  .
+  eq specificDefaultValue( upperBound@ETypedElement@ecore ) =
+    1
+  .
+  op many@ETypedElement@ecore : -> @Attribute
+  .
+  eq name( many@ETypedElement@ecore ) =
+    "many"
+  .
+  eq type( many@ETypedElement@ecore ) =
+    @Bool
+  .
+  eq lowerBound( many@ETypedElement@ecore ) =
+    0
+  .
+  eq upperBound( many@ETypedElement@ecore ) =
+    1
+  .
+  eq containingClass( many@ETypedElement@ecore ) =
+    ETypedElement@ecore
+  .
+  eq isId( many@ETypedElement@ecore ) =
+    false
+  .
+  eq isOrdered( many@ETypedElement@ecore ) =
+    true
+  .
+  eq isUnique( many@ETypedElement@ecore ) =
+    true
+  .
+  op required@ETypedElement@ecore : -> @Attribute
+  .
+  eq name( required@ETypedElement@ecore ) =
+    "required"
+  .
+  eq type( required@ETypedElement@ecore ) =
+    @Bool
+  .
+  eq lowerBound( required@ETypedElement@ecore ) =
+    0
+  .
+  eq upperBound( required@ETypedElement@ecore ) =
+    1
+  .
+  eq containingClass( required@ETypedElement@ecore ) =
+    ETypedElement@ecore
+  .
+  eq isId( required@ETypedElement@ecore ) =
+    false
+  .
+  eq isOrdered( required@ETypedElement@ecore ) =
+    true
+  .
+  eq isUnique( required@ETypedElement@ecore ) =
+    true
+  .
+  op key@EStringToStringMapEntry@ecore : -> @Attribute
+  .
+  eq name( key@EStringToStringMapEntry@ecore ) =
+    "key"
+  .
+  eq type( key@EStringToStringMapEntry@ecore ) =
+    @String
+  .
+  eq lowerBound( key@EStringToStringMapEntry@ecore ) =
+    0
+  .
+  eq upperBound( key@EStringToStringMapEntry@ecore ) =
+    1
+  .
+  eq containingClass( key@EStringToStringMapEntry@ecore ) =
+    EStringToStringMapEntry@ecore
+  .
+  eq isId( key@EStringToStringMapEntry@ecore ) =
+    false
+  .
+  eq isOrdered( key@EStringToStringMapEntry@ecore ) =
+    true
+  .
+  eq isUnique( key@EStringToStringMapEntry@ecore ) =
+    true
+  .
+  op value@EStringToStringMapEntry@ecore : -> @Attribute
+  .
+  eq name( value@EStringToStringMapEntry@ecore ) =
+    "value"
+  .
+  eq type( value@EStringToStringMapEntry@ecore ) =
+    @String
+  .
+  eq lowerBound( value@EStringToStringMapEntry@ecore ) =
+    0
+  .
+  eq upperBound( value@EStringToStringMapEntry@ecore ) =
+    1
+  .
+  eq containingClass( value@EStringToStringMapEntry@ecore ) =
+    EStringToStringMapEntry@ecore
+  .
+  eq isId( value@EStringToStringMapEntry@ecore ) =
+    false
+  .
+  eq isOrdered( value@EStringToStringMapEntry@ecore ) =
+    true
+  .
+  eq isUnique( value@EStringToStringMapEntry@ecore ) =
+    true
+  .
+endm

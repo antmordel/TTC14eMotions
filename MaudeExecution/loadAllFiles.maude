@@ -1,0 +1,58 @@
+
+load CommonFiles/mOdCL.maude
+load CommonFiles/model-checker.maude
+load CommonFiles/MGDefinitions.maude
+load CommonFiles/MGRealTimeMaude24.maude
+load CommonFiles/EcoreMM.maude
+load CommonFiles/e-Motions.maude
+
+load parameterwoven.ecore.maude
+load task1.behavior.maude
+load n1.xmi.maude
+
+mod EJECUCION is
+  ---op edfEmptyModel : -> @Model
+  ---.
+  ---eq edfEmptyModel =
+  ---  _`{_`}( @edf@ , none )
+  ---.
+
+ ***(
+  op edfModel : -> @Model
+  .
+  eq edfModel =  
+  @edf@{ < 'P : Processor@edf | executes@Processor@edf : null > 
+    < 'S1 : Server@edf | period@Server@edf : 8 #
+    execTime@Server@edf : 4 # deadline@Server@edf : 8 # remExecTime@Server@edf
+    : 4 # history@Server@edf : Sequence{mt-ord} > < 'S2 : Server@edf |
+    period@Server@edf : 5 # execTime@Server@edf : 2 # deadline@Server@edf : 5 #
+    remExecTime@Server@edf : 2 # history@Server@edf : Sequence{mt-ord} > < 'S3 :
+    Server@edf | period@Server@edf : 10 # execTime@Server@edf : 4 #
+    deadline@Server@edf : 10 # remExecTime@Server@edf : 4 # history@Server@edf
+    : Sequence{mt-ord} > } .
+  )
+  
+  protecting @MOVIES@BEHAVIOR@
+  .
+    protecting N1 .
+
+  var T TE : Time .
+  var MODEL : @Model .
+  crl [tick] : 
+        { MODEL } in time T 
+      => 
+        { delta(MODEL, TE) } in time (T plus TE) 
+    if TE := mte(MODEL) 
+       /\ TE =/= zero  
+       /\ (T plus TE) le 0 .
+
+ 
+op result1 : -> Set{@Object} .
+
+
+
+op s : -> Vid .
+endm
+
+---Simulation
+rew init(n1) .

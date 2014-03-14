@@ -1,0 +1,608 @@
+
+
+mod @MOVIES@ is
+	protecting @ECORE@
+	.
+	op @movies@ : -> @Metamodel
+	.
+	eq name( @movies@ ) =
+		"movies"
+	.
+	eq packages( @movies@ ) =
+		movies
+	.
+	op movies : -> @Package
+	.
+	eq name( movies ) =
+		"movies"
+	.
+	eq metamodel( movies ) =
+		@movies@
+	.
+	eq superPackage( movies ) =
+		null
+	.
+	eq subPackages( movies ) =
+		nil
+	.
+	eq classes( movies ) =
+		__( Person@movies , Parameter@movies , Actor@movies , Actress@movies , Couple@movies , Movie@movies , Group@movies , Clique@movies )
+	.
+	sort Person@movies
+	.
+	subsorts Person@movies < @Class
+	.
+	op Person@movies : -> Person@movies
+	.
+	eq name( Person@movies ) =
+		"Person"
+	.
+	eq isAbstract( Person@movies ) =
+		true
+	.
+	eq package( Person@movies ) =
+		movies
+	.
+	eq superTypes( Person@movies ) =
+		nil
+	.
+	eq references( Person@movies ) =
+		movies@Person@movies
+	.
+	eq attributes( Person@movies ) =
+		name@Person@movies
+	.
+	sort Parameter@movies
+	.
+	subsorts Parameter@movies < @Class
+	.
+	op Parameter@movies : -> Parameter@movies
+	.
+	eq name( Parameter@movies ) =
+		"Parameter"
+	.
+	eq isAbstract( Parameter@movies ) =
+		false
+	.
+	eq package( Parameter@movies ) =
+		movies
+	.
+	eq superTypes( Parameter@movies ) =
+		nil
+	.
+	eq references( Parameter@movies ) =
+		nil
+	.
+	eq attributes( Parameter@movies ) =
+		n@Parameter@movies
+	.
+	sort Actor@movies
+	.
+	subsorts Actor@movies < Person@movies
+	.
+	op Actor@movies : -> Actor@movies
+	.
+	eq name( Actor@movies ) =
+		"Actor"
+	.
+	eq isAbstract( Actor@movies ) =
+		false
+	.
+	eq package( Actor@movies ) =
+		movies
+	.
+	eq superTypes( Actor@movies ) =
+		Person@movies
+	.
+	eq references( Actor@movies ) =
+		nil
+	.
+	eq attributes( Actor@movies ) =
+		nil
+	.
+	sort Actress@movies
+	.
+	subsorts Actress@movies < Person@movies
+	.
+	op Actress@movies : -> Actress@movies
+	.
+	eq name( Actress@movies ) =
+		"Actress"
+	.
+	eq isAbstract( Actress@movies ) =
+		false
+	.
+	eq package( Actress@movies ) =
+		movies
+	.
+	eq superTypes( Actress@movies ) =
+		Person@movies
+	.
+	eq references( Actress@movies ) =
+		nil
+	.
+	eq attributes( Actress@movies ) =
+		nil
+	.
+	sort Couple@movies
+	.
+	subsorts Couple@movies < Group@movies
+	.
+	op Couple@movies : -> Couple@movies
+	.
+	eq name( Couple@movies ) =
+		"Couple"
+	.
+	eq isAbstract( Couple@movies ) =
+		false
+	.
+	eq package( Couple@movies ) =
+		movies
+	.
+	eq superTypes( Couple@movies ) =
+		Group@movies
+	.
+	eq references( Couple@movies ) =
+		__( p1@Couple@movies , p2@Couple@movies )
+	.
+	eq attributes( Couple@movies ) =
+		nil
+	.
+	sort Movie@movies
+	.
+	subsorts Movie@movies < @Class
+	.
+	op Movie@movies : -> Movie@movies
+	.
+	eq name( Movie@movies ) =
+		"Movie"
+	.
+	eq isAbstract( Movie@movies ) =
+		false
+	.
+	eq package( Movie@movies ) =
+		movies
+	.
+	eq superTypes( Movie@movies ) =
+		nil
+	.
+	eq references( Movie@movies ) =
+		persons@Movie@movies
+	.
+	eq attributes( Movie@movies ) =
+		__( title@Movie@movies , rating@Movie@movies , year@Movie@movies , type@Movie@movies )
+	.
+	sort Group@movies
+	.
+	subsorts Group@movies < @Class
+	.
+	op Group@movies : -> Group@movies
+	.
+	eq name( Group@movies ) =
+		"Group"
+	.
+	eq isAbstract( Group@movies ) =
+		true
+	.
+	eq package( Group@movies ) =
+		movies
+	.
+	eq superTypes( Group@movies ) =
+		nil
+	.
+	eq references( Group@movies ) =
+		commonMovies@Group@movies
+	.
+	eq attributes( Group@movies ) =
+		avgRating@Group@movies
+	.
+	sort Clique@movies
+	.
+	subsorts Clique@movies < Group@movies
+	.
+	op Clique@movies : -> Clique@movies
+	.
+	eq name( Clique@movies ) =
+		"Clique"
+	.
+	eq isAbstract( Clique@movies ) =
+		false
+	.
+	eq package( Clique@movies ) =
+		movies
+	.
+	eq superTypes( Clique@movies ) =
+		Group@movies
+	.
+	eq references( Clique@movies ) =
+		persons@Clique@movies
+	.
+	eq attributes( Clique@movies ) =
+		nil
+	.
+	op movies@Person@movies : -> @Reference
+	.
+	eq name( movies@Person@movies ) =
+		"movies"
+	.
+	eq type( movies@Person@movies ) =
+		Movie@movies
+	.
+	eq opposite( movies@Person@movies ) =
+		persons@Movie@movies
+	.
+	eq lowerBound( movies@Person@movies ) =
+		0
+	.
+	eq upperBound( movies@Person@movies ) =
+		*
+	.
+	eq containingClass( movies@Person@movies ) =
+		Person@movies
+	.
+	eq isContainment( movies@Person@movies ) =
+		false
+	.
+	eq isOrdered( movies@Person@movies ) =
+		true
+	.
+	eq isUnique( movies@Person@movies ) =
+		true
+	.
+	op p1@Couple@movies : -> @Reference
+	.
+	eq name( p1@Couple@movies ) =
+		"p1"
+	.
+	eq type( p1@Couple@movies ) =
+		Person@movies
+	.
+	eq opposite( p1@Couple@movies ) =
+		null
+	.
+	eq lowerBound( p1@Couple@movies ) =
+		0
+	.
+	eq upperBound( p1@Couple@movies ) =
+		1
+	.
+	eq containingClass( p1@Couple@movies ) =
+		Couple@movies
+	.
+	eq isContainment( p1@Couple@movies ) =
+		false
+	.
+	eq isOrdered( p1@Couple@movies ) =
+		true
+	.
+	eq isUnique( p1@Couple@movies ) =
+		true
+	.
+	op p2@Couple@movies : -> @Reference
+	.
+	eq name( p2@Couple@movies ) =
+		"p2"
+	.
+	eq type( p2@Couple@movies ) =
+		Person@movies
+	.
+	eq opposite( p2@Couple@movies ) =
+		null
+	.
+	eq lowerBound( p2@Couple@movies ) =
+		0
+	.
+	eq upperBound( p2@Couple@movies ) =
+		1
+	.
+	eq containingClass( p2@Couple@movies ) =
+		Couple@movies
+	.
+	eq isContainment( p2@Couple@movies ) =
+		false
+	.
+	eq isOrdered( p2@Couple@movies ) =
+		true
+	.
+	eq isUnique( p2@Couple@movies ) =
+		true
+	.
+	op persons@Movie@movies : -> @Reference
+	.
+	eq name( persons@Movie@movies ) =
+		"persons"
+	.
+	eq type( persons@Movie@movies ) =
+		Person@movies
+	.
+	eq opposite( persons@Movie@movies ) =
+		movies@Person@movies
+	.
+	eq lowerBound( persons@Movie@movies ) =
+		0
+	.
+	eq upperBound( persons@Movie@movies ) =
+		*
+	.
+	eq containingClass( persons@Movie@movies ) =
+		Movie@movies
+	.
+	eq isContainment( persons@Movie@movies ) =
+		false
+	.
+	eq isOrdered( persons@Movie@movies ) =
+		true
+	.
+	eq isUnique( persons@Movie@movies ) =
+		true
+	.
+	op commonMovies@Group@movies : -> @Reference
+	.
+	eq name( commonMovies@Group@movies ) =
+		"commonMovies"
+	.
+	eq type( commonMovies@Group@movies ) =
+		Movie@movies
+	.
+	eq opposite( commonMovies@Group@movies ) =
+		null
+	.
+	eq lowerBound( commonMovies@Group@movies ) =
+		0
+	.
+	eq upperBound( commonMovies@Group@movies ) =
+		*
+	.
+	eq containingClass( commonMovies@Group@movies ) =
+		Group@movies
+	.
+	eq isContainment( commonMovies@Group@movies ) =
+		false
+	.
+	eq isOrdered( commonMovies@Group@movies ) =
+		true
+	.
+	eq isUnique( commonMovies@Group@movies ) =
+		true
+	.
+	op persons@Clique@movies : -> @Reference
+	.
+	eq name( persons@Clique@movies ) =
+		"persons"
+	.
+	eq type( persons@Clique@movies ) =
+		Person@movies
+	.
+	eq opposite( persons@Clique@movies ) =
+		null
+	.
+	eq lowerBound( persons@Clique@movies ) =
+		0
+	.
+	eq upperBound( persons@Clique@movies ) =
+		*
+	.
+	eq containingClass( persons@Clique@movies ) =
+		Clique@movies
+	.
+	eq isContainment( persons@Clique@movies ) =
+		false
+	.
+	eq isOrdered( persons@Clique@movies ) =
+		true
+	.
+	eq isUnique( persons@Clique@movies ) =
+		true
+	.
+	op name@Person@movies : -> @Attribute
+	.
+	eq name( name@Person@movies ) =
+		"name"
+	.
+	eq type( name@Person@movies ) =
+		@String
+	.
+	eq lowerBound( name@Person@movies ) =
+		0
+	.
+	eq upperBound( name@Person@movies ) =
+		1
+	.
+	eq containingClass( name@Person@movies ) =
+		Person@movies
+	.
+	eq isId( name@Person@movies ) =
+		false
+	.
+	eq isOrdered( name@Person@movies ) =
+		true
+	.
+	eq isUnique( name@Person@movies ) =
+		true
+	.
+	op n@Parameter@movies : -> @Attribute
+	.
+	eq name( n@Parameter@movies ) =
+		"n"
+	.
+	eq type( n@Parameter@movies ) =
+		@Int
+	.
+	eq lowerBound( n@Parameter@movies ) =
+		1
+	.
+	eq upperBound( n@Parameter@movies ) =
+		1
+	.
+	eq containingClass( n@Parameter@movies ) =
+		Parameter@movies
+	.
+	eq isId( n@Parameter@movies ) =
+		false
+	.
+	eq isOrdered( n@Parameter@movies ) =
+		true
+	.
+	eq isUnique( n@Parameter@movies ) =
+		true
+	.
+	op title@Movie@movies : -> @Attribute
+	.
+	eq name( title@Movie@movies ) =
+		"title"
+	.
+	eq type( title@Movie@movies ) =
+		@String
+	.
+	eq lowerBound( title@Movie@movies ) =
+		0
+	.
+	eq upperBound( title@Movie@movies ) =
+		1
+	.
+	eq containingClass( title@Movie@movies ) =
+		Movie@movies
+	.
+	eq isId( title@Movie@movies ) =
+		false
+	.
+	eq isOrdered( title@Movie@movies ) =
+		true
+	.
+	eq isUnique( title@Movie@movies ) =
+		true
+	.
+	op rating@Movie@movies : -> @Attribute
+	.
+	eq name( rating@Movie@movies ) =
+		"rating"
+	.
+	eq type( rating@Movie@movies ) =
+		@Float
+	.
+	eq lowerBound( rating@Movie@movies ) =
+		0
+	.
+	eq upperBound( rating@Movie@movies ) =
+		1
+	.
+	eq containingClass( rating@Movie@movies ) =
+		Movie@movies
+	.
+	eq isId( rating@Movie@movies ) =
+		false
+	.
+	eq isOrdered( rating@Movie@movies ) =
+		true
+	.
+	eq isUnique( rating@Movie@movies ) =
+		true
+	.
+	op year@Movie@movies : -> @Attribute
+	.
+	eq name( year@Movie@movies ) =
+		"year"
+	.
+	eq type( year@Movie@movies ) =
+		@Int
+	.
+	eq lowerBound( year@Movie@movies ) =
+		0
+	.
+	eq upperBound( year@Movie@movies ) =
+		1
+	.
+	eq containingClass( year@Movie@movies ) =
+		Movie@movies
+	.
+	eq isId( year@Movie@movies ) =
+		false
+	.
+	eq isOrdered( year@Movie@movies ) =
+		true
+	.
+	eq isUnique( year@Movie@movies ) =
+		true
+	.
+	op type@Movie@movies : -> @Attribute
+	.
+	eq name( type@Movie@movies ) =
+		"type"
+	.
+	eq type( type@Movie@movies ) =
+		MovieType@movies
+	.
+	eq lowerBound( type@Movie@movies ) =
+		0
+	.
+	eq upperBound( type@Movie@movies ) =
+		1
+	.
+	eq containingClass( type@Movie@movies ) =
+		Movie@movies
+	.
+	eq isId( type@Movie@movies ) =
+		false
+	.
+	eq isOrdered( type@Movie@movies ) =
+		true
+	.
+	eq isUnique( type@Movie@movies ) =
+		true
+	.
+	op avgRating@Group@movies : -> @Attribute
+	.
+	eq name( avgRating@Group@movies ) =
+		"avgRating"
+	.
+	eq type( avgRating@Group@movies ) =
+		@Float
+	.
+	eq lowerBound( avgRating@Group@movies ) =
+		0
+	.
+	eq upperBound( avgRating@Group@movies ) =
+		1
+	.
+	eq containingClass( avgRating@Group@movies ) =
+		Group@movies
+	.
+	eq isId( avgRating@Group@movies ) =
+		false
+	.
+	eq isOrdered( avgRating@Group@movies ) =
+		true
+	.
+	eq isUnique( avgRating@Group@movies ) =
+		true
+	.
+	sort MovieType@movies
+	.
+	subsorts MovieType@movies < @EnumerationInstance
+	.
+	op MovieType@movies : -> @Enumeration
+	.
+	eq metaAux( X:MovieType@movies ) =
+		MovieType@movies
+	.
+	eq name( MovieType@movies ) =
+		"MovieType"
+	.
+	eq package( MovieType@movies ) =
+		movies
+	.
+	eq defaultValue( MovieType@movies ) =
+		MOVIE@MovieType@movies
+	.
+	eq literals( MovieType@movies ) =
+		_#_( MOVIE@MovieType@movies , VIDEO@MovieType@movies , TV@MovieType@movies , VIDEOGAME@MovieType@movies )
+	.
+	op MOVIE@MovieType@movies : -> MovieType@movies
+	.
+	op VIDEO@MovieType@movies : -> MovieType@movies
+	.
+	op TV@MovieType@movies : -> MovieType@movies
+	.
+	op VIDEOGAME@MovieType@movies : -> MovieType@movies
+	.
+endm

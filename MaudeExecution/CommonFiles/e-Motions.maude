@@ -1,0 +1,1815 @@
+**** Printable line length ***************************************************---thesis-------
+******************************************************************************---thesis-------
+
+***(
+Dependencies with mOdCL
+
+1. mOdCL does not provide a function to delete only one instance of an elememt.
+Therefore, I need to use the delete$ operation for List and MSet
+(List didn't have that operation, so I included it in my mOdCL.maude file)
+
+--- Lines of code affected
+op deleteRef : Oid OCL-Type -> OCL-Type .	  
+eq deleteRef(O, Sequence{L:List{OCL-Exp}}) = Sequence{delete$L(O, L:List{OCL-Exp})} .
+eq deleteRef(O, Bag{L:MSet{OCL-Exp}}) = Bag{delete$(O, L:MSet{OCL-Exp})} .
+
+2. There are several renamings that depend on those performed in the mOdCL tool
+)
+
+--- We import Real-Time Maude modules that define time domains
+
+fmod MGTIMED-PRELUDE is
+	pr TIMED-PRELUDE * ( --- Time renamings 
+	                     --- (to be consistent with dense and discrete time renamings)
+	                     op _gt_ : Time Time -> Bool to _gtT_,
+	                     op _lt_ : Time Time -> Bool to _ltT_ ) .
+endfm
+
+fmod MGLTIME-INF is
+	pr LTIME-INF * ( --- Time renamings 
+	                 --- (to be consistent with dense and discrete time renamings)
+	                 op _gt_ : TimeInf TimeInf -> Bool to _gtT_,
+	                 op _lt_ : TimeInf TimeInf -> Bool to _ltT_,
+	                 op min : TimeInf TimeInf -> TimeInf to minT ,
+	                 op max : TimeInf TimeInf -> TimeInf to maxT ) .
+endfm
+
+fmod MGTIMED-MODEL-CHECKER is
+	including MGTIMED-PRELUDE .
+	including MODEL-CHECKER * ( --- Same renamings as in mOdCL
+	                            op _|_   : Nat Nat -> Nat  to _|N_,    
+	                            op _xor_ : Nat Nat -> Nat to _nxor_,   
+	                            op _<_   : Nat Nat -> Bool to _<N_,    
+	                            op _<=_  : Nat Nat -> Bool to _<=N_,   
+	                            op _>_   : Nat Nat -> Bool to _>N_,    
+	                            op _>=_  : Nat Nat -> Bool to _>=N_,   
+	                            op _-_   : Nat Nat -> Nat  to _-N_,
+	                            op _*_   : Nat Nat -> Nat to _*N_,     
+	                            op _+_   : Nat Nat -> Nat to _+N_,
+	                            op _<_  : String String -> Bool to _lt_,   
+	                            op _<=_ : String String -> Bool to _leq_,   
+	                            op _>_  : String String -> Bool to _gt_,   
+	                            op _>=_ : String String -> Bool to _geq_,  
+	                            op _+_  : String String -> String to _++_,
+	                            --- Renamings of Qid
+	                            op string : Qid -> String to toString ) .
+	                            
+	subsort ClockedSystem < State .
+	var CS : ClockedSystem .
+	var PROP : Prop .
+	eq CS |= PROP = false [owise] .
+endfm
+	            
+mod MGTIME is
+	pr MGTIMED-PRELUDE .
+	pr MGLTIME-INF .
+	pr MGTIMED-MODEL-CHECKER .
+endm 
+
+fmod DISCRETE_TIME is
+	pr NAT-TIME-DOMAIN-WITH-INF * (--- Same renamings as in mOdCL
+	                               op _xor_ : Nat Nat -> Nat  to _nxor_,
+	                               op _|_   : Nat Nat -> Nat  to _|N_,     
+	                               op _<_   : Nat Nat -> Bool to _<N_,    
+	                               op _<=_  : Nat Nat -> Bool to _<=N_,   
+	                               op _>_   : Nat Nat -> Bool to _>N_,    
+	   	                           op _>=_  : Nat Nat -> Bool to _>=N_,   
+	                               op _-_   : Nat Nat -> Nat  to _-N_,    
+	                               op _*_   : Nat Nat -> Nat  to _*N_,    
+	                               op _+_   : Nat Nat -> Nat  to _+N_,
+	                               --- Time renamings
+	                               op _gt_ : TimeInf TimeInf -> Bool to _gtT_,
+	                               op _lt_ : TimeInf TimeInf -> Bool to _ltT_,
+	                               op min : TimeInf TimeInf -> TimeInf to minT ,
+	                               op max : TimeInf TimeInf -> TimeInf to maxT ) .
+endfm
+
+fmod DENSE_TIME is
+	pr POSRAT-TIME-DOMAIN-WITH-INF * (--- Same renamings as in mOdCL
+	                                  op _xor_ : Nat Nat -> Nat  to _nxor_,
+	                                  op _|_   : Nat Nat -> Nat  to _|N_,     
+	                                  op _<_   : Nat Nat -> Bool to _<N_,    
+	                                  op _<=_  : Nat Nat -> Bool to _<=N_,   
+	                                  op _>_   : Nat Nat -> Bool to _>N_,    
+	   	                              op _>=_  : Nat Nat -> Bool to _>=N_,   
+	                                  op _-_   : Nat Nat -> Nat  to _-N_,    
+	                                  op _*_   : Nat Nat -> Nat  to _*N_,    
+	                                  op _+_   : Nat Nat -> Nat  to _+N_,
+	                                  op -_ : Int -> Int to -I_,
+	                                  op _/_   : Rat Rat -> Rat  to _//_,         
+	                                  op floor : PosRat -> Nat to floorR,
+ 	                                  op ceiling : PosRat -> Nat to ceilingR,
+	                                  --- Time renamings
+	                                  op _gt_ : TimeInf TimeInf -> Bool to _gtT_,
+	                                  op _lt_ : TimeInf TimeInf -> Bool to _ltT_,
+	                                  op min : TimeInf TimeInf -> TimeInf to minT ,
+	                                  op max : TimeInf TimeInf -> TimeInf to maxT ) . 
+endfm
+
+mod MGBEHAVIORMM is
+	pr @ECORE@ .
+	pr MGTIME . 
+	
+	--- We include Time as a data type
+	op @Time : -> @DataType .
+	--- subsorts OclVoid < Time < @DataTypeInstance .
+	subsorts TimeInf < @DataTypeInstance .
+	eq defaultValue(@Time)= zero .
+	eq metaAux(T:Time) = @Time .
+
+	*** BEHAVIOR METAMODEL ***
+			
+	op @MGBehavior@ : -> @Metamodel . 
+	eq name(@MGBehavior@)= "MGBehavior" .
+	eq packages(@MGBehavior@) = MGBehavior .
+	
+	op MGBehavior : -> @Package .
+	eq name(MGBehavior) = "BehaviorMG" .
+	eq metamodel(MGBehavior) = @MGBehavior@ .
+	eq superPackage(MGBehavior) = null .
+	eq subPackages(MGBehavior) = nil .
+	eq classes(MGBehavior) = ActionExec@MGBehavior AtomicActionExec@MGBehavior 
+	  OngoingActionExec@MGBehavior Variable@MGBehavior Clock@MGBehavior Counter@MGBehavior 
+	  ObjectRole@MGBehavior .
+		  
+	--- Classes to represent rule properties
+	sort Rule@MGBehavior .
+	subsort Rule@MGBehavior < @Class .
+	op Rule@MGBehavior : -> Rule@MGBehavior .
+	eq name(Rule@MGBehavior) = "Rule" .
+	eq isAbstract(Rule@MGBehavior) = false .
+	eq package(Rule@MGBehavior) = MGBehavior .
+	eq superTypes(Rule@MGBehavior) = nil .
+	eq references(Rule@MGBehavior) = nil  .
+	eq attributes(Rule@MGBehavior) = name@Rule@MGBehavior lowerBound@Rule@MGBehavior
+	  upperBound@Rule@MGBehavior soft@Rule@MGBehavior .	
+
+	op name@Rule@MGBehavior : -> @Attribute .
+	eq name(name@Rule@MGBehavior) = "name" .		
+	eq type(name@Rule@MGBehavior) = @String . 
+	eq lowerBound(name@Rule@MGBehavior) = 1 .
+	eq upperBound(name@Rule@MGBehavior) = 1 .
+	eq containingClass(name@Rule@MGBehavior) = Rule@MGBehavior . 
+	eq isId(name@Rule@MGBehavior) = true .
+	eq isOrdered(name@Rule@MGBehavior) = true .
+	eq isUnique(name@Rule@MGBehavior) = true .
+
+	op lowerBound@Rule@MGBehavior : -> @Attribute .
+	eq name(lowerBound@Rule@MGBehavior) = "lowerBound" .		
+	eq type(lowerBound@Rule@MGBehavior) = @Time . 
+	eq lowerBound(lowerBound@Rule@MGBehavior) = 0 .
+	eq upperBound(lowerBound@Rule@MGBehavior) = 1 .
+	eq containingClass(lowerBound@Rule@MGBehavior) = Rule@MGBehavior . 
+	eq isId(lowerBound@Rule@MGBehavior) = false .
+	eq isOrdered(lowerBound@Rule@MGBehavior) = true .
+	eq isUnique(lowerBound@Rule@MGBehavior) = true .
+
+	op upperBound@Rule@MGBehavior : -> @Attribute .
+	eq name(upperBound@Rule@MGBehavior) = "upperBound" .		
+	eq type(upperBound@Rule@MGBehavior) = @Time . 
+	eq lowerBound(upperBound@Rule@MGBehavior) = 0 .
+	eq upperBound(upperBound@Rule@MGBehavior) = 1 .
+	eq containingClass(upperBound@Rule@MGBehavior) = Rule@MGBehavior . 
+	eq isId(upperBound@Rule@MGBehavior) = false .
+	eq isOrdered(upperBound@Rule@MGBehavior) = true .
+	eq isUnique(upperBound@Rule@MGBehavior) = true .
+
+	op soft@Rule@MGBehavior : -> @Attribute .
+	eq name(soft@Rule@MGBehavior) = "soft" .		
+	eq type(soft@Rule@MGBehavior) = @Bool . 
+	eq lowerBound(soft@Rule@MGBehavior) = 1 .
+	eq upperBound(soft@Rule@MGBehavior) = 1 .
+	eq containingClass(soft@Rule@MGBehavior) = Rule@MGBehavior . 
+	eq isId(soft@Rule@MGBehavior) = false .
+	eq isOrdered(soft@Rule@MGBehavior) = true .
+	eq isUnique(soft@Rule@MGBehavior) = true .
+
+	sort AtomicRule@MGBehavior .
+	subsort AtomicRule@MGBehavior < Rule@MGBehavior .
+	op AtomicRule@MGBehavior : -> AtomicRule@MGBehavior .
+	eq name(AtomicRule@MGBehavior) = "AtomicRule" .
+	eq isAbstract(AtomicRule@MGBehavior) = false .
+	eq package(AtomicRule@MGBehavior) = MGBehavior .
+	eq superTypes(AtomicRule@MGBehavior) = Rule@MGBehavior .
+	eq references(AtomicRule@MGBehavior) = nil  .
+	eq attributes(AtomicRule@MGBehavior) = periodicity@AtomicRule@MGBehavior .	
+	
+	op periodicity@AtomicRule@MGBehavior : -> @Attribute .
+	eq name(periodicity@AtomicRule@MGBehavior) = "periodicity" .		
+	eq type(periodicity@AtomicRule@MGBehavior) = @Time . 
+	eq lowerBound(periodicity@AtomicRule@MGBehavior) = 0 .
+	eq upperBound(periodicity@AtomicRule@MGBehavior) = 1 .
+	eq containingClass(periodicity@AtomicRule@MGBehavior) = AtomicRule@MGBehavior . 
+	eq isId(periodicity@AtomicRule@MGBehavior) = false .
+	eq isOrdered(periodicity@AtomicRule@MGBehavior) = true .
+	eq isUnique(periodicity@AtomicRule@MGBehavior) = true .
+													
+	--- Classes to represent action executions 
+	sort ActionExec@MGBehavior .
+	subsort ActionExec@MGBehavior < @Class .
+	op ActionExec@MGBehavior : -> ActionExec@MGBehavior .
+	eq name(ActionExec@MGBehavior) = "ActionExec" .
+	eq isAbstract(ActionExec@MGBehavior) = true .
+	eq package(ActionExec@MGBehavior) = MGBehavior .
+	eq superTypes(ActionExec@MGBehavior) = nil .
+	eq references(ActionExec@MGBehavior) = participants@ActionExec@MGBehavior 
+	  variables@ActionExec@MGBehavior  .
+	eq attributes(ActionExec@MGBehavior) = startingTime@ActionExec@MGBehavior 
+	  endingTime@ActionExec@MGBehavior action@ActionExec@MGBehavior
+	  maxTimer@ActionExec@MGBehavior  .		
+			
+	op participants@ActionExec@MGBehavior : -> @Reference  .
+	eq name(participants@ActionExec@MGBehavior) = "participants" .		
+	eq type(participants@ActionExec@MGBehavior) = ObjectRole@MGBehavior . 
+	eq opposite(participants@ActionExec@MGBehavior) = null .
+	eq lowerBound(participants@ActionExec@MGBehavior) = 0 .
+	eq upperBound(participants@ActionExec@MGBehavior) = * .
+	eq containingClass(participants@ActionExec@MGBehavior) = ActionExec@MGBehavior . 
+	eq isContainment(participants@ActionExec@MGBehavior) = true .
+	eq isOrdered(participants@ActionExec@MGBehavior) = false .
+	eq isUnique(participants@ActionExec@MGBehavior) = true .
+	
+	op variables@ActionExec@MGBehavior : -> @Reference  .
+	eq name(variables@ActionExec@MGBehavior) = "variables" .		
+	eq type(variables@ActionExec@MGBehavior) = Variable@MGBehavior . 
+	eq opposite(variables@ActionExec@MGBehavior) = null .
+	eq lowerBound(variables@ActionExec@MGBehavior) = 0 .
+	eq upperBound(variables@ActionExec@MGBehavior) = * .
+	eq containingClass(variables@ActionExec@MGBehavior) = ActionExec@MGBehavior . 
+	eq isContainment(variables@ActionExec@MGBehavior) = true .
+	eq isOrdered(variables@ActionExec@MGBehavior) = false .
+	eq isUnique(variables@ActionExec@MGBehavior) = true .
+	
+	op startingTime@ActionExec@MGBehavior : -> @Attribute .
+	eq name(startingTime@ActionExec@MGBehavior) = "startingTime" .		
+	eq type(startingTime@ActionExec@MGBehavior) =  @Time . 
+	eq lowerBound(startingTime@ActionExec@MGBehavior) = 1 .
+	eq upperBound(startingTime@ActionExec@MGBehavior) = 1 .
+	eq containingClass(startingTime@ActionExec@MGBehavior) = ActionExec@MGBehavior . 
+	eq isId(startingTime@ActionExec@MGBehavior) = false .
+	eq isOrdered(startingTime@ActionExec@MGBehavior) = true .
+	eq isUnique(startingTime@ActionExec@MGBehavior) = true .
+	
+	op endingTime@ActionExec@MGBehavior : -> @Attribute .
+	eq name(endingTime@ActionExec@MGBehavior) = "endingTime" .		
+	eq type(endingTime@ActionExec@MGBehavior) =  @Time . 
+	eq lowerBound(endingTime@ActionExec@MGBehavior) = 0 .
+	eq upperBound(endingTime@ActionExec@MGBehavior) = 1 .
+	eq containingClass(endingTime@ActionExec@MGBehavior) = ActionExec@MGBehavior . 
+	eq isId(endingTime@ActionExec@MGBehavior) = false .
+	eq isOrdered(endingTime@ActionExec@MGBehavior) = true .
+	eq isUnique(endingTime@ActionExec@MGBehavior) = true .
+	
+	op action@ActionExec@MGBehavior : -> @Attribute .
+	eq name(action@ActionExec@MGBehavior) = "action" .		
+	eq type(action@ActionExec@MGBehavior) =  @String . 
+	eq lowerBound(action@ActionExec@MGBehavior) = 1 .
+	eq upperBound(action@ActionExec@MGBehavior) = 1 .
+	eq containingClass(action@ActionExec@MGBehavior) = ActionExec@MGBehavior . 
+	eq isId(action@ActionExec@MGBehavior) = false .
+	eq isOrdered(action@ActionExec@MGBehavior) = true .
+	eq isUnique(action@ActionExec@MGBehavior) = true .
+		
+	op maxTimer@ActionExec@MGBehavior : -> @Attribute .
+	eq name(maxTimer@ActionExec@MGBehavior) = "maxTimer" .		
+	eq type(maxTimer@ActionExec@MGBehavior) =  @Time . 
+	eq lowerBound(maxTimer@ActionExec@MGBehavior) = 0 .
+	eq upperBound(maxTimer@ActionExec@MGBehavior) = 1 .
+	eq containingClass(maxTimer@ActionExec@MGBehavior) = ActionExec@MGBehavior . 
+	eq isId(maxTimer@ActionExec@MGBehavior) = false .
+	eq isOrdered(maxTimer@ActionExec@MGBehavior) = true .
+	eq isUnique(maxTimer@ActionExec@MGBehavior) = true .	
+		
+	sort AtomicActionExec@MGBehavior .
+	subsort AtomicActionExec@MGBehavior < ActionExec@MGBehavior .
+	op AtomicActionExec@MGBehavior : -> AtomicActionExec@MGBehavior .
+	eq name(AtomicActionExec@MGBehavior) = "AtomicActionExec" .
+	eq isAbstract(AtomicActionExec@MGBehavior) = false .
+	eq package(AtomicActionExec@MGBehavior) = MGBehavior .
+	eq superTypes(AtomicActionExec@MGBehavior) = ActionExec@MGBehavior .
+	eq references(AtomicActionExec@MGBehavior) = nil  .
+	eq attributes(AtomicActionExec@MGBehavior) = minTimer@AtomicActionExec@MGBehavior
+	  executionTime@AtomicActionExec@MGBehavior status@AtomicActionExec@MGBehavior .
+	
+	op minTimer@AtomicActionExec@MGBehavior : -> @Attribute .
+	eq name(minTimer@AtomicActionExec@MGBehavior) = "minTimer" .		
+	eq type(minTimer@AtomicActionExec@MGBehavior) =  @Time . 
+	eq lowerBound(minTimer@AtomicActionExec@MGBehavior) = 0 .
+	eq upperBound(minTimer@AtomicActionExec@MGBehavior) = 1 .
+	eq containingClass(minTimer@AtomicActionExec@MGBehavior) = AtomicActionExec@MGBehavior . 
+	eq isId(minTimer@AtomicActionExec@MGBehavior) = false .
+	eq isOrdered(minTimer@AtomicActionExec@MGBehavior) = true .
+	eq isUnique(minTimer@AtomicActionExec@MGBehavior) = true .	
+
+	op executionTime@AtomicActionExec@MGBehavior : -> @Attribute .
+	eq name(executionTime@AtomicActionExec@MGBehavior) = "executionTime" .		
+	eq type(executionTime@AtomicActionExec@MGBehavior) =  @Time . 
+	eq lowerBound(executionTime@AtomicActionExec@MGBehavior) = 1 .
+	eq upperBound(executionTime@AtomicActionExec@MGBehavior) = 1 .
+	eq containingClass(executionTime@AtomicActionExec@MGBehavior) 
+	  = AtomicActionExec@MGBehavior . 
+	eq isId(executionTime@AtomicActionExec@MGBehavior) = false .
+	eq isOrdered(executionTime@AtomicActionExec@MGBehavior) = true .
+	eq isUnique(executionTime@AtomicActionExec@MGBehavior) = true .
+				
+	op status@AtomicActionExec@MGBehavior : -> @Attribute .
+	eq name(status@AtomicActionExec@MGBehavior) = "status" .		
+	eq type(status@AtomicActionExec@MGBehavior) = ActionStatus@MGBehavior . 
+	eq lowerBound(status@AtomicActionExec@MGBehavior) = 1 .
+	eq upperBound(status@AtomicActionExec@MGBehavior) = 1 .
+	eq containingClass(status@AtomicActionExec@MGBehavior) = AtomicActionExec@MGBehavior . 
+	eq isId(status@AtomicActionExec@MGBehavior) = false .
+	eq isOrdered(status@AtomicActionExec@MGBehavior) = true .
+	eq isUnique(status@AtomicActionExec@MGBehavior) = true .
+	
+	sort ActionStatus@MGBehavior .
+	op ActionStatus@MGBehavior : -> @Enumeration .
+	subsort ActionStatus@MGBehavior < @EnumerationInstance .
+		
+	--- An atomic action execution can be
+	--- a) Unfinished
+	--- b) Realized 
+	--- c) Interrupted (deleted explicitly by a rule) 
+	---	d) Aborted (the realization rule cannot be applied)
+	op unfinished@ActionStatus@MGBehavior : -> ActionStatus@MGBehavior .
+	op realized@ActionStatus@MGBehavior : -> ActionStatus@MGBehavior .
+	op interrupted@ActionStatus@MGBehavior : -> ActionStatus@MGBehavior .
+	op aborted@ActionStatus@MGBehavior : -> ActionStatus@MGBehavior .	
+			
+	sort OngoingActionExec@MGBehavior .
+	subsort OngoingActionExec@MGBehavior < ActionExec@MGBehavior .
+	op OngoingActionExec@MGBehavior : -> OngoingActionExec@MGBehavior .
+	eq name(OngoingActionExec@MGBehavior) = "OngoingActionExec" .
+	eq isAbstract(OngoingActionExec@MGBehavior) = false .
+	eq package(OngoingActionExec@MGBehavior) = MGBehavior .
+	eq superTypes(OngoingActionExec@MGBehavior) = ActionExec@MGBehavior .
+	eq references(OngoingActionExec@MGBehavior) = nil  .
+	eq attributes(OngoingActionExec@MGBehavior) 
+	  = upperBoundTimer@OngoingActionExec@MGBehavior .	
+				
+	op upperBoundTimer@OngoingActionExec@MGBehavior : -> @Attribute .
+	eq name(upperBoundTimer@OngoingActionExec@MGBehavior) = "upperBoundTimer" .		
+	eq type(upperBoundTimer@OngoingActionExec@MGBehavior) =  @Time . 
+	eq lowerBound(upperBoundTimer@OngoingActionExec@MGBehavior) = 0 .
+	eq upperBound(upperBoundTimer@OngoingActionExec@MGBehavior) = 1 .
+	eq containingClass(upperBoundTimer@OngoingActionExec@MGBehavior) 
+	  = OngoingActionExec@MGBehavior . 
+	eq isId(upperBoundTimer@OngoingActionExec@MGBehavior) = false .
+	eq isOrdered(upperBoundTimer@OngoingActionExec@MGBehavior) = true .
+	eq isUnique(upperBoundTimer@OngoingActionExec@MGBehavior) = true .
+	
+	sort Variable@MGBehavior .
+	subsort Variable@MGBehavior < @Class .
+	op Variable@MGBehavior : -> Variable@MGBehavior .
+	eq name(Variable@MGBehavior) = "Variable" .
+	eq isAbstract(Variable@MGBehavior) = false .
+	eq package(Variable@MGBehavior) = MGBehavior .
+	eq superTypes(Variable@MGBehavior) = nil .
+	eq references(Variable@MGBehavior) = nil .
+	eq attributes(ObjectRole@MGBehavior) = name@Variable@MGBehavior	
+	  value@Variable@MGBehavior .
+			
+	op name@Variable@MGBehavior : -> @Attribute .
+	eq name(name@Variable@MGBehavior) = "name" .		
+	eq type(name@Variable@MGBehavior) =  @String . 
+	eq lowerBound(name@Variable@MGBehavior) = 1 .
+	eq upperBound(name@Variable@MGBehavior) = 1 .
+	eq containingClass(name@Variable@MGBehavior) = Variable@MGBehavior . 
+	eq isId(name@Variable@MGBehavior) = false .
+	eq isOrdered(name@Variable@MGBehavior) = true .
+	eq isUnique(name@Variable@MGBehavior) = true .
+
+	op value@Variable@MGBehavior : -> @Attribute .
+	eq name(value@Variable@MGBehavior) = "value" .		
+	eq type(value@Variable@MGBehavior) =  @DataType . 
+	eq lowerBound(value@Variable@MGBehavior) = 1 .
+	eq upperBound(value@Variable@MGBehavior) = 1 .
+	eq containingClass(value@Variable@MGBehavior) = Variable@MGBehavior . 
+	eq isId(value@Variable@MGBehavior) = false .
+	eq isOrdered(value@Variable@MGBehavior) = true .
+	eq isUnique(value@Variable@MGBehavior) = true .		
+		
+	sort ObjectRole@MGBehavior .
+	subsort ObjectRole@MGBehavior < @Class .
+	op ObjectRole@MGBehavior : -> ObjectRole@MGBehavior .
+	eq name(ObjectRole@MGBehavior) = "ObjectRole" .
+	eq isAbstract(ObjectRole@MGBehavior) = false .
+	eq package(ObjectRole@MGBehavior) = MGBehavior .
+	eq superTypes(ObjectRole@MGBehavior) = nil .
+	eq references(ObjectRole@MGBehavior) = actualObject@ObjectRole@MGBehavior  .
+	eq attributes(ObjectRole@MGBehavior) = role@ObjectRole@MGBehavior .
+	
+	op actualObject@ObjectRole@MGBehavior : -> @Reference .
+	eq name(actualObject@ObjectRole@MGBehavior) = "actualObject" .		
+	eq type(actualObject@ObjectRole@MGBehavior) =  @Object . 
+	eq opposite(actualObject@ObjectRole@MGBehavior) = null .
+	eq lowerBound(actualObject@ObjectRole@MGBehavior) = 1 .
+	eq upperBound(actualObject@ObjectRole@MGBehavior) = 1 .
+	eq containingClass(actualObject@ObjectRole@MGBehavior) = ObjectRole@MGBehavior . 
+	eq isContainment(actualObject@ObjectRole@MGBehavior) = false .
+	eq isOrdered(actualObject@ObjectRole@MGBehavior) = true .
+	eq isUnique(actualObject@ObjectRole@MGBehavior) = true .
+	
+	op role@ObjectRole@MGBehavior : -> @Attribute .
+	eq name(role@ObjectRole@MGBehavior) = "role" .		
+	eq type(role@ObjectRole@MGBehavior) =  @String . 
+	eq lowerBound(role@ObjectRole@MGBehavior) = 1 .
+	eq upperBound(role@ObjectRole@MGBehavior) = 1 .
+	eq containingClass(role@ObjectRole@MGBehavior) = ObjectRole@MGBehavior . 
+	eq isId(role@ObjectRole@MGBehavior) = false .	
+	eq isOrdered(role@ObjectRole@MGBehavior) = true .
+	eq isUnique(role@ObjectRole@MGBehavior) = true .		
+		
+	--- The Clock
+	sort Clock@MGBehavior .
+	subsort Clock@MGBehavior < @Class .
+	op Clock@MGBehavior : -> Clock@MGBehavior .
+	eq name(Clock@MGBehavior) = "Clock" .
+	eq isAbstract(Clock@MGBehavior) = false .
+	eq package(Clock@MGBehavior) = MGBehavior .
+	eq superTypes(Clock@MGBehavior) = nil .
+	eq references(Clock@MGBehavior) = nil .
+	eq attributes(Clock@MGBehavior) = time@Clock@MGBehavior .		
+	
+	op time@Clock@MGBehavior : -> @Attribute .
+	eq name(time@Clock@MGBehavior) = "time" .		
+	eq type(time@Clock@MGBehavior) =  @Time . 
+	eq lowerBound(time@Clock@MGBehavior) = 1 .
+	eq upperBound(time@Clock@MGBehavior) = 1 .
+	eq containingClass(time@Clock@MGBehavior) = Clock@MGBehavior . 
+	eq isId(time@Clock@MGBehavior) = false .
+	eq isOrdered(time@Clock@MGBehavior) = true .
+	eq isUnique(time@Clock@MGBehavior) = true .
+   	
+	--- Counters: to create new identifiers and count the random operation invocations	
+	sort Counter@MGBehavior .
+	subsort Counter@MGBehavior < @Class .
+	op Counter@MGBehavior : -> Counter@MGBehavior .
+	eq name(Counter@MGBehavior) = "Counter" .
+	eq isAbstract(Counter@MGBehavior) = false .
+	eq package(Counter@MGBehavior) = MGBehavior .
+	eq superTypes(Counter@MGBehavior) = nil .
+	eq references(Counter@MGBehavior) = nil .
+	eq attributes(Counter@MGBehavior) = value@Counter@MGBehavior .		
+	
+	op value@Counter@MGBehavior : -> @Attribute .
+	eq name(value@Counter@MGBehavior) = "value" .		
+	eq type(value@Counter@MGBehavior) =  @Int . 
+	eq lowerBound(value@Counter@MGBehavior) = 1 .
+	eq upperBound(value@Counter@MGBehavior) = 1 .
+	eq containingClass(value@Counter@MGBehavior) = Counter@MGBehavior . 
+	eq isId(value@Counter@MGBehavior) = false .
+	eq isOrdered(value@Counter@MGBehavior) = true .
+	eq isUnique(value@Counter@MGBehavior) = true .
+		
+	--- To get Clock and ActionExec properties through OCL expressions
+	op startingTime@OCLSf : -> @StructuralFeature .
+	eq name( startingTime@OCLSf ) = "startingTime" .
+	op endingTime@OCLSf : -> @StructuralFeature .
+	eq name( endingTime@OCLSf ) = "endingTime" .
+	op executionTime@OCLSf : -> @StructuralFeature .
+	eq name( executionTime@OCLSf ) = "executionTime" .
+	op time@OCLSf : -> @StructuralFeature .
+	eq name(time@OCLSf) = "time" .	
+endm
+
+mod @LINK is
+	pr MAUDELING .
+	--- Sort created for handling the deletion and addition of links
+	--- We use OclAny to represent Int or null
+	sort @Link .
+	op link : Oid OclAny -> @Link [ctor] .
+	op link : Oid Oid @Reference OclAny -> @Link [ctor] .
+	--- 3 argument = old value
+	--- 4 argument = new value
+	op link : Oid @Reference Sequence Sequence -> @Link [ctor] .
+	
+	var O : Oid . var R : @Reference . var S1 S2 : Sequence .
+	--- We will use this operation only for this kind of link
+	--- and only for references which has opposite
+	op oppRef : @Link ~> @Link .
+	eq oppRef(link(O, R, S1, S2)) = link(O, opposite(R), S1, S2) . 	
+endm
+
+mod @REDUCEDACTIONEXECUTIONS is
+	pr MGBEHAVIORMM .
+	
+	sort @RedActionExec .
+	--- Action and Starting and Ending Times
+	op _in`[_`,_`] : String Time Time -> @RedActionExec [ctor] .
+	--- Action and Set of participants (no role)
+	op _with_ : String MSet{OCL-Exp} -> @RedActionExec [ctor] .
+	op _performed in`[_`,_`]with_ : String Time Time MSet{OCL-Exp} -> @RedActionExec [ctor] .
+	op in`[_`,_`]with_ : Time Time MSet{OCL-Exp} -> @RedActionExec [ctor] .
+	op _started at_with_ : String Time MSet{OCL-Exp} -> @RedActionExec [ctor] .
+endm
+
+mod @TIMEINTERVAL is
+	pr MGBEHAVIORMM .
+	
+	sort @TimeInterval .
+	op `[_`,_`] : Time Time -> @TimeInterval [ctor] .
+endm
+
+view @Link from TRIV to @LINK is
+   sort Elt to @Link .
+endv
+
+view @RedActionExec from TRIV to @REDUCEDACTIONEXECUTIONS is
+   sort Elt to @RedActionExec .
+endv
+
+view @TimeInterval from TRIV to @TIMEINTERVAL is
+   sort Elt to @TimeInterval .
+endv
+
+
+mod MYLINKLIST is
+  pr MGLIST{@Link} * (sort MGList{@Link} to MyLinkList) .
+
+  var O O' : Oid .
+  var LINK LINK' : @Link .
+  var MLL : MyLinkList .
+  var POS POS' : Int .
+  
+  --- We will only use quicsort with links with two parameters
+  op quicksort : MyLinkList -> MyLinkList .
+  eq quicksort(nil) = nil .  
+  eq quicksort((link(O, null) MLL)) = link(O, null) quicksort(MLL) .
+  eq quicksort((LINK MLL)) 
+    = quicksort(leq-elems(LINK, MLL)) LINK quicksort(gr-elems(LINK, MLL)) [owise] .
+	
+  op leq-elems : @Link MyLinkList -> MyLinkList .
+  eq leq-elems(LINK, nil) = nil .
+  eq leq-elems(link(O, null), (LINK MLL)) = nil .
+  eq leq-elems(link(O, POS), (link(O', POS') MLL)) 
+	  = if (POS' <= POS) 
+	    then (link(O', POS') leq-elems(link(O, POS), MLL))
+	    else leq-elems(link(O, POS), MLL) fi .
+  eq leq-elems(LINK, (LINK' MLL)) = (LINK' leq-elems(LINK, MLL)) [owise] . 
+
+  op gr-elems : @Link MyLinkList -> MyLinkList .
+  eq gr-elems(LINK, nil) = nil .
+  eq gr-elems(link(O, null), (LINK MLL)) = MLL .
+  eq gr-elems(link(O, POS), (link(O', POS') MLL)) 
+    = if (POS' > POS) 
+      then (link(O', POS') gr-elems(link(O, POS), MLL))
+	  else gr-elems(link(O, POS), MLL) fi .
+  eq gr-elems(LINK, (LINK' MLL)) = gr-elems(LINK, MLL) [owise] .
+endm
+
+fmod MGRANDOM is
+	pr RANDOM * (--- Same renamings as in mOdCL
+	             op _xor_ : Nat Nat -> Nat  to _nxor_,
+	             op _|_   : Nat Nat -> Nat  to _|N_,     
+	             op _<_   : Nat Nat -> Bool to _<N_,    
+	             op _<=_  : Nat Nat -> Bool to _<=N_,   
+	             op _>_   : Nat Nat -> Bool to _>N_,    
+	             op _>=_  : Nat Nat -> Bool to _>=N_,   
+	             op _-_   : Nat Nat -> Nat  to _-N_,    
+	             op _*_   : Nat Nat -> Nat  to _*N_,    
+	             op _+_   : Nat Nat -> Nat  to _+N_ ) .
+endfm
+
+mod MGDISTRIBUTIONS is
+  pr MAUDELING .
+  pr MGRANDOM .
+  vars F L M SG SH SC ND DD P LB UB : Float . --- L: lambda, M: mu, SG: sigma [Varianze = sigma^2]
+  							   --- SH: shape, SC: scale NN:numerator degree
+  							   --- DD: denominator degree
+  							   --- LB: lower bound, UB: upper bound
+  vars S LI MI SGI SHI SCI NDI DDI PI LBI UBI : Int . --- S: seed, LI: lambda-integer, MI: mu-integer
+  						  		  --- SGI: sigma-integer, SHI: shape-integer
+  						  		  --- SCI: scale-integer --- NDI: numerator degree integer
+  						  		  --- DDI: denominator degree integer
+  						  		  --- LBI: lower bound integer, upper bound integer
+  vars LPR MPR SGPR SHPR SCPR NDPR DDPR PPR LBPR UBPR : PosRat . --- LPR: lambda-posrat MPR: mu-posrat
+  									---SGPR: sigma-posrat SHPR: shape-posrat SCPR: scale-posrat
+  									---NDPR: numerator degree posrat DDPR: denominator degree posrat
+  									---LBPR: lower bound PosRat UBPR: upper bound PosRat
+  op round : Float -> Int .
+  eq round(F) = if F - floorF(F) >= 0.5 then ceilingF(F) else floorF(F) fi .
+  
+  ------------------------------EXPONENTIAL DISTRIBUTION-------------------------------------
+  --- Mean = 1/L: this is the parameter as argument
+  --- exp(L) = (ln(1000) - ln(rand(1000))) / L  
+  op expDistr : Float Int -> Int .
+  eq expDistr (L, S) = rat(round((6.9077553 - log(rat2float(random(S) rem 1000 + 1))) / L)) .
+  --- In case lambda is an integer number instead of a float number:
+  op expDistr : Int Int -> Int .
+  eq expDistr (LI, S) = expDistr(rat2float(LI), S) .
+  --- In case lambda is a PosRat number instead of a float number:
+  op expDistr : PosRat Int -> Int .
+  eq expDistr (LPR, S) = expDistr(rat2float(LPR), S) .
+  
+  ----------------------------- OTHER WAY TO CALCULATE THE EXPONENTIAL DISTRIBUTION ----------
+  --- exp(1/L) = -ln(rand(0,1))/L
+  op expDistr2 : Float Int -> Int .
+  eq expDistr2 (L, S) = rat(round((0.0 - log(rat2float((random(S) rem 100000 + 1) / 100000))) / L)) .
+  --- In case lambda is an integer number instead of a float number:
+  op expDistr2 : Int Int -> Int .
+  eq expDistr2 (LI, S) = expDistr2(rat2float(LI), S) .
+  --- In case lambda is a PosRat number instead of a float number:
+  op expDistr2 : PosRat Int -> Int .
+  eq expDistr2 (LPR, S) = expDistr2(rat2float(LPR), S) .
+  -----------------------------------------------------------------------------------------------
+  
+    --- Funcion para calcular la suma de muchos nums exponenciales (LI son las iteraciones)
+  op sumaExpDistr : Float Int Int -> Int .
+  eq sumaExpDistr (L, S, 0) = 0 .
+  eq sumaExpDistr (L, S, LI) = expDistr(L, S) + sumaExpDistr(L, S + LI, LI - 1) [owise] .
+  
+  op sumaExpDistr2 : Float Int Int -> Int .
+  eq sumaExpDistr2 (L, S, 0) = 0 .
+  eq sumaExpDistr2 (L, S, LI) = expDistr2(L, S) + sumaExpDistr2(L, S + LI, LI - 1) [owise] .
+  
+  --- Auxiliar function to be used in the gamma distribution
+  op expFloat : Float Int -> Float .
+  eq expFloat (L, S) = (6.9077553 - log(rat2float(random(S) rem 1000 + 1))) / L .
+  --------------------------------------------------------------------------------------------
+  --------------------------------WEIBULL DISTRIBUTION----------------------------------------
+  --- weib(M,SG) = ( -1/M ln(1 - rand(0,1)) ) ^ (1/SG)
+  --- M is the scale and SG is the shape
+  op weibDistr : Float Float Int -> Int . 
+  eq weibDistr(M, SG, S) = rat(round((rat2float(-1.0 *F M) *F log(rat2float(
+                            (random(S) rem 1000 + 1) / 1000))) ^F (1.0 /F SG))) .
+                            
+  ----eq weibDistr(M, SG, S) = rat(round((rat2float(-1.0 /F M) *F log(rat2float(1 - 
+      ----                      (random(S) rem 1000 + 1) / 1000))) ^F (1.0 /F SG))) .
+  --- In case mu and/or sigma are integer or posrat numbers instead of float numbers:
+  op weibDistr : Int Int Int -> Int .
+  eq weibDistr(MI, SGI, S) = weibDistr(rat2float(MI), rat2float(SGI), S) .
+  op weibDistr : Int Float Int -> Int .
+  eq weibDistr(MI, SG, S) = weibDistr(rat2float(MI), SG, S) .
+  op weibDistr : Int PosRat Int -> Int .
+  eq weibDistr(MI, SGPR, S) = weibDistr(rat2float(MI), rat2float(SGPR), S) .
+  op weibDistr : Float Int Int -> Int .
+  eq weibDistr(M, SGI, S) = weibDistr(M, rat2float(SGI), S) .
+  op weibDistr : Float PosRat Int -> Int .
+  eq weibDistr(M, SGPR, S) = weibDistr(M, rat2float(SGPR), S) .
+  op weibDistr : PosRat Int Int -> Int .
+  eq weibDistr(MPR, SGI, S) = weibDistr(rat2float(MPR), rat2float(SGI), S) .
+  op weibDistr : PosRat PosRat Int -> Int .
+  eq weibDistr(MPR, SGPR, S) = weibDistr(rat2float(MPR), rat2float(SGPR), S) .
+  op weibDistr : PosRat Float Int -> Int .
+  eq weibDistr(MPR, SG, S) = weibDistr(rat2float(MPR), SG, S) .  
+  --------------------------------------------------------------------------------------------
+  ------------------------------NORMAL/GAUSS DISTRIBUTION--------------------------------------
+  --- standard normal = norm(0,1) = sqrt(-2ln(rand(0,1)))*cos(2pi*rand(0,1))
+  --- norm(M,SG) =  SG*norm(0,1) + M
+  op standNormDistr : Int -> Float . --- Standard normal distribution (mean = 0, varianze = 1)
+  eq standNormDistr(S) = sqrt(-2.0 *F log(rat2float((random(S) rem 1000 + 1) / 1000))) *F
+   						   cos(6.283185307 *F rat2float((random(S + 1) rem 1000 + 1) / 1000)) .
+  op normDistr : Float Float Int -> Int .
+  eq normDistr (M, SG, S) = if rat(round(SG *F standNormDistr(S) + M)) < 0 
+  							then 0
+  							else rat(round(SG *F standNormDistr(S) + M)) 
+  							fi .
+  --- In case mu and/or sigma are integer or posrat numbers instead of float numbers:
+  op normDistr : Int Int Int -> Int .
+  eq normDistr (MI, SGI, S) = normDistr(rat2float(MI), rat2float(SGI), S) .
+  op normDistr : Int Float Int -> Int .
+  eq normDistr (MI, SG, S) = normDistr(rat2float(MI), SG, S) .
+  op normDistr : Int PosRat Int -> Int .
+  eq normDistr (MI, SGPR, S) = normDistr(rat2float(MI), rat2float(SGPR), S) .  
+  op normDistr : Float Int Int -> Int .
+  eq normDistr (M, SGI, S) = normDistr(M, rat2float(SGI), S) .
+  op normDistr : Float PosRat Int -> Int .
+  eq normDistr (M, SGPR, S) = normDistr(M, rat2float(SGPR), S) .
+  op normDistr : PosRat Int Int -> Int .
+  eq normDistr (MPR, SGI, S) = normDistr(rat2float(MPR), rat2float(SGI), S) .
+  op normDistr : PosRat PosRat Int -> Int .
+  eq normDistr (MPR, SGPR, S) = normDistr(rat2float(MPR), rat2float(SGPR), S) .
+  op normDistr : PosRat Float Int -> Int .
+  eq normDistr (MPR, SG, S) = normDistr(rat2float(MPR), SG, S) .
+  --------------------------------------------------------------------------------------------
+  -----------------------------GAMMA DISTRIBUTION---------------------------------------------
+  --- The gamma distribution is a generalization of the Erlang distribution and allows noninteger
+  --- shape paremters. Like exponential and Erland distributions, it is used in queuing modeling.
+  --- gammaDistr(SH, SC) = the addition of SH exponential variables with parameter = SC
+  op gammaDistr : Float Float Int -> Int .
+  eq gammaDistr(SH, SC, S) = gammaDistr(rat(round(SH)), SC, S) .
+  --- In case shape and/or scale are integer or posrat numbers instead of float numbers:
+  op gammaDistr : Int Int Int -> Int .
+  eq gammaDistr(SHI, SCI, S) = rat(round(gammaCalculation (SHI, rat2float(SCI), S))) .
+  op gammaDistr : Int Float Int -> Int .
+  eq gammaDistr(SHI, SC, S) = rat(round(gammaCalculation (SHI, SC, S))) .
+  op gammaDistr : Int PosRat Int -> Int .
+  eq gammaDistr(SHI, SCPR, S) = rat(round(gammaCalculation (SHI, rat2float(SCPR), S))) .
+  op gammaDistr : Float Int Int -> Int .
+  eq gammaDistr(SH, SCI, S) = rat(round(gammaCalculation (rat(round(SH)), rat2float(SCI), S))) .
+  op gammaDistr : Float PosRat Int -> Int .
+  eq gammaDistr(SH, SCPR, S) = rat(round(gammaCalculation (rat(round(SH)), rat2float(SCPR), S))) .
+  op gammaDistr : PosRat Int Int -> Int .
+  eq gammaDistr(SHPR, SCI, S) = rat(round(gammaCalculation (rat(round(rat2float(SHPR))), rat2float(SCI), S))) .
+  op gammaDistr : PosRat PosRat Int -> Int .
+  eq gammaDistr(SHPR, SCPR, S) = rat(round(gammaCalculation (rat(round(rat2float(SHPR))), rat2float(SCPR), S))) .
+  op gammaDistr : PosRat Float Int -> Int .
+  eq gammaDistr(SHPR, SC, S) = rat(round(gammaCalculation (rat(round(rat2float(SHPR))), SC, S))) .
+  
+  --- Auxiliary function for the calculation of the gamma distribution
+  op gammaCalculation : Int Float Int -> Float .
+  eq gammaCalculation(SHI, SC, S) = if SHI == 0 
+  									 then 0.0 
+  									 else expFloat(SC, S) + gammaCalculation(SHI - 1, SC, S + SHI)
+  									fi .
+  --------------------------------------------------------------------------------------------
+  --------------------------CHI-SQUARE DISTRIBUTION-------------------------------------------
+  --- The chi-square distribution X -> X2(k) is a special case of the camm distribution, in that 
+  --- X -> G(k/2, 2), where k/2 is the shape and 2 is the scale
+  op chiSDistr : Float Int -> Int .
+  eq chiSDistr(SH, S) = gammaDistr(rat(round(SH / 2.0)), 2, S) .
+  --- In case the parameter is integer or posrat instead of float:
+  op chiSDistr : Int Int -> Int .
+  eq chiSDistr(SHI, S) = gammaDistr(SHI / 2, 2, S) .
+  op chiSDistr : PosRat Int -> Int .
+  eq chiSDistr(SHPR, S) = gammaDistr(SHPR / 2, 2, S) .
+  --- To be used by the F distribution calculation
+  op chiSFloat : Float Int -> Float .
+  eq chiSFloat(SH, S) = gammaCalculation(rat(round(SH / 2.0)), 2.0, S) .
+  
+  --------------------------------------------------------------------------------------------
+  ---------------------------ERLANG DISTRIBUTION----------------------------------------------
+  --- The Erlang distribution is commonly used in queuing models as an extension of the
+  --- exponential distribution. It is like the gamma distribution with the restriction that
+  --- the shape must be a positive integer.
+  op erlangDistr : Int Int Int -> Int .
+  eq erlangDistr(SHI, SCI, S) = rat(round(gammaCalculation (SHI, rat2float(SCI), S))) .
+  op erlangDistr : Int Float Int -> Int .
+  eq erlangDistr(SHI, SC, S) = rat(round(gammaCalculation (SHI, SC, S))) .
+  op erlangDistr : Int PosRat Int -> Int .
+  eq erlangDistr(SHI, SCPR, S) = rat(round(gammaCalculation (SHI, rat2float(SCPR), S))) .
+  --------------------------------------------------------------------------------------------
+  ------------------------------F DISTRIBUTION------------------------------------------------
+  --- The F distribution is used to model the ratio of sample variances, for example, in the
+  --- F-test for regression and analysis of variance
+  --- F(nd, dd) = (chi(nd)/nd) / (chi(dd)/dd)
+  --- nd: numerator degree of freedom, dd: denominator degree of freedom
+  op fDistr : Float Float Int -> Int .
+  eq fDistr(ND, DD, S) = rat(round((chiSFloat(ND, S) / ND) / (chiSFloat(DD, S) / DD))) .
+  op fDistr : Int Float Int -> Int .
+  eq fDistr(NDI, DD, S) = fDistr(rat2float(NDI), DD, S) .
+  op fDistr : PosRat Float Int -> Int .
+  eq fDistr(NDPR, DD, S) = fDistr(rat2float(NDPR), DD, S) .
+  op fDistr : Float Int Int -> Int .
+  eq fDistr(ND, DDI, S) = fDistr(ND, rat2float(DDI), S) .
+  op fDistr : Int Int Int -> Int .
+  eq fDistr(NDI, DDI, S) = fDistr(rat2float(NDI), rat2float(DDI), S) .
+  op fDistr : PosRat Int Int -> Int .
+  eq fDistr(NDPR, DDI, S) = fDistr(rat2float(NDPR), rat2float(DDI), S) .
+  op fDistr : Float PosRat Int -> Int .
+  eq fDistr(ND, DDPR, S) = fDistr(ND, rat2float(DDPR), S) .
+  op fDistr : Int PosRat Int -> Int .
+  eq fDistr(NDI, DDPR, S) = fDistr(rat2float(NDI), rat2float(DDPR), S) .
+  op fDistr : PosRat PosRat Int -> Int .
+  eq fDistr(NDPR, DDPR, S) = fDistr(rat2float(NDPR), rat2float(DDPR), S) .
+  -------------------------------------------------------------------------------------------
+  ----------------------------GEOMETRIC DISTRIBUTION------------------------------------------
+  --- It is a discrete equivalent of the exponential distribution, so it is memoryless. It is
+  --- used to model the number of attemps between successive failures or successes.
+  --- Mean = 1/L: this is the parameter as argument
+  op geomDistr : Float Int -> Int .
+  eq geomDistr(L, S) = rat(ceilingF( log(rat2float((random(S) rem 100000 + 1) / 100000)) /F log(1.0 - L))) .
+  op geomDistr : Int Int -> Int .
+  eq geomDistr(LI, S) = geomDistr(rat2float(LI), S) .
+  op geomDistr : PosRat Int -> Int .
+  eq geomDistr(LPR, S) = geomDistr(rat2float(LPR), S) .
+  --- For the calculation of the Pascal function
+  op geomExp : Float Int -> Int .
+  eq geomExp(L, S) = log(rat2float((random(S) rem 100000 + 1) / 100000)) /F log(1.0 - L) .
+  --------------------------------------------------------------------------------------------
+  --------------------------LOG-NORMAL DISTRIBUTION-------------------------------------------  
+  --- M is the scale and SG is the log-shape 
+  op logNormDistr : Float Float Int -> Int .
+  eq logNormDistr(M, SG, S) = expDistr(1 / normDistr(M, SG, S), S) .
+  op logNormDistr : Int Float Int -> Int .
+  eq logNormDistr(MI, SG, S) = logNormDistr(rat2float(MI), SG, S) .
+  op logNormDistr : PosRat Float Int -> Int .
+  eq logNormDistr(MPR, SG, S) = logNormDistr(rat2float(MPR), SG, S) .
+  op logNormDistr : Float Int Int -> Int .
+  eq logNormDistr(M, SGI, S) = logNormDistr(M, rat2float(SGI), S) .
+  op logNormDistr : Int Int Int -> Int .
+  eq logNormDistr(MI, SGI, S) = logNormDistr(rat2float(MI), rat2float(SGI), S) .
+  op logNormDistr : PosRat Int Int -> Int .
+  eq logNormDistr(MPR, SGI, S) = logNormDistr(rat2float(MPR), rat2float(SGI), S) .
+  op logNormDistr : Float PosRat Int -> Int .
+  eq logNormDistr(M, SGPR, S) = logNormDistr(M, rat2float(SGPR), S) .
+  op logNormDistr : Int PosRat Int -> Int .
+  eq logNormDistr(MI, SGPR, S) = logNormDistr(rat2float(MI), rat2float(SGPR), S) .
+  op logNormDistr : PosRat PosRat Int -> Int .
+  eq logNormDistr(MPR, SGPR, S) = logNormDistr(rat2float(MPR), rat2float(SGPR), S) .
+  --------------------------------------------------------------------------------------------  
+  --------------------------PASCAL DISTRIBUTION---------------------------------------------
+  --- It is an extension of the geometric distribution. To generate Pascal variates, generate
+  --- m geometric variates G(p) and return their sum as Pascal(p,m)
+  --- p has to be < 1
+  op pascalDistr : Float Float Int -> Int .
+  eq pascalDistr(P, M, S) = rat(round(pascalSum(P, rat(round(M)), S))) .
+  op pascalDistr : Float Int Int -> Int .
+  eq pascalDistr(P, MI, S) = pascalDistr(P, rat2float(MI), S) .
+  op pascalDistr : Float PosRat Int -> Int .
+  eq pascalDistr(P, MPR, S) = pascalDistr(P, rat2float(MPR), S) .
+  op pascalDistr : Int Float Int -> Int .
+  eq pascalDistr(PI, M, S) = pascalDistr(rat2float(PI), M, S) .
+  op pascalDistr : Int Int Int -> Int .
+  eq pascalDistr(PI, MI, S) = pascalDistr(rat2float(PI), rat2float(MI), S) .
+  op pascalDistr : Int PosRat Int -> Int .
+  eq pascalDistr(PI, MPR, S) = pascalDistr(rat2float(PI), rat2float(MPR), S) .
+  op pascalDistr : PosRat Float Int -> Int .
+  eq pascalDistr(PPR, M, S) = pascalDistr(rat2float(PPR), M, S) .
+  op pascalDistr : PosRat Int Int -> Int .
+  eq pascalDistr(PPR, MI, S) = pascalDistr(rat2float(PPR), rat2float(MI), S) .
+  op pascalDistr : PosRat PosRat Int -> Int .
+  eq pascalDistr(PPR, MPR, S) = pascalDistr(rat2float(PPR), rat2float(MPR), S) .
+   
+  op pascalSum : Float Int Int -> Float .  
+  eq pascalSum(P, 0, S) = 0.0 .
+  eq pascalSum(P, MI, S) = geomExp(P, S) + pascalSum(P, MI - 1, S + MI) [owise] .
+  ---------------------------------------------------------------------------------------------
+  ------------------------------PARETO DISTRIBUTION-----------------------------------
+  --- Pareto distribution is useful to fit a distribution to observed data. It is sometimes
+  --- used to model the distribution of incomes
+  --- To generate random samples, we use the inverse transformation method:
+  --- Generate u=U(0,1) and return p(a)=1/(u^(1/a))
+  op paretDistr : Float Float Int -> Int .
+  eq paretDistr(SH, SC, S) = rat(round(SC / eval(((random(S) rem 100000 + 1) / 100000) . pow(1 / SH)))) .
+  op paretDistr : Float Int Int -> Int .
+  eq paretDistr(SH, SCI, S) = paretDistr(SH, rat2float(SCI), S) .
+  op paretDistr : Float PosRat Int -> Int .
+  eq paretDistr(SH, SCPR, S) = paretDistr(SH, rat2float(SCPR), S) .
+  op paretDistr : Int Float Int -> Int .
+  eq paretDistr(SHI, SC, S) = paretDistr(rat2float(SHI), SC, S) .
+  op paretDistr : Int Int Int -> Int .
+  eq paretDistr(SHI, SCI, S) = paretDistr(rat2float(SHI), rat2float(SCI), S) .
+  op paretDistr : Int PosRat Int -> Int .
+  eq paretDistr(SHI, SCPR, S) = paretDistr(rat2float(SHI), rat2float(SCPR), S) .
+  op paretDistr : PosRat Float Int -> Int .
+  eq paretDistr(SHPR, SC, S) = paretDistr(rat2float(SHPR), SC, S) .
+  op paretDistr : PosRat Int Int -> Int .
+  eq paretDistr(SHPR, SCI, S) = paretDistr(rat2float(SHPR), rat2float(SCI), S) .
+  op paretDistr : PosRat PosRat Int -> Int .
+  eq paretDistr(SHPR, SCPR, S) = paretDistr(rat2float(SHPR), rat2float(SCPR), S) .
+  -----------------------------------------------------------------------------------
+  -----------------------------BINOMIAL DISTRIBUTION-------------------------------
+  --- B(n,p). n: Number of trials, p: success Probability in each trial
+  --- Generation of n U(0,1) random numbers. The number of random numbers that are 
+  --- less than p is binomial(p,n) .  
+  ---------------------------------------------------------------------------------
+  -------------------------------UNIFORM DISTRIBUTION-----------------------------
+  --- A uniform distribution is commonly used if a random variable is bounded and
+  --- no further information is available
+  --- U(LB, UB) : LB: lower bound, UB: upper bound  
+  op unifDistr : Int Int Int -> Int .
+  eq unifDistr(LBI, UBI, S) = LBI + random(S) rem (UBI - LBI) .
+  op unifDistr : Int Float Int -> Int .
+  eq unifDistr(LBI, UB, S) = LBI + random(S) rem (rat(round(UB)) - LBI) .
+  op unifDistr : Int PosRat Int -> Int .
+  eq unifDistr(LBI, UBPR, S) = LBI + random(S) rem (rat(round(rat2float(UBPR))) - LBI) .
+  op unifDistr : Float Int Int -> Int .
+  eq unifDistr(LB, UBI, S) = rat(round(LB)) + random(S) rem (UBI - rat(round(LB))) .
+  op unifDistr : Float Float Int -> Int .
+  eq unifDistr(LB, UB, S) = rat(round(LB)) + random(S) rem (rat(round(UB)) - rat(round(LB))) .
+  op unifDistr : Float PosRat Int -> Int .
+  eq unifDistr(LB, UBPR, S) = rat(round(LB)) + random(S) rem (rat(round(rat2float(UBPR))) - rat(round(LB))) .
+  op unifDistr : PosRat Int Int -> Int .
+  eq unifDistr(LBPR, UBI, S) = rat(round(rat2float(LBPR))) + random(S) rem (UBI - rat(round(rat2float(LBPR)))) .
+  op unifDistr : PosRat Float Int -> Int .
+  eq unifDistr(LBPR, UB, S) = rat(round(rat2float(LBPR))) + random(S) rem (rat(round(UB)) - rat(round(rat2float(LBPR)))) .
+  op unifDistr : PosRat PosRat Int -> Int .
+  eq unifDistr(LBPR, UBPR, S) = rat(round(rat2float(LBPR))) + random(S) rem (rat(round(rat2float(UBPR))) - rat(round(rat2float(LBPR)))) .
+
+  ---------------------------------------------------------------------------------
+  -------------------------------DoublePDF DISTRIBUTION----------------------------
+  ---- Added to support DoublePDF distribution from Palladio Model Component
+  op doublePDF : String Int -> Int .
+  eq doublePDF(S:String, I:Int) = 1 .
+  
+  ---- A typical DoublePDF specification could be:
+  ---- DoublePDF[ (1.0; 0.25000000) (2.0; 0.50000000) (3.0; 0.25000000) ]
+  
+  ---------------------------------------------------------------------------------
+  vars val val2 : Float .
+  vars ps ps2 : PosRat .
+  var index : Int .
+  var li : List{OCL-Exp} .  
+  -----------------------------rndPMIF----------------------------------------------
+  op rndPMIF : Int -> Int .
+  eq rndPMIF(S) = (S + S + S + S + S + S + S + S + S + S + 
+  	S + S + S + S + S + S + S + S + S + S +
+  	S + S + S + S + S + S + S + S + S + S +
+  	S) rem 10007 .
+  
+  op rndSEQ : Int Int -> List{OCL-Exp} .
+  eq rndSEQ(S, 0) = mt-ord .
+  eq rndSEQ(S, MI) = (rndPMIF(S) - 6) # rndSEQ(rndPMIF(S), MI - 1) [owise] .
+  
+  op checkRND : Int Int -> List{OCL-Exp} .
+  eq checkRND(S, 0) = mt-ord .
+  eq checkRND(S, MI) = eval(S . pow(MI) . rem(10001)) # checkRND(S, MI - 1) [owise] .
+  
+  ------------------------------------------------------------------------------------
+  -------------------------TRUNCATION METHOD------------------------------------------------
+  --- This operation returns the index on the sequence from which the data in the sequence
+  --- enters the steady state according to the truncation method (page 424, book of Raj Jain
+  --- entitled "The Art of Computer Systems Performance Analysis"
+  op truncate : Int Sequence -> Int .
+  eq truncate(index, Sequence{val # li}) = 
+    if ((val =/= minseq(val, Sequence{li})) and (val =/= maxseq(val, Sequence{li})))
+    then index
+    else truncate(index + 1, Sequence{li})
+    fi .
+  eq truncate(index, Sequence{ps # li}) = 
+    if ((ps =/= minseq(ps, Sequence{li})) and (ps =/= maxseq(ps, Sequence{li})))
+    then index
+    else truncate(index + 1, Sequence{li})
+    fi .
+  eq truncate(index, Sequence{mt-ord}) = index .	
+  
+  --- Operation that returns the minimum of two floats
+  op minim : Float Float -> Float .
+  eq minim(val, val2) = if val < val2 then val else val2 fi .
+  --- Operation that returns the minimum of two PosRat
+  op minim : PosRat PosRat -> PosRat .
+  eq minim(ps, ps2) = if ps < ps2 then ps else ps2 fi .
+  
+  --- Operation to retrieve the minimum value of a sequence	of floats	
+  op minSequence : Sequence -> Float .
+  eq minSequence(Sequence{val # li}) = minseq(val, Sequence{li}) .
+  
+  op minseq : Float Sequence -> Float .
+  eq minseq(val, Sequence{val2 # li}) = minseq(minim(val, val2), Sequence{li}) .
+  eq minseq(val, Sequence{mt-ord}) = val .
+  --- Operation to retrieve the maximum value of a sequence	of PosRat	
+  op minseq : PosRat Sequence -> Float .
+  eq minseq(ps, Sequence{ps2 # li}) = minseq(minim(ps, ps2), Sequence{li}) .
+  eq minseq(ps, Sequence{mt-ord}) = ps .
+  
+  --- Operation that returns the maximum of two floats
+  op maxim : Float Float -> Float .
+  eq maxim(val, val2) = if val > val2 then val else val2 fi .
+  --- Operation that returns the maximum of two PosRat
+  op maxim : PosRat PosRat -> PosRat .
+  eq maxim(ps, ps2) = if ps > ps2 then ps else ps2 fi .
+  
+  --- Operation to retrieve the maximum value of a sequence	of floats	
+  op maxseq : Float Sequence -> Float .
+  eq maxseq(val, Sequence{val2 # li}) = maxseq(maxim(val, val2), Sequence{li}) .
+  eq maxseq(val, Sequence{mt-ord}) = val .  
+  --- Operation to retrieve the maximum value of a sequence	of PosRat	
+  op maxseq : PosRat Sequence -> Float .
+  eq maxseq(ps, Sequence{ps2 # li}) = maxseq(maxim(ps, ps2), Sequence{li}) .
+  eq maxseq(ps, Sequence{mt-ord}) = ps .
+  --------------------------------------------------------------------------------
+  vars bSize increase : Int .
+  vars OvMean minValue value : Float .
+  var SEQ : Sequence .
+  ------------------------------ BATCH MEANS METHOD ----------------------------	
+   --- Page 427, book of Raj Jain entitled "The Art of Computer Systems Performance Analysis"
+   
+  --- Given a size for the batches and a sequence of values representing a sample, this
+  --- operation returns a sequence with the means of the batches 	
+  op BMMeansSequence : Int Sequence -> Sequence .
+  eq BMMeansSequence(bSize, SEQ) = Sequence{BMMeansList(bSize, SEQ)} .
+  --- Given a size for the batches and a sequence of values representing a sample, this
+  --- operation returns a list with the means of the batches 
+  op BMMeansList : Int Sequence -> List{OCL-Exp} .
+  eq BMMeansList(bSize, SEQ) = 
+    if eval(SEQ -> size(), none) > bSize then
+      ---Sequence{BMMeanValue(eval(SEQ -> subSequence(1, bSize),none))  #  BMMeansSequence(bSize, eval(SEQ -> subSequence(bSize + 1, SEQ -> size()),none))}
+      BMMeanValue(eval(SEQ -> subSequence(1, bSize),none))  #  BMMeansList(bSize, eval(SEQ -> subSequence(bSize + 1, SEQ -> size()),none))
+    else if eval(SEQ -> size(), none) == bSize then BMMeanValue(SEQ)
+    else mt-ord
+    fi fi .  
+  --- Operation that returns the average of the values of a sequence
+  op BMMeanValue : Sequence -> Float .
+  ---eq BMMeanValue(SEQ) = rat2float(rat2float(eval(SEQ -> sum(),none)) / rat2float(eval(SEQ -> size(),none))) .
+  ---eq BMMeanValue(SEQ) = rat2float(eval(SEQ -> sum(),none)) / rat2float(eval(SEQ -> size() - 1,none)) .
+  eq BMMeanValue(SEQ) = eval(SEQ -> sum(),none) / rat2float(eval(SEQ -> size(),none)) .
+  
+  --- Operation that given a size for the batches and a sequence of values representing a sample,
+  --- it returns the overal mean of the batch means
+  op BMOverallMean : Int Sequence -> Float .
+  eq BMOverallMean(bSize, SEQ) = BMMeanValue(BMMeansSequence(bSize, SEQ)) .
+  
+  --- Given a sequence of values with the means of the batches, this
+  --- operation computes de variance of the batch means
+  op BMVarianceMeans : Sequence -> Float .
+  ---eq BMVarianceMeans(SEQ) = rat2float(eval(Sequence{BMSquareSubstractionsList(BMMeanValue(SEQ), SEQ)} -> sum(), none)) / rat2float(eval(SEQ -> size(), none) - 1) .
+  eq BMVarianceMeans(SEQ) = eval(Sequence{BMSquareSubstractionsList(BMMeanValue(SEQ), SEQ)} -> sum(), none) / rat2float(eval(SEQ -> size(), none) - 1) .
+  
+  --- Given the overall mean and a sequence of values with the means of the batches, this
+  --- operation returns a List with the squares of the substraction (batch means minus overall mean)
+  op BMSquareSubstractionsList : Float Sequence -> List{OCL-Exp} .
+  eq BMSquareSubstractionsList(OvMean, Sequence{val # li}) =
+    ((val - OvMean) *F (val - OvMean)) # BMSquareSubstractionsList(OvMean, Sequence{li}) .
+  eq BMSquareSubstractionsList(OvMean, Sequence{mt-ord}) = mt-ord .
+  
+  --- Given a size of the batch and a sequence, this function returns the variance
+  --- of the batch means. 
+  op BMVariance : Int Sequence -> Float .
+  eq BMVariance(bSize, SEQ) = BMVarianceMeans(BMMeansSequence(bSize, SEQ)) .
+  
+  
+  --- Operation that given a sequence of values representing the sample, an initial
+  --- batch size and the increment in the batch sizes, it returns a sequence with
+  --- the variances por each batch
+  op BMVarianceSequence : Int Int Sequence -> Sequence .
+  eq BMVarianceSequence(bSize, increase, SEQ) = Sequence{BMVarianceList(bSize, increase, SEQ)} .
+  op BMVarianceList : Int Int Sequence -> List{OCL-Exp} .
+  eq BMVarianceList(bSize, increase, SEQ) = 
+    if bSize < eval(SEQ -> size(), none) / 2 then
+      BMVariance(bSize, SEQ) # BMVarianceList(bSize + increase, increase, SEQ)
+    else mt-ord 
+    fi . 
+    
+  --- Operation that given an initial batch size, the increment of batch sizes, the minimum value 
+  --- of the sequence of Batch Means and the sequence
+  --- resulting from having applied the Batch Means method to a sequence of values, it returns
+  --- the size of the batch for which the value is the minimum
+  --- The first argument is also used to return the position of the minimum value
+  op BMRetrieveBSize : Int Int Float Sequence -> Int .
+  eq BMRetrieveBSize(bSize, increase, minValue, Sequence{value # li}) = 
+     if minValue == value 
+     then bSize 
+     else BMRetrieveBSize(bSize + increase, increase, minValue, Sequence{li})
+     fi 
+     . 
+    
+  --- Operation that given a sequence of values representing a sample, an initial 
+  --- batch size and the increment of batch sizes, it returns a number which is the average
+  --- of the values from which the result of the batch means is the minimum value
+  --- until the end of the sequence
+  op BMMeanResult : Int Int Sequence -> Float .
+  eq BMMeanResult(bSize, increase, SEQ) = 
+     BMMeanValue(
+                  eval(
+                    SEQ -> subSequence(
+                      BMRetrieveBSize(
+                       bSize, 
+                       increase, 
+                       minSequence(BMVarianceSequence(bSize, increase, SEQ)), 
+                       BMVarianceSequence(bSize, increase, SEQ)), 
+                      eval(SEQ -> size())
+                    )
+                  )
+                ) .
+  
+  
+  
+ op PosRat2Float : List{OCL-Exp} -> List{OCL-Exp} .
+ eq PosRat2Float(mt-ord) = mt-ord .
+ eq PosRat2Float(ps # li) = rat2float(ps) # PosRat2Float(li) [owise] .
+ 
+ 
+endm
+
+
+-----------------------------------------------------------------------------------------------------
+
+mod E-MOTIONS is
+	pr MGBEHAVIORMM .
+	pr MYLINKLIST .
+	pr MGLIST{@RedActionExec} * (sort MGList{@RedActionExec} to MyActList) .
+	pr MGLIST{@TimeInterval} * (sort MGList{@TimeInterval} to MyTimeIntList) .
+	--- pr DISCRETE_TIME .
+	--- pr DENSE_TIME .
+	--- pr MGRANDOM .
+	pr MGDISTRIBUTIONS .
+		
+	subsort @Model < System .
+ 
+	var MODEL MODEL' : @Model .
+	var MM : @Metamodel . 
+	var OBJSET OBJSET' : Set{@Object} .
+	var O O' O'' OR OR' O1 O1' : Oid . 
+	var C : @Class .
+	var SFS SFS' : Set{@StructuralFeatureInstance} .
+	vars OBJECT OBJECT' : @Object . 
+	vars T TE T' T'' T''' : Time .
+	vars TI : TimeInf .
+	var POS POS' : Int .
+	var SEQ SEQ' : Sequence .
+	var ORDSET : OrdSet .
+	var BAG : Bag .
+	var SET SET' SET'' : Set .
+	var OCLTYPE MINT MAXT MAXT' : OCL-Type .
+	var OCLEXP : OCL-Exp .
+	var ST FORM : String .
+	var MLL MLL' : MyLinkList .
+	var LINK LINK' : @Link .
+	var REF REF' : @Reference .
+	var OIDSL OIDSL' : MSet{OCL-Exp} . --- Of Oid .
+	var OIDSLO OIDSLO' :  List{OCL-Exp} . --- Of Oid .
+	var REFS : MyList .
+	var OBJ : @Object .
+	vars RAT1 RAT2 : Rat .
+	var FLOAT : Float .
+	var MMQ Q : Qid .
+	var AE : ActionExec@MGBehavior . 
+	
+	--- TICK RULE
+	--- To be included in every simulation/analysis
+	***(
+	crl [tick] : 
+		{ MODEL } in time T 
+	  => 
+		{ delta(MODEL, TE) } in time (T plus TE) 
+	if TE := mte(MODEL) 
+	   /\ TE =/= zero 
+	   /\ (T plus TE) le TIMEBOUND .
+	)
+	
+	--- DELTA EQUATIONS		
+	--- First, we try to apply every ongoing rule executions
+	op delta : @Model Time -> @Model [frozen] .
+	eq delta(MM { OBJSET } , T)
+	   = MM { delta( objectsSet( applyOngoingRules(MM { OBJSET }, T) ), T) } .	
+	
+	--- Then, we define time elapse over clock and timer objects
+	op delta : Set{@Object} Time -> Set{@Object} [frozen] .
+	eq delta( < O : AtomicActionExec@MGBehavior | 
+			    (minTimer@AtomicActionExec@MGBehavior : MINT #
+			     maxTimer@ActionExec@MGBehavior : MAXT #
+			     executionTime@AtomicActionExec@MGBehavior : T' #
+				 --- Not ended actions 
+			     endingTime@ActionExec@MGBehavior : null # 
+			     SFS) > OBJSET, T)
+	   = < O : AtomicActionExec@MGBehavior |  
+	   	   (minTimer@AtomicActionExec@MGBehavior : if (MINT =/= null)
+	   	      then (MINT monus T) else null fi #
+	   	    maxTimer@ActionExec@MGBehavior : if (MAXT =/= null)
+	   	      then (MAXT monus T) else null fi #
+		    executionTime@AtomicActionExec@MGBehavior : (T' plus T) # 
+	   	    endingTime@ActionExec@MGBehavior : null # SFS) > 
+	   	 delta(OBJSET, T) .
+	eq delta( < O : Clock@MGBehavior | (time@Clock@MGBehavior : T' # SFS) > OBJSET, T)
+	   = < O : Clock@MGBehavior | (time@Clock@MGBehavior : (T' plus T) # 
+	   		SFS) > delta(OBJSET, T) .
+	eq delta(OBJSET, T) = OBJSET [owise] .
+
+
+	--- DELTA AUXILIARY OPERATIONS
+	op applyOngoingRules : @Model Time -> @Model . 
+	eq applyOngoingRules(MODEL, T) = 
+		joinOngoingActionExecs(deleteInvalidActionExecs(MODEL)) [owise] .
+	
+	--- Delete Ongoing rules that could not be finally performed 
+	op deleteInvalidActionExecs : @Model -> @Model .
+	eq deleteInvalidActionExecs(MM { < O : OngoingActionExec@MGBehavior | 
+		(participants@ActionExec@MGBehavior : SET #
+		endingTime@ActionExec@MGBehavior : null # 
+		variables@ActionExec@MGBehavior : SET' # SFS) > OBJSET })
+	  = deleteInvalidActionExecs( deleteSimpleEls(union(SET,SET'), MM { OBJSET })) .
+	eq deleteInvalidActionExecs(MODEL) = MODEL [owise] .
+	  
+	--- Join OngoingActionExec that represent the same action 
+	--- with the same participants
+	op joinOngoingActionExecs : @Model -> @Model .
+	
+	ceq joinOngoingActionExecs(MM { < O : OngoingActionExec@MGBehavior | 
+		participants@ActionExec@MGBehavior : SET #
+		action@ActionExec@MGBehavior : ST #
+		maxTimer@ActionExec@MGBehavior : MAXT # 
+		endingTime@ActionExec@MGBehavior : T # SFS > 
+		< O' : OngoingActionExec@MGBehavior | 
+		participants@ActionExec@MGBehavior : SET' #
+		variables@ActionExec@MGBehavior : SET'' #
+		action@ActionExec@MGBehavior : ST # 
+		startingTime@ActionExec@MGBehavior : T # 
+		maxTimer@ActionExec@MGBehavior : MAXT' #
+		endingTime@ActionExec@MGBehavior : T' # SFS' >
+		OBJSET })
+	  = joinOngoingActionExecs( deleteSimpleEls(union(SET',SET''), 
+	      MM { < O : OngoingActionExec@MGBehavior | 
+		         participants@ActionExec@MGBehavior : SET #
+		         action@ActionExec@MGBehavior : ST # 
+		         maxTimer@ActionExec@MGBehavior : 
+		         	if ((MAXT =/= null) and-then (MAXT' =/= null)) 
+		         	then (MAXT plus MAXT') else MAXT fi #
+		         endingTime@ActionExec@MGBehavior : T' # SFS > 
+  		       OBJSET }))
+	if sameParticipantsAndRoles(SET, SET', 
+	     MM { < O : OngoingActionExec@MGBehavior | 
+		        participants@ActionExec@MGBehavior : SET #
+		        action@ActionExec@MGBehavior : ST # 
+				endingTime@ActionExec@MGBehavior : T # SFS > 
+			  < O' : OngoingActionExec@MGBehavior | 
+				participants@ActionExec@MGBehavior : SET' #
+				variables@ActionExec@MGBehavior : SET'' #
+				action@ActionExec@MGBehavior : ST # 
+				startingTime@ActionExec@MGBehavior : T # 
+				endingTime@ActionExec@MGBehavior : T' # SFS' >
+			  OBJSET }) .
+	eq joinOngoingActionExecs(MODEL) = MODEL [owise] .
+	
+	op sameParticipantsAndRoles : Set Set @Model -> Bool .
+	eq sameParticipantsAndRoles(Set{OR ; OIDSL}, Set{OR' ; OIDSL'},
+	   MM { < OR : ObjectRole@MGBehavior | actualObject@ObjectRole@MGBehavior : O # 
+	          role@ObjectRole@MGBehavior : ST >
+	        < OR' : ObjectRole@MGBehavior | actualObject@ObjectRole@MGBehavior : O # 
+	          role@ObjectRole@MGBehavior : ST >
+	        OBJSET })
+	  = sameParticipantsAndRoles(Set{OIDSL}, Set{OIDSL'},
+	   MM { < OR : ObjectRole@MGBehavior | actualObject@ObjectRole@MGBehavior : O # 
+	          role@ObjectRole@MGBehavior : ST >
+	        < OR' : ObjectRole@MGBehavior | actualObject@ObjectRole@MGBehavior : O # 
+	          role@ObjectRole@MGBehavior : ST >
+	        OBJSET }) .
+	eq sameParticipantsAndRoles(Set{mt}, Set{mt}, MODEL) = true .
+	eq sameParticipantsAndRoles(SET, SET', MODEL) = false [owise] .
+		
+	--- We use this function to avoid looking contained elements
+	--- (and dangling references)
+	op deleteSimpleEls : Set @Model -> @Model .
+	eq deleteSimpleEls(Set{ O ; OIDSL }, MM { < O : C | SFS > OBJSET }) 
+		= deleteSimpleEls( Set{ OIDSL }, MM { OBJSET }) .
+	eq deleteSimpleEls(SET, MODEL) = MODEL [owise] .
+
+	
+	--- MTE EQUATIONS
+	--- We define the maximal time elapse (mte) over timers
+	op mte : @Model -> TimeInf [frozen] .
+	eq mte(MODEL) = mteAux(MODEL, MODEL) [owise] . 
+	
+	--- 2 Parameter: The whole model to be computed in OCL expressions
+	op mteAux : @Model @Model -> TimeInf [frozen] .
+	eq mteAux( MM { < O : AtomicActionExec@MGBehavior | 
+					  (maxTimer@ActionExec@MGBehavior : T # 
+					  endingTime@ActionExec@MGBehavior : null # 
+					  SFS) > OBJSET }, MODEL) 
+	  = minimum(T, mteAux(MM { OBJSET }, MODEL)) .
+	eq mteAux( MM { < O : OngoingActionExec@MGBehavior | (
+					  maxTimer@ActionExec@MGBehavior : freeze(OCLEXP) # 
+					  endingTime@ActionExec@MGBehavior : null # 
+					  upperBoundTimer@OngoingActionExec@MGBehavior : T' # 
+					  SFS) > OBJSET }, MODEL) 
+	  = if ((eval(OCLEXP, env(empty), MODEL) == null) 
+	      or-else (toRat(eval(OCLEXP, env(empty), MODEL)) <= 0) ) 
+	  	then  minimum(T', mteAux(MM { OBJSET }, MODEL))
+	  	else  minimum(toRat(eval(OCLEXP, env(empty), MODEL)) , 
+	  		minimum(T', mteAux(MM { OBJSET }, MODEL))) fi .
+	---UpperBoundTimer null
+	eq mteAux( MM { < O : OngoingActionExec@MGBehavior | (
+					  maxTimer@ActionExec@MGBehavior : freeze(OCLEXP) # 
+					  endingTime@ActionExec@MGBehavior : null # 
+					  upperBoundTimer@OngoingActionExec@MGBehavior : null # 
+					  SFS) > OBJSET }, MODEL) 
+	  = if ((eval(OCLEXP, env(empty), MODEL) == null) 
+	      or-else (toRat(eval(OCLEXP, env(empty), MODEL)) <= 0) )  
+	  	then  mteAux(MM { OBJSET }, MODEL) 
+	  	else minimum(toRat(eval(OCLEXP, env(empty), MODEL)) , mteAux(MM { OBJSET }, MODEL)) fi .
+	eq mteAux( MM { < O : Clock@MGBehavior | time@Clock@MGBehavior : T > OBJSET }, MODEL) 
+	  = minimum( ( minimum(nextPeriod(T, rulesInformation), nextLowerBound(T, rulesInformation)) monus T )
+	  	, mteAux(MM { OBJSET }, MODEL)) .
+	eq mteAux(MODEL, MODEL') = INF [owise] .	
+	
+	--- MTE AUXILIARY OPERATIONS
+	op rulesInformation : -> @Model . 
+
+	op nextLowerBound : Time @Model -> TimeInf . 
+	eq nextLowerBound(T, MM { < O : AtomicRule@MGBehavior | 
+								lowerBound@Rule@MGBehavior : T' # SFS > OBJSET}) 
+      = minimum(if T ltT T' then T' else INF fi, 
+      		    nextLowerBound(T, MM { OBJSET })) .
+    eq nextLowerBound(T, MODEL) = INF [owise] .
+      		    
+	op nextPeriod : Time @Model -> TimeInf . 
+	eq nextPeriod(T, MODEL) = INF [owise] .
+	eq nextPeriod(T, MM { < O : AtomicRule@MGBehavior | 
+								lowerBound@Rule@MGBehavior : null #
+								upperBound@Rule@MGBehavior : null #
+	                            periodicity@AtomicRule@MGBehavior : T' # SFS > OBJSET}) = 
+		minimum(nextPeriodValue(T,T'), nextPeriod(T, MM { OBJSET })) .
+	eq nextPeriod(T, MM { < O : AtomicRule@MGBehavior | 
+								lowerBound@Rule@MGBehavior : T'' #
+								upperBound@Rule@MGBehavior : null #
+	                            periodicity@AtomicRule@MGBehavior : T' # SFS > OBJSET}) = 
+		minimum(if (T'' le nextPeriodValue(T,T')) then nextPeriodValue(T,T') else INF fi
+		        , nextPeriod(T, MM { OBJSET })) .
+	eq nextPeriod(T, MM { < O : AtomicRule@MGBehavior | 
+								lowerBound@Rule@MGBehavior : null #
+								upperBound@Rule@MGBehavior : T''' #
+	                            periodicity@AtomicRule@MGBehavior : T' # SFS > OBJSET}) = 
+		minimum(if (nextPeriodValue(T,T') le T''') then nextPeriodValue(T,T') else INF fi
+		        , nextPeriod(T, MM { OBJSET })) .
+	eq nextPeriod(T, MM { < O : AtomicRule@MGBehavior | 
+								lowerBound@Rule@MGBehavior : T'' #
+								upperBound@Rule@MGBehavior : T''' #
+	                            periodicity@AtomicRule@MGBehavior : T' # SFS > OBJSET}) = 
+		minimum(if ((T'' le nextPeriodValue(T,T')) and-then (nextPeriodValue(T,T') le T''')) 
+		           then nextPeriodValue(T,T') else INF fi
+		        , nextPeriod(T, MM { OBJSET })) .
+		        
+	op nextPeriodValue : Time Time -> Time .
+	eq nextPeriodValue(T,T') = if ( multiple(T, T') ) then (T + T') 
+		                  else (_*_(ceilingR(T // T'), T')) fi .
+	
+	
+
+	--- 1 argument: time to check
+	--- 2 argument: current time elapse  
+	--- 3 argument: period
+	op inPeriod : Time Time Time -> Bool .
+	eq inPeriod(T, T', T'') = ( _*_(floorR(T' // T''), T'') le T) 
+		and-then (T ltT if multiple(T', T'') then (T' + T'')
+			else _*_(ceilingR(T' // T''), T'') fi) .
+
+			
+	--- INITITIALIZATION
+	--- We create the counter, the clock, and we initialize the time elapse to zero
+	op init : @Model -> ClockedSystem .
+	eq init(MM { OBJSET }) 
+	  = { MM { < 'ids@ : Counter@MGBehavior | value@Counter@MGBehavior : 0 >
+	           < 'rdm@ : Counter@MGBehavior | value@Counter@MGBehavior : 0 >
+	           < 'clk@ : Clock@MGBehavior | time@Clock@MGBehavior : zero >
+	           OBJSET } } in time zero .
+	
+	op init : @Model Int -> ClockedSystem .
+	eq init(MM { OBJSET }, I:Int) 
+	  = { MM { < 'ids@ : Counter@MGBehavior | value@Counter@MGBehavior : 0 >
+	           < 'rdm@ : Counter@MGBehavior | value@Counter@MGBehavior : I:Int >
+	           < 'clk@ : Clock@MGBehavior | time@Clock@MGBehavior : zero >
+	           OBJSET } } in time zero .
+	           
+	--- REALIZATION RULE READJUSTMENT
+	op readjust : Set MyLinkList @Model -> @Model .
+	eq readjust(SET, MLL, MODEL) = deleteElsAndDanglingRefs(SET, updateOppRefs(MLL, MODEL)) .
+	
+	--- For every atomic rule non instantaneous R we have to cancel every action on which
+	--- 	R is a participant when R finalizes 	
+	op readjust : Oid Set MyLinkList @Model -> @Model .
+	eq readjust(O, SET, MLL, MODEL) = 
+		abortActionExecsOf(O, deleteElsAndDanglingRefs(SET, updateOppRefs(MLL, MODEL))) .
+			
+	op deleteElsAndDanglingRefs : Set @Model -> @Model .
+	eq deleteElsAndDanglingRefs(SET, MODEL) =  deleteAllRefsTo(SET, deleteEls(SET, MODEL)) .
+	
+	op deleteEls : Set @Model -> @Model .
+	eq deleteEls(Set{mt}, MODEL) = MODEL .
+	eq deleteEls(Set{O ; OIDSL}, MODEL) = deleteEls(Set{OIDSL}, deleteEl(O, MODEL)) . 
+	
+	--- We do a recursive deletion el objects elements
+	--- We also delete the contained objetcs
+	op deleteEl : Oid @Model -> @Model .
+	eq deleteEl(O, MM { < O : C | SFS > OBJSET })
+		--- dpo rules are not executed if all the references to lhs objects are not expressed in the model,
+		--- and therefore, if the object is deleted, references are deleted as well 
+		= deleteElsAndDanglingRefs(getContainedOids(< O : C | SFS >), abortActionExecsOf(O, MM { OBJSET })) . 		  
+	--- If it is an invalid object, this operation makes no effect over the model
+	eq deleteEl(O, MODEL) = MODEL [owise] .
+	
+	--- When an object is canceled 
+	op abortActionExecsOf : Oid @Model -> @Model .
+	eq abortActionExecsOf(O, MM { < O' : AtomicActionExec@MGBehavior | 
+			  (participants@ActionExec@MGBehavior : Set{ OR ; OIDSL } #
+			  status@AtomicActionExec@MGBehavior : unfinished@ActionStatus@MGBehavior  #
+			  endingTime@ActionExec@MGBehavior : null # SFS) > 
+			< OR : ObjectRole@MGBehavior | ( actualObject@ObjectRole@MGBehavior : O # 
+	    	  role@ObjectRole@MGBehavior : ST ) > 
+	    	< O'' : Clock@MGBehavior | (time@Clock@MGBehavior : T # SFS') > 
+	    	OBJSET }) 
+	    = abortActionExecsOf(O, MM { < O' : AtomicActionExec@MGBehavior | 
+			  (participants@ActionExec@MGBehavior : Set{ OR ; OIDSL } #
+			  status@AtomicActionExec@MGBehavior : aborted@ActionStatus@MGBehavior #
+			  endingTime@ActionExec@MGBehavior : T # SFS) > 
+			< OR : ObjectRole@MGBehavior | ( actualObject@ObjectRole@MGBehavior : O # 
+	    	  role@ObjectRole@MGBehavior : ST ) > 
+	    	< O'' : Clock@MGBehavior | (time@Clock@MGBehavior : T # SFS') > 
+	    	OBJSET } ) .
+	eq abortActionExecsOf(O, MODEL) = MODEL [owise] . 
+		
+	op getContainedOids : @Object -> Set . --- Of Oids .
+	eq getContainedOids(< O : C | SFS >) 
+		= getContainedOids(< O : C | SFS >, containmentReferences(C)) .
+	
+	op getContainedOids : @Object MyList -> Set . --- Of @Reference, Oids .
+	eq getContainedOids(OBJ, nil) = Set{} .
+	eq getContainedOids(< O : C | (REF : OCLTYPE # SFS) >, (REF REFS)) 
+		= union(asSet(OCLTYPE), getContainedOids(< O : C | (REF : OCLTYPE # SFS) >, REFS)) .
+	eq getContainedOids(OBJ, (REF REFS)) = getContainedOids(OBJ, REFS) [owise] .
+		
+	--- SPO FORMALIZATION
+	op deleteAllRefsTo : Set @Model -> @Model . ---Of Oid .
+	eq deleteAllRefsTo(Set{mt}, MODEL) = MODEL .
+	eq deleteAllRefsTo(Set{O ; OIDSL}, MODEL) 
+		= deleteAllRefsTo(Set{OIDSL}, deleteAllRefsTo(O, MODEL)) .
+	
+	op deleteAllRefsTo : Oid @Model -> @Model .
+	eq deleteAllRefsTo(O, MM { < O' : C | (REF : Sequence{OIDSLO # O # OIDSLO'} # SFS) > OBJSET }) = 
+		deleteAllRefsTo(O, MM { < O' : C | (REF : Sequence{OIDSLO # OIDSLO'} # SFS) > OBJSET }) .
+	eq deleteAllRefsTo(O, MM { < O' : C | (REF : Set{O ; OIDSL} # SFS) > OBJSET }) = 
+		deleteAllRefsTo(O, MM { < O' : C | (REF : Set{OIDSL} # SFS) > OBJSET }) .
+	eq deleteAllRefsTo(O, MM { < O' : C | (REF : OrderedSet{OIDSLO # O # OIDSLO'} # SFS) > OBJSET }) = 
+		deleteAllRefsTo(O, MM { < O' : C | (REF : OrderedSet{OIDSLO # OIDSLO'} # SFS) > OBJSET }) .
+	eq deleteAllRefsTo(O, MM { < O' : C | (REF : Bag{O ; OIDSL} # SFS) > OBJSET }) = 
+		deleteAllRefsTo(O, MM { < O' : C | (REF : Bag{OIDSL} # SFS) > OBJSET }) .		
+	ceq deleteAllRefsTo(O, MM { < O' : C | (REF : O # SFS) > OBJSET }) =
+		deleteAllRefsTo(O, MM { < O' : C | (REF : null # SFS) > OBJSET }) 
+	    --- We do not delete reference from Action Execution participants
+	    if (REF =/= actualObject@ObjectRole@MGBehavior) .		
+	eq deleteAllRefsTo(O, MODEL) = MODEL [owise] .	
+	
+	
+	
+	--- DPO FORMALIZATION
+	---	1 argument: set of deleted elements (objects and action executions)
+	--- 2 argument: link list of lhs links
+	--- 3 argument: model
+	op dpo : Set MyLinkList @Model -> Bool . --- Of Oid
+	eq dpo(SET, MLL, MODEL) = 
+		dpo(union(SET, getAllContainedOids(SET, MODEL)),
+			 deleteEls(SET, deleteLinks(MLL, MODEL))) .
+	
+	--- 1 argument : set of possibly deleted elements (including the contained objects)
+	--- 2 argument : model on which the links specified in the lhs (and their opposites) have been deleted.
+	op dpo : Set @Model -> Bool . --- Of Oid
+	eq dpo(Set{mt}, MODEL) = true .
+	--- References to (possible) deleted elements
+	eq dpo(Set{O ; OIDSL}, MM { < O' : C | (REF : Sequence{OIDSLO # O # OIDSLO'} # SFS) > OBJSET }) = false .
+	eq dpo(Set{O ; OIDSL}, MM { < O' : C | (REF : Set{O ; OIDSL'} # SFS) > OBJSET }) = false .
+	eq dpo(Set{O ; OIDSL}, MM { < O' : C | (REF : OrderedSet{OIDSLO # O # OIDSLO'} # SFS) > OBJSET }) = false .
+	eq dpo(Set{O ; OIDSL}, MM { < O' : C | (REF : Bag{O ; OIDSL'} # SFS) > OBJSET }) = false .
+	eq dpo(Set{O ; OIDSL}, MM { < O' : C | (REF : O # SFS) > OBJSET }) = false .
+	--- Otherwise
+	eq dpo(Set{O ; OIDSL}, MODEL) = true [owise] .
+	
+	op getAllContainedOids : Set @Model -> Set . --- Of Oids .
+	eq getAllContainedOids(Set{O ; OIDSL}, MODEL) 
+		= union(getAllContainedOids(O, MODEL), getAllContainedOids(Set{OIDSL}, MODEL)) .
+	eq getAllContainedOids(Set{mt}, MODEL) = Set{} .
+		
+	op getAllContainedOids : Oid @Model -> Set . --- Of Oids .
+	eq getAllContainedOids(O, MM { < O : C | SFS > OBJSET }) 
+		= union(getContainedOids(< O : C | SFS >), 
+			getAllContainedOids(getContainedOids(< O : C | SFS >), MM { < O : C | SFS > OBJSET })) .
+	eq getAllContainedOids(O, MODEL) = Set {} .
+	
+	op deleteLinks : MyLinkList @Model -> @Model .
+	eq deleteLinks(nil, MODEL) = MODEL .
+	eq deleteLinks((LINK MLL), MODEL) = deleteLinks(MLL, deleteLink(LINK, MODEL)) .
+	
+	op deleteLink : @Link @Model -> @Model .
+	eq deleteLink(link(O, O', REF, POS), 
+			MM { < O : C | ( REF : OCLTYPE # SFS )> OBJSET }) 
+		= MM { < O : C | ( REF : deleteRef(O',OCLTYPE, POS) # SFS ) > OBJSET } .
+  	eq deleteLink(link(O, O', REF, null), 
+			MM { < O : C | ( REF : OCLTYPE # SFS )> OBJSET }) 
+		= MM { < O : C | ( REF : deleteRef(O',OCLTYPE) # SFS ) > OBJSET } .
+  	--- If it is an invalid link, this operation makes no effect over the model
+	--- (e.g., references with no opposite match with this equation)
+	eq deleteLink(LINK, MODEL) = MODEL [owise] .
+	
+	
+	--- FURTHER OPERATIONS
+	op clockedSystemKind : -> [ClockedSystem] .
+	
+	op filterModel : ClockedSystem -> ClockedSystem .
+	eq filterModel({MODEL} in time TI) = filterModel(MODEL) . 
+	
+	op filterModel : @Model -> @Model .
+	eq filterModel(MM { < O : AtomicActionExec@MGBehavior | SFS > OBJSET }) 
+		= filterModel(MM { OBJSET }) .
+	eq filterModel(MM { < O : OngoingActionExec@MGBehavior | SFS > OBJSET }) 
+		= filterModel(MM { OBJSET }) .
+	eq filterModel(MM { < O : ObjectRole@MGBehavior | SFS > OBJSET }) 
+		= filterModel(MM { OBJSET }) .
+	eq filterModel(MM { < O : Clock@MGBehavior | SFS > OBJSET }) 
+		= filterModel(MM { OBJSET }) .
+	eq filterModel(MM { < O : Counter@MGBehavior | SFS > OBJSET }) 
+		= filterModel(MM { OBJSET }) .
+	eq filterModel(MM { < O : Variable@MGBehavior | SFS > OBJSET }) 
+		= filterModel(MM { OBJSET }) .
+	eq filterModel(MODEL) = MODEL [owise] .
+			  
+	--- Generation of identifiers
+	op oid : Int -> Qid .
+	eq oid(I:Int) = qid(string(I:Int,10)) .
+	
+	op newId : Int -> Qid .
+	eq newId(I:Int) = oid(I:Int) .
+	   
+    
+    --- Completition of references
+    op updateOppRefs : MyLinkList @Model -> @Model . 
+    eq updateOppRefs(nil, MODEL) = MODEL .
+    eq updateOppRefs((LINK MLL), MODEL) 
+      = updateOppRefs(MLL, updateAddRefs(oppRef(LINK), updateDelRefs(oppRef(LINK), MODEL))) .
+    
+    op updateAddRefs : @Link @Model -> @Model .
+    --- We add the reference only if its not already included
+    ---	Why?The other reference could be already pointed to this one and has not been modified
+    --- Possible problem: if we add two references two the same object, maybe only one is returned 
+    eq updateAddRefs(link(O', REF, SEQ, Sequence{ OIDSLO # O # OIDSLO' }), 
+                          MM { < O : C | REF : OCLTYPE # SFS > OBJSET }) 
+      = if (O' in OCLTYPE) 
+        then updateAddRefs(link(O', REF, SEQ, Sequence{ OIDSLO # OIDSLO' }), 
+                                MM { < O : C | REF : OCLTYPE # SFS > OBJSET })
+        else updateAddRefs(link(O', REF, SEQ, Sequence{ OIDSLO # OIDSLO' }), 
+                                MM { < O : C | REF : addRef(O', REF, OCLTYPE) # SFS > OBJSET })
+        fi .
+    eq updateAddRefs(LINK, MODEL) = MODEL [owise] .
+    
+    op updateDelRefs : @Link @Model -> @Model .
+    --- Every deleted reference must be deleted in its opposite reference
+    eq updateDelRefs(link(O', REF, Sequence{ OIDSLO # O # OIDSLO' }, SEQ),  
+                          MM { < O : C | REF : OCLTYPE # SFS > OBJSET }) 
+      = updateDelRefs(link(O', REF, Sequence{ OIDSLO # OIDSLO' }, SEQ), 
+                                MM { < O : C | REF : deleteRef(O', OCLTYPE) # SFS > OBJSET }) .
+    eq updateDelRefs(LINK, MODEL) = MODEL [owise] .
+    
+    eq deleteLink(link(O, O', REF, POS), 
+			MM { < O : C | ( REF : OCLTYPE # SFS )> OBJSET }) 
+		= MM { < O : C | ( REF : deleteRef(O',OCLTYPE, POS) # SFS ) > OBJSET } .
+  	eq deleteLink(link(O, O', REF, null), 
+			MM { < O : C | ( REF : OCLTYPE # SFS )> OBJSET }) 
+		= MM { < O : C | ( REF : deleteRef(O',OCLTYPE) # SFS ) > OBJSET } .
+  	--- If it is an invalid link, this operation makes no effect over the model
+	--- (e.g., references with no opposite match with this equation)
+	eq deleteLink(LINK, MODEL) = MODEL [owise] .
+	
+	
+    --- Modification of references.
+    --- 3 argument: List of links to delete
+    --- 4 argument: List of links to add
+    op update : @Reference OCL-Type MyLinkList MyLinkList -> OCL-Type .
+    eq update(REF, OCLTYPE, MLL, MLL') = 
+      addLinks(quicksort(MLL'), deleteLinks(reverse(quicksort(MLL)), OCLTYPE), REF) . 
+    
+    op deleteLinks : MyLinkList OCL-Type -> OCL-Type .
+	eq deleteLinks(nil, OCLTYPE) = OCLTYPE .
+	eq deleteLinks((LINK MLL), OCLTYPE) = deleteLinks(MLL, deleteLink(LINK, OCLTYPE)) .
+    op deleteLink : @Link OCL-Type -> OCL-Type .
+    eq deleteLink(link(O, null), OCLTYPE) = deleteRef(O, OCLTYPE) .
+    eq deleteLink(link(O, POS), OCLTYPE) = deleteRef(O, OCLTYPE, POS) .
+   
+    op addLinks : MyLinkList OCL-Type @Reference -> OCL-Type .
+	eq addLinks(nil, OCLTYPE, REF) = OCLTYPE .
+	eq addLinks((LINK MLL), OCLTYPE, REF) = addLinks(MLL, addLink(LINK, OCLTYPE, REF), REF) .
+    op addLink : @Link OCL-Type @Reference -> OCL-Type .
+    eq addLink(link(O, null), OCLTYPE, REF) = addRef(O, REF, OCLTYPE) .
+    eq addLink(link(O, POS), OCLTYPE, REF) = addRef(O, REF, OCLTYPE, POS) .
+    
+    --- Addition of references
+	--- With position
+	--- The reference is needed in the case an null value is found
+	--- (to know which kind of Collection do we need to return)
+	op addRef : Oid @Reference OCL-Type Int -> OCL-Type .
+	eq addRef(O, REF, SEQ, POS) = insertAt(POS, O, SEQ) .
+	eq addRef(O, REF, ORDSET, POS) = insertAt(POS, O, ORDSET) .
+	eq addRef(O, REF, OCLTYPE, POS) = addRef(O, REF, OCLTYPE) [owise] .
+	
+	--- Without position
+	op addRef : Oid @Reference OCL-Type -> OCL-Type .	  
+	eq addRef(O, REF, SEQ) = append-item(O, SEQ) .
+	eq addRef(O, REF, ORDSET) = append-item(O, ORDSET) .
+	eq addRef(O, REF, BAG) =  include(O, BAG) .
+	eq addRef(O, REF, SET) =  include(O, SET) .
+		--- It contemplate null and single values 	
+	eq addRef(O, REF, OCLTYPE) = if isMany(REF) 
+		then addRef(O, REF, defaultValue(REF)) 
+		else O fi   [owise] .
+		
+	--- Deletion of references
+	--- With position
+	--- If the element is not in the specified position, we will delete an 
+	--- instance of the element in any other position
+	op deleteRef : Oid OCL-Type Int -> OCL-Type .
+	eq deleteRef(O, SEQ, POS) = 
+		if (item-at(POS, SEQ) == O) 
+		then if (POS == 1) then get-tail(SEQ)
+		     else union(subSequence(SEQ,1, (POS - 1)), get-tail(subSequence(SEQ, (POS),| SEQ |)) ) fi
+		else deleteRef(O, SEQ) fi .
+	--- Without position
+	op deleteRef : Oid OCL-Type -> OCL-Type .	  
+	eq deleteRef(O, Sequence{L:List{OCL-Exp}}) = Sequence{delete$L(O, L:List{OCL-Exp})} .
+		--- Bags are not ordered (the position has no meaning here)
+	eq deleteRef(O, Bag{L:MSet{OCL-Exp}}) = Bag{delete$(O, L:MSet{OCL-Exp})} .
+		--- Sets and OrderedSer can not have repeated elements: 
+		--- 	1. The position is not needed at all
+		--- 	2. Exclude (that delete all occurrences) can be used 
+	eq deleteRef(O, ORDSET) = exclude(O, ORDSET) .
+	eq deleteRef(O, SET) = exclude(O, SET) . 	
+	eq deleteRef(O, O) = null . 
+	eq deleteRef(O, OCLTYPE) = OCLTYPE [owise] .	
+	
+	--- Operation defined over variables
+	op getVarValue : @Object -> OCL-Type .
+	eq getVarValue(< O : Variable@MGBehavior | (name@Variable@MGBehavior : ST # 
+		value@Variable@MGBehavior : OCLTYPE)>) = OCLTYPE .
+	eq getVarValue(OBJ) = null [owise] .
+	
+	--- Multiple operation
+	op multiple : Time Time -> Bool .
+	eq multiple(RAT1 , RAT2) = (RAT1 rem RAT2) == 0 . 
+	
+	--- For time computations be converted into Rational numbers
+	op toRat : OCL-Type ~> Rat .
+	--- op toRat : Float -> Rat .
+	eq toRat(FLOAT) = rat(FLOAT) .
+	--- op toRat : Rat -> Rat .
+	eq toRat(RAT1) = RAT1 .
+	eq toRat(null) = null .
+	
+	--- To freeze OCL-Exp
+	--- They are moved to OCL-Type due to StrFeatInstance ctors
+	op freeze : OCL-Exp -> OCL-Type .
+	
+	--- REWITING A MODEL
+	op parseRewrittenTimedModel : @Model Qid Int -> String .
+	eq parseRewrittenTimedModel(MODEL, MMQ, I:Int) 
+		= parseModel(getTerm( metaReduce(upModule(MMQ, false), 
+		  _`[_`]('filterModel,getTerm( metaRewrite( upModule(MMQ, false), 
+		  upTerm(init(MODEL,I:Int)),	unbounded))))), MMQ) .
+	
+	--- SEARCH
+    var S : Substitution .
+    var TERM : Term .
+    
+    op getModelVar : Substitution -> Term .
+    eq getModelVar(('MODEL@:@Model <-ML TERM) ;ML S) = TERM .
+
+    op getTimeVar : Substitution -> String .
+    eq getTimeVar(('TIME@:Time <-ML _`[_`](Q, '0.Zero)) ;ML S) = qidToNat(Q) .
+    
+    op parseModelVar : [Substitution] Qid -> String .
+    eq parseModelVar(getSubstitution((failure).ResultTriple?), MMQ) = "NoSolutionFound" .
+    eq parseModelVar(S, MMQ) = "in time " ++ (getTimeVar(S) ++ (" " ++ parseModel(getModelVar(S), MMQ))) . 
+	
+	
+	--- QUERYING REWRITTED MODELS
+    op finalizedActions : ClockedSystem -> MyActList .
+    eq finalizedActions({MODEL} in time T) = finalizedActions(MODEL) .
+	op finalizedActions : @Model -> MyActList .
+	eq finalizedActions(MM { < O' : AE | action@ActionExec@MGBehavior : ST # 
+        startingTime@ActionExec@MGBehavior : T # 
+	    participants@ActionExec@MGBehavior : SET #
+	    endingTime@ActionExec@MGBehavior : T' # SFS > 
+        OBJSET } )
+	  = _performed`in`[_`,_`]with_(ST, T , T' , actualObjects(SET, MM { OBJSET }) ) 
+	    finalizedActions(MM { OBJSET } ) .
+	eq finalizedActions(MODEL ) = nil [owise] .
+	
+	op finalizedOccurrencesOf : String ClockedSystem -> MyActList .
+    eq finalizedOccurrencesOf(ST, {MODEL} in time T) = finalizedOccurrencesOf(ST, MODEL) .
+	op finalizedOccurrencesOf : String @Model -> MyActList .
+	eq finalizedOccurrencesOf(ST, MM { < O' : AE | action@ActionExec@MGBehavior : ST # 
+        startingTime@ActionExec@MGBehavior : T # 
+	    participants@ActionExec@MGBehavior : SET #
+	    endingTime@ActionExec@MGBehavior : T' # SFS > 
+        OBJSET } )
+	  = in`[_`,_`]with_(T , T' , actualObjects(SET, MM { OBJSET }) ) 
+	    finalizedOccurrencesOf(ST, MM { OBJSET } ) .
+	eq finalizedOccurrencesOf(ST, MODEL ) = nil [owise] .
+	
+	op finalizedOccurrencesOf : Oid String ClockedSystem -> MyActList .
+    eq finalizedOccurrencesOf(O, ST, {MODEL} in time T) = finalizedOccurrencesOf(O, ST, MODEL) .
+	op finalizedOccurrencesOf : Oid String @Model -> MyTimeIntList .
+	eq finalizedOccurrencesOf(O, ST, MM { < O' : AE | action@ActionExec@MGBehavior : ST # 
+	    startingTime@ActionExec@MGBehavior : T # 
+	    participants@ActionExec@MGBehavior : Set {OR ; OIDSL } #
+	    endingTime@ActionExec@MGBehavior : T' # SFS > 
+	    < OR : ObjectRole@MGBehavior | actualObject@ObjectRole@MGBehavior : O # SFS' >
+	    OBJSET } )
+	  = ([ T , T']) finalizedOccurrencesOf(O, ST, MM { OBJSET } ) .
+	eq finalizedOccurrencesOf(O, ST, MODEL ) = nil [owise] .
+	
+	op finalizedActionsOf : Oid ClockedSystem -> MyActList .
+    eq finalizedActionsOf(O, {MODEL} in time T) = finalizedActionsOf(O, MODEL) .
+	op finalizedActionsOf : Oid @Model -> MyActList .
+	eq finalizedActionsOf(O, MM { < O' : AE | action@ActionExec@MGBehavior : ST # 
+        startingTime@ActionExec@MGBehavior : T # 
+	    participants@ActionExec@MGBehavior : Set {OR ; OIDSL } #
+	    endingTime@ActionExec@MGBehavior : T' # SFS > 
+        < OR : ObjectRole@MGBehavior | actualObject@ObjectRole@MGBehavior : O # SFS' >
+        OBJSET } )
+	  = _in`[_`,_`](ST, T , T') finalizedActionsOf(O, MM { OBJSET } ) .
+	eq finalizedActionsOf(O, MODEL ) = nil [owise] .
+	
+	op currentActions : ClockedSystem -> MyActList .
+    eq currentActions({MODEL} in time T) = currentActions(MODEL) .
+	op currentActions : @Model -> MyActList .
+	eq currentActions(MM { < O' : AE | action@ActionExec@MGBehavior : ST # 
+        startingTime@ActionExec@MGBehavior : T # 
+	    participants@ActionExec@MGBehavior : SET #
+	    endingTime@ActionExec@MGBehavior : null # SFS > 
+        OBJSET } )
+	  = _started`at_with_(ST, T , actualObjects(SET, MM { OBJSET }) ) 
+	    currentActions(MM { OBJSET } ) .
+	eq currentActions(MODEL) = nil [owise] .	    
+	  
+	op actionsAt : Oid Time ClockedSystem -> MyActList .
+    eq actionsAt(O, T, {MODEL} in time T') = actionsAt(O, T, MODEL) .
+	op actionsAt : Oid Time @Model -> MyActList .
+	ceq actionsAt(O, T, MM { < O' : AE | action@ActionExec@MGBehavior : ST # 
+        startingTime@ActionExec@MGBehavior : T' # 
+	    participants@ActionExec@MGBehavior : Set {OR ; OIDSL } #
+	    endingTime@ActionExec@MGBehavior : T'' # SFS > 
+        < OR : ObjectRole@MGBehavior | actualObject@ObjectRole@MGBehavior : O # SFS' >
+        OBJSET } )
+	  = (ST with actualObjects(Set{OIDSL}, MM { OBJSET }) ) actionsAt(O, T, MM { OBJSET }) 
+	if (T' le T) /\ (T le T'') .
+	ceq actionsAt(O, T, MM { < O' : AE | action@ActionExec@MGBehavior : ST # 
+        startingTime@ActionExec@MGBehavior : T' # 
+	    participants@ActionExec@MGBehavior : Set {OR ; OIDSL } #
+	    endingTime@ActionExec@MGBehavior : null # SFS > 
+        < OR : ObjectRole@MGBehavior | actualObject@ObjectRole@MGBehavior : O # SFS' >
+        OBJSET } )
+	  = (ST with actualObjects(Set{OIDSL}, MM { OBJSET }) ) actionsAt(O, T, MM { OBJSET })  
+	if (T' le T) .
+	eq actionsAt(O, T, MODEL) = nil [owise] .
+	   
+	op actionsAt : Time ClockedSystem -> MyActList .
+    eq actionsAt(T, {MODEL} in time T') = actionsAt(T, MODEL) .
+	op actionsAt : Time @Model -> MyActList .
+	ceq actionsAt(T, MM { < O' : AE | action@ActionExec@MGBehavior : ST # 
+        startingTime@ActionExec@MGBehavior : T' # 
+	    participants@ActionExec@MGBehavior : SET #
+	    endingTime@ActionExec@MGBehavior : T'' # SFS > 
+        OBJSET } )
+	  = (ST with actualObjects(SET, MM { OBJSET }) ) actionsAt(T, MM { OBJSET } )   
+	if (T' le T) /\ (T le T'') .
+	ceq actionsAt(T, MM { < O' : AE | action@ActionExec@MGBehavior : ST # 
+        startingTime@ActionExec@MGBehavior : T' # 
+	    participants@ActionExec@MGBehavior : SET #
+	    endingTime@ActionExec@MGBehavior : null # SFS > 
+        OBJSET } )
+	  = (ST with actualObjects(SET, MM { OBJSET }) ) actionsAt(T, MM { OBJSET } ) 
+	if (T' le T) .
+	eq actionsAt(T, MODEL) = nil [owise] .
+	
+	op occurrenceAt? : Oid String Time ClockedSystem -> Bool .
+    eq occurrenceAt?(O, ST, T, {MODEL} in time T') = occurrenceAt?(O, ST, T, MODEL) .
+	op occurrenceAt? : Oid String Time @Model -> Bool .
+	ceq occurrenceAt?(O, ST, T, MM { < O' : AE | action@ActionExec@MGBehavior : ST # 
+        startingTime@ActionExec@MGBehavior : T' # 
+	    participants@ActionExec@MGBehavior : Set {OR ; OIDSL } #
+	    endingTime@ActionExec@MGBehavior : T'' # SFS > 
+        < OR : ObjectRole@MGBehavior | actualObject@ObjectRole@MGBehavior : O # SFS' >
+        OBJSET } )
+	  = true
+	if (T' le T) /\ (T le T'') .
+	ceq occurrenceAt?(O, ST, T, MM { < O' : AE | action@ActionExec@MGBehavior : ST # 
+        startingTime@ActionExec@MGBehavior : T' # 
+	    participants@ActionExec@MGBehavior : Set {OR ; OIDSL } #
+	    endingTime@ActionExec@MGBehavior : null # SFS > 
+        < OR : ObjectRole@MGBehavior | actualObject@ObjectRole@MGBehavior : O # SFS' >
+        OBJSET } )
+	  = true
+	if (T' le T) .
+	eq occurrenceAt?(O, ST, T, MODEL )
+	  = false [owise] .
+	  
+	op startingActionsAt : Time ClockedSystem -> MyActList .
+    eq startingActionsAt(T, {MODEL} in time T') = startingActionsAt(T, MODEL) .
+	op startingActionsAt : Time @Model -> MyActList .
+	eq startingActionsAt(T, MM { < O : AE | action@ActionExec@MGBehavior : ST # 
+        startingTime@ActionExec@MGBehavior : T # 
+	    participants@ActionExec@MGBehavior : SET # SFS > 
+        OBJSET } )
+	  =  (ST with actualObjects(SET, MM { OBJSET }) ) startingActionsAt(T, MM { OBJSET } ) .
+	eq startingActionsAt(T, MODEL ) = nil [owise] .
+	
+	op finalizedActionsAt : Time ClockedSystem -> MyActList .
+    eq finalizedActionsAt(T, {MODEL} in time T') = finalizedActionsAt(T, MODEL) .
+	op finalizedActionsAt : Time @Model -> MyActList .
+	eq finalizedActionsAt(T, MM { < O : AE | action@ActionExec@MGBehavior : ST # 
+        endingTime@ActionExec@MGBehavior : T # 
+	    participants@ActionExec@MGBehavior : SET # SFS > 
+        OBJSET } )
+	  =  (ST with actualObjects(SET, MM { OBJSET }) ) finalizedActionsAt(T, MM { OBJSET } ) .
+	eq finalizedActionsAt(T, MODEL ) = nil [owise] .
+	  
+	--- Auxiliary operations
+	op actualObjects : Set @Model -> MSet{OCL-Exp} .
+	eq actualObjects(Set{ OR ; OIDSL }, MM { 
+        < OR : ObjectRole@MGBehavior | actualObject@ObjectRole@MGBehavior : O # SFS' >
+        OBJSET } )
+	  = O ; actualObjects(Set{ OIDSL }, MM { OBJSET })  .
+	eq actualObjects(SET, MODEL ) = mt [owise] .
+	
+	
+	***(
+	var R R' : @RedActionExec . 
+	var RLIST : MyActList .
+	op prettyPrint : MyActList -> String .
+	eq prettyPrint((R RLIST)) = prettyPrintAux(R) ++ ("\n" ++ prettyPrint(RLIST)) .
+	eq prettyPrint(nil) = "" . 
+	op prettyPrintAux : @RedActionExec -> String .
+	eq prettyPrintAux(_in`[_`,_`](ST, T, T')) 
+	  = ST ++ (" in [" ++ (string(T, 10) ++ (", " ++ (string(T', 10) ++ "]")))) .
+	eq prettyPrintAux(ST with OIDSL) 
+	  = ST ++ (" with (" ++ (toString(OIDSL) ++ ")")) .
+	eq prettyPrintAux(_performed`in`[_`,_`]with_(ST, T, T', OIDSL)) 
+	  = ST ++ (" performed in [" ++ (string(T, 10) ++ (", " ++ (string(T', 10) ++ ("] with (" ++ (toString(OIDSL) ++ ")")))))) .
+	eq prettyPrintAux(in`[_`,_`]with_(T, T', OIDSL)) 
+	  = "In [" ++ (string(T, 10) ++ (", " ++ (string(T', 10) ++ ("] with (" ++ (toString(OIDSL) ++ ")"))))) .
+	eq prettyPrintAux(_started`at_with_(ST, T, OIDSL)) 
+	  = ST ++ (" started at " ++ (string(T, 10) ++ (" with (" ++ (toString(OIDSL) ++ ")")))) .
+	  
+	op toString : MSet{OCL-Exp} -> String [ditto] .
+	eq toString(mt) = "" .
+	--- eq toString(O) = toString(O) .
+	eq toString((O ; O' ; OIDSL)) = toString(O) ++ (", " ++ toString((O' ; OIDSL))) .
+	)
+endm
+
