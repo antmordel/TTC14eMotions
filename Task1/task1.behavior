@@ -22,25 +22,25 @@
         </sfs>
         <classGD href="ParameterWoven/parameterwoven.gcs#//@packagesGD.0/@classesGD.4"/>
       </els>
-      <els xsi:type="behavior:Object" id="m2" inLinks="//@rules.0/@patterns.1/@els.9 //@rules.0/@patterns.1/@els.13">
+      <els xsi:type="behavior:Object" id="m2" inLinks="//@rules.0/@patterns.1/@els.9 //@rules.0/@patterns.1/@els.13 //@rules.0/@patterns.1/@els.18 //@rules.0/@patterns.1/@els.25 //@rules.0/@patterns.1/@els.29">
         <sfs oclValue="10 * n + 1">
           <sf href="ParameterWoven/parameterwoven.ecore#//Movie/rating"/>
         </sfs>
         <classGD href="ParameterWoven/parameterwoven.gcs#//@packagesGD.0/@classesGD.4"/>
       </els>
-      <els xsi:type="behavior:Object" id="m3" inLinks="//@rules.0/@patterns.1/@els.10 //@rules.0/@patterns.1/@els.14">
+      <els xsi:type="behavior:Object" id="m3" inLinks="//@rules.0/@patterns.1/@els.10 //@rules.0/@patterns.1/@els.14 //@rules.0/@patterns.1/@els.17 //@rules.0/@patterns.1/@els.24 //@rules.0/@patterns.1/@els.28">
         <sfs oclValue="10 * n + 2">
           <sf href="ParameterWoven/parameterwoven.ecore#//Movie/rating"/>
         </sfs>
         <classGD href="ParameterWoven/parameterwoven.gcs#//@packagesGD.0/@classesGD.4"/>
       </els>
-      <els xsi:type="behavior:Object" id="m4" inLinks="//@rules.0/@patterns.1/@els.11 //@rules.0/@patterns.1/@els.15">
+      <els xsi:type="behavior:Object" id="m4" inLinks="//@rules.0/@patterns.1/@els.11 //@rules.0/@patterns.1/@els.15 //@rules.0/@patterns.1/@els.19 //@rules.0/@patterns.1/@els.22 //@rules.0/@patterns.1/@els.27">
         <sfs oclValue="10 * n + 3">
           <sf href="ParameterWoven/parameterwoven.ecore#//Movie/rating"/>
         </sfs>
         <classGD href="ParameterWoven/parameterwoven.gcs#//@packagesGD.0/@classesGD.4"/>
       </els>
-      <els xsi:type="behavior:Object" id="m5">
+      <els xsi:type="behavior:Object" id="m5" inLinks="//@rules.0/@patterns.1/@els.23 //@rules.0/@patterns.1/@els.26">
         <sfs oclValue="10 * n + 4">
           <sf href="ParameterWoven/parameterwoven.ecore#//Movie/rating"/>
         </sfs>
@@ -53,7 +53,7 @@
         <classGD href="ParameterWoven/parameterwoven.gcs#//@packagesGD.0/@classesGD.1"/>
       </els>
       <els xsi:type="behavior:Object" id="b" outLinks="//@rules.0/@patterns.1/@els.12 //@rules.0/@patterns.1/@els.13 //@rules.0/@patterns.1/@els.14 //@rules.0/@patterns.1/@els.15">
-        <sfs oclValue="(p.n).toString()">
+        <sfs oclValue="'a'.concat((10*n + 1).toString())">
           <sf href="ParameterWoven/parameterwoven.ecore#//Person/name"/>
         </sfs>
         <classGD href="ParameterWoven/parameterwoven.gcs#//@packagesGD.0/@classesGD.1"/>
@@ -82,8 +82,56 @@
       <els xsi:type="behavior:Link" src="//@rules.0/@patterns.1/@els.7" target="//@rules.0/@patterns.1/@els.4">
         <ref href="ParameterWoven/parameterwoven.ecore#//Person/movies"/>
       </els>
-      <els xsi:type="behavior:Object" id="c">
+      <els xsi:type="behavior:Object" id="c" outLinks="//@rules.0/@patterns.1/@els.17 //@rules.0/@patterns.1/@els.18 //@rules.0/@patterns.1/@els.19">
+        <sfs oclValue="'a'.concat((10*n + 2).toString())">
+          <sf href="ParameterWoven/parameterwoven.ecore#//Person/name"/>
+        </sfs>
         <classGD href="ParameterWoven/parameterwoven.gcs#//@packagesGD.0/@classesGD.1"/>
+      </els>
+      <els xsi:type="behavior:Link" src="//@rules.0/@patterns.1/@els.16" target="//@rules.0/@patterns.1/@els.3">
+        <ref href="ParameterWoven/parameterwoven.ecore#//Person/movies"/>
+      </els>
+      <els xsi:type="behavior:Link" src="//@rules.0/@patterns.1/@els.16" target="//@rules.0/@patterns.1/@els.2">
+        <ref href="ParameterWoven/parameterwoven.ecore#//Person/movies"/>
+      </els>
+      <els xsi:type="behavior:Link" src="//@rules.0/@patterns.1/@els.16" target="//@rules.0/@patterns.1/@els.4">
+        <ref href="ParameterWoven/parameterwoven.ecore#//Person/movies"/>
+      </els>
+      <els xsi:type="behavior:Object" id="d" outLinks="//@rules.0/@patterns.1/@els.22 //@rules.0/@patterns.1/@els.23 //@rules.0/@patterns.1/@els.24 //@rules.0/@patterns.1/@els.25">
+        <sfs oclValue="'a'.concat((10*n + 3).toString())">
+          <sf href="ParameterWoven/parameterwoven.ecore#//Person/name"/>
+        </sfs>
+        <classGD href="ParameterWoven/parameterwoven.gcs#//@packagesGD.0/@classesGD.2"/>
+      </els>
+      <els xsi:type="behavior:Object" id="e" outLinks="//@rules.0/@patterns.1/@els.26 //@rules.0/@patterns.1/@els.27 //@rules.0/@patterns.1/@els.28 //@rules.0/@patterns.1/@els.29">
+        <sfs oclValue="'a'.concat((10*n + 4).toString())">
+          <sf href="ParameterWoven/parameterwoven.ecore#//Person/name"/>
+        </sfs>
+        <classGD href="ParameterWoven/parameterwoven.gcs#//@packagesGD.0/@classesGD.2"/>
+      </els>
+      <els xsi:type="behavior:Link" src="//@rules.0/@patterns.1/@els.20" target="//@rules.0/@patterns.1/@els.4">
+        <ref href="ParameterWoven/parameterwoven.ecore#//Person/movies"/>
+      </els>
+      <els xsi:type="behavior:Link" src="//@rules.0/@patterns.1/@els.20" target="//@rules.0/@patterns.1/@els.5">
+        <ref href="ParameterWoven/parameterwoven.ecore#//Person/movies"/>
+      </els>
+      <els xsi:type="behavior:Link" src="//@rules.0/@patterns.1/@els.20" target="//@rules.0/@patterns.1/@els.3">
+        <ref href="ParameterWoven/parameterwoven.ecore#//Person/movies"/>
+      </els>
+      <els xsi:type="behavior:Link" src="//@rules.0/@patterns.1/@els.20" target="//@rules.0/@patterns.1/@els.2">
+        <ref href="ParameterWoven/parameterwoven.ecore#//Person/movies"/>
+      </els>
+      <els xsi:type="behavior:Link" src="//@rules.0/@patterns.1/@els.21" target="//@rules.0/@patterns.1/@els.5">
+        <ref href="ParameterWoven/parameterwoven.ecore#//Person/movies"/>
+      </els>
+      <els xsi:type="behavior:Link" src="//@rules.0/@patterns.1/@els.21" target="//@rules.0/@patterns.1/@els.4">
+        <ref href="ParameterWoven/parameterwoven.ecore#//Person/movies"/>
+      </els>
+      <els xsi:type="behavior:Link" src="//@rules.0/@patterns.1/@els.21" target="//@rules.0/@patterns.1/@els.3">
+        <ref href="ParameterWoven/parameterwoven.ecore#//Person/movies"/>
+      </els>
+      <els xsi:type="behavior:Link" src="//@rules.0/@patterns.1/@els.21" target="//@rules.0/@patterns.1/@els.2">
+        <ref href="ParameterWoven/parameterwoven.ecore#//Person/movies"/>
       </els>
     </patterns>
   </rules>
