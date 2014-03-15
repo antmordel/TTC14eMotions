@@ -10,6 +10,9 @@ load parameterwoven.ecore.maude
 load task1.behavior.maude
 load n1.xmi.maude
 
+set print conceal on .
+print conceal <_:_|_> __ .
+
 mod EJECUCION is
   ---op edfEmptyModel : -> @Model
   ---.
@@ -56,3 +59,6 @@ endm
 
 ---Simulation
 rew init(n1) .
+
+set print conceal off .
+
