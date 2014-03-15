@@ -1,0 +1,8 @@
+
+Using e-Motions:
+
+---- With only createPositive rule:
+	N	TimeMaude	TimeEclipse
+	1000	9seg		No finish
+	2000	38seg	
+	
