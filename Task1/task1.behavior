@@ -2,12 +2,11 @@
 <behavior:Behavior xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:behavior="http://www.lcc.uma.es/Behavior/1.0">
   <metamodelGD href="ParameterWoven/parameterwoven.gcs#/"/>
   <rules xsi:type="behavior:AtomicRule" name="createPositive" lhs="//@rules.0/@patterns.0" rhs="//@rules.0/@patterns.1" maxDuration="0">
-    <vbles name="n" type="Integer" value="p.n - 1"/>
     <patterns name="LHS">
       <els xsi:type="behavior:Object" id="p">
         <classGD href="ParameterWoven/parameterwoven.gcs#//@packagesGD.0/@classesGD.7"/>
       </els>
-      <els xsi:type="behavior:Condition" oclValue="p.n > 0"/>
+      <els xsi:type="behavior:Condition" oclValue="p.n >= 0"/>
     </patterns>
     <patterns name="RHS">
       <els xsi:type="behavior:Object" id="p">
@@ -17,43 +16,43 @@
         <classGD href="ParameterWoven/parameterwoven.gcs#//@packagesGD.0/@classesGD.7"/>
       </els>
       <els xsi:type="behavior:Object" id="m1" inLinks="//@rules.0/@patterns.1/@els.8 //@rules.0/@patterns.1/@els.12">
-        <sfs oclValue="10 * n">
+        <sfs oclValue="10 * p.n">
           <sf href="ParameterWoven/parameterwoven.ecore#//Movie/rating"/>
         </sfs>
         <classGD href="ParameterWoven/parameterwoven.gcs#//@packagesGD.0/@classesGD.4"/>
       </els>
       <els xsi:type="behavior:Object" id="m2" inLinks="//@rules.0/@patterns.1/@els.9 //@rules.0/@patterns.1/@els.13 //@rules.0/@patterns.1/@els.18 //@rules.0/@patterns.1/@els.25 //@rules.0/@patterns.1/@els.29">
-        <sfs oclValue="10 * n + 1">
+        <sfs oclValue="10 * p.n + 1">
           <sf href="ParameterWoven/parameterwoven.ecore#//Movie/rating"/>
         </sfs>
         <classGD href="ParameterWoven/parameterwoven.gcs#//@packagesGD.0/@classesGD.4"/>
       </els>
       <els xsi:type="behavior:Object" id="m3" inLinks="//@rules.0/@patterns.1/@els.10 //@rules.0/@patterns.1/@els.14 //@rules.0/@patterns.1/@els.17 //@rules.0/@patterns.1/@els.24 //@rules.0/@patterns.1/@els.28">
-        <sfs oclValue="10 * n + 2">
+        <sfs oclValue="10 * p.n + 2">
           <sf href="ParameterWoven/parameterwoven.ecore#//Movie/rating"/>
         </sfs>
         <classGD href="ParameterWoven/parameterwoven.gcs#//@packagesGD.0/@classesGD.4"/>
       </els>
       <els xsi:type="behavior:Object" id="m4" inLinks="//@rules.0/@patterns.1/@els.11 //@rules.0/@patterns.1/@els.15 //@rules.0/@patterns.1/@els.19 //@rules.0/@patterns.1/@els.22 //@rules.0/@patterns.1/@els.27">
-        <sfs oclValue="10 * n + 3">
+        <sfs oclValue="10 * p.n + 3">
           <sf href="ParameterWoven/parameterwoven.ecore#//Movie/rating"/>
         </sfs>
         <classGD href="ParameterWoven/parameterwoven.gcs#//@packagesGD.0/@classesGD.4"/>
       </els>
       <els xsi:type="behavior:Object" id="m5" inLinks="//@rules.0/@patterns.1/@els.23 //@rules.0/@patterns.1/@els.26">
-        <sfs oclValue="10 * n + 4">
+        <sfs oclValue="10 * p.n + 4">
           <sf href="ParameterWoven/parameterwoven.ecore#//Movie/rating"/>
         </sfs>
         <classGD href="ParameterWoven/parameterwoven.gcs#//@packagesGD.0/@classesGD.4"/>
       </els>
       <els xsi:type="behavior:Object" id="a" outLinks="//@rules.0/@patterns.1/@els.8 //@rules.0/@patterns.1/@els.9 //@rules.0/@patterns.1/@els.10 //@rules.0/@patterns.1/@els.11">
-        <sfs oclValue="'a'.concat((10*n).toString())">
+        <sfs oclValue="'a'.concat((10*p.n).toString())">
           <sf href="ParameterWoven/parameterwoven.ecore#//Person/name"/>
         </sfs>
         <classGD href="ParameterWoven/parameterwoven.gcs#//@packagesGD.0/@classesGD.1"/>
       </els>
       <els xsi:type="behavior:Object" id="b" outLinks="//@rules.0/@patterns.1/@els.12 //@rules.0/@patterns.1/@els.13 //@rules.0/@patterns.1/@els.14 //@rules.0/@patterns.1/@els.15">
-        <sfs oclValue="'a'.concat((10*n + 1).toString())">
+        <sfs oclValue="'a'.concat((10*p.n + 1).toString())">
           <sf href="ParameterWoven/parameterwoven.ecore#//Person/name"/>
         </sfs>
         <classGD href="ParameterWoven/parameterwoven.gcs#//@packagesGD.0/@classesGD.1"/>
@@ -83,7 +82,7 @@
         <ref href="ParameterWoven/parameterwoven.ecore#//Person/movies"/>
       </els>
       <els xsi:type="behavior:Object" id="c" outLinks="//@rules.0/@patterns.1/@els.17 //@rules.0/@patterns.1/@els.18 //@rules.0/@patterns.1/@els.19">
-        <sfs oclValue="'a'.concat((10*n + 2).toString())">
+        <sfs oclValue="'a'.concat((10*p.n + 2).toString())">
           <sf href="ParameterWoven/parameterwoven.ecore#//Person/name"/>
         </sfs>
         <classGD href="ParameterWoven/parameterwoven.gcs#//@packagesGD.0/@classesGD.1"/>
@@ -98,13 +97,13 @@
         <ref href="ParameterWoven/parameterwoven.ecore#//Person/movies"/>
       </els>
       <els xsi:type="behavior:Object" id="d" outLinks="//@rules.0/@patterns.1/@els.22 //@rules.0/@patterns.1/@els.23 //@rules.0/@patterns.1/@els.24 //@rules.0/@patterns.1/@els.25">
-        <sfs oclValue="'a'.concat((10*n + 3).toString())">
+        <sfs oclValue="'a'.concat((10*p.n + 3).toString())">
           <sf href="ParameterWoven/parameterwoven.ecore#//Person/name"/>
         </sfs>
         <classGD href="ParameterWoven/parameterwoven.gcs#//@packagesGD.0/@classesGD.2"/>
       </els>
       <els xsi:type="behavior:Object" id="e" outLinks="//@rules.0/@patterns.1/@els.26 //@rules.0/@patterns.1/@els.27 //@rules.0/@patterns.1/@els.28 //@rules.0/@patterns.1/@els.29">
-        <sfs oclValue="'a'.concat((10*n + 4).toString())">
+        <sfs oclValue="'a'.concat((10*p.n + 4).toString())">
           <sf href="ParameterWoven/parameterwoven.ecore#//Person/name"/>
         </sfs>
         <classGD href="ParameterWoven/parameterwoven.gcs#//@packagesGD.0/@classesGD.2"/>

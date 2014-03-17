@@ -288,12 +288,6 @@
       <element xmi:type="behavior:Pattern" href="task1.behavior#//@rules.0/@patterns.1"/>
       <layoutConstraint xmi:type="notation:Bounds" xmi:id="_l3R06qtyEeOMedhQ2XR9Zg" x="155" width="1131" height="316"/>
     </children>
-    <children xmi:type="notation:Node" xmi:id="_Qj5hYKtzEeOMedhQ2XR9Zg" type="2002">
-      <children xmi:type="notation:Node" xmi:id="_Qj6IcKtzEeOMedhQ2XR9Zg" type="5017"/>
-      <styles xmi:type="notation:ShapeStyle" xmi:id="_Qj5hYatzEeOMedhQ2XR9Zg" fontName="Segoe UI"/>
-      <element xmi:type="behavior:Variable" href="task1.behavior#//@rules.0/@vbles.0"/>
-      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_Qj5hYqtzEeOMedhQ2XR9Zg" x="1" y="156"/>
-    </children>
     <styles xmi:type="notation:DiagramStyle" xmi:id="_l2ULkatyEeOMedhQ2XR9Zg"/>
     <element xmi:type="behavior:AtomicRule" href="task1.behavior#createPositive"/>
     <edges xmi:type="notation:Edge" xmi:id="_YssKcKuUEeO8JaOgGjZkzg" type="4001" source="_BQ0zYKuIEeOMedhQ2XR9Zg" target="_ij6xQKtzEeOMedhQ2XR9Zg">
