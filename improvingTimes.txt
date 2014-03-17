@@ -1,4 +1,7 @@
 
+**** Authors: Francisco Durán and Antonio Moreno-Delgado
+****
+
 --- Changes done over the generated Maude code to improve the performance:
 ---   * Comment the Tick rule.
 ---   * Remove calls to eval function.
