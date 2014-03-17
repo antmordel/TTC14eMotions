@@ -4,6 +4,7 @@
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="parameter"
     nsURI="http://parameter/1.0" nsPrefix="parameter">
   <eClassifiers xsi:type="ecore:EClass" name="Parameter">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="n" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="nP" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="nN" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
   </eClassifiers>
 </ecore:EPackage>

@@ -1,14 +1,2 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:movies="http://movies/1.0">
-  <movies:Parameter/>
-  <movies:Actor movies="/8 /7 /9" name="a2"/>
-  <movies:Actor movies="/6 /7 /8 /9" name="a0"/>
-  <movies:Actor movies="/6 /7 /8 /9" name="a1"/>
-  <movies:Actress movies="/9 /10 /8 /7" name="a3"/>
-  <movies:Actress movies="/10 /9 /8 /7" name="a4"/>
-  <movies:Movie persons="/2 /3"/>
-  <movies:Movie persons="/1 /2 /3 /4 /5" rating="1.0"/>
-  <movies:Movie persons="/1 /2 /3 /4 /5" rating="2.0"/>
-  <movies:Movie persons="/1 /2 /3 /4 /5" rating="3.0"/>
-  <movies:Movie persons="/4 /5" rating="4.0"/>
-</xmi:XMI>
+<movies:Parameter xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:movies="http://movies/1.0" nP="1"/>
