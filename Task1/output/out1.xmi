@@ -1,2 +1,24 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<movies:Parameter xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:movies="http://movies/1.0" nP="1"/>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:movies="http://movies/1.0">
+  <movies:Parameter nP="-1"/>
+  <movies:Actor movies="/11 /12 /13 /14" name="a0"/>
+  <movies:Actor movies="/11 /12 /13 /14" name="a1"/>
+  <movies:Actor movies="/13 /12 /14" name="a2"/>
+  <movies:Actor movies="/16 /17 /18 /19" name="a10"/>
+  <movies:Actor movies="/16 /17 /18 /19" name="a11"/>
+  <movies:Actor movies="/18 /17 /19" name="a12"/>
+  <movies:Actress movies="/19 /20 /18 /17" name="a13"/>
+  <movies:Actress movies="/20 /19 /18 /17" name="a14"/>
+  <movies:Actress movies="/14 /15 /13 /12" name="a3"/>
+  <movies:Actress movies="/15 /14 /13 /12" name="a4"/>
+  <movies:Movie persons="/1 /2"/>
+  <movies:Movie persons="/1 /2 /3 /9 /10" rating="1.0"/>
+  <movies:Movie persons="/1 /2 /3 /9 /10" rating="2.0"/>
+  <movies:Movie persons="/1 /2 /3 /9 /10" rating="3.0"/>
+  <movies:Movie persons="/9 /10" rating="4.0"/>
+  <movies:Movie persons="/4 /5" rating="10.0"/>
+  <movies:Movie persons="/4 /5 /6 /7 /8" rating="11.0"/>
+  <movies:Movie persons="/4 /5 /6 /7 /8" rating="12.0"/>
+  <movies:Movie persons="/4 /5 /6 /7 /8" rating="13.0"/>
+  <movies:Movie persons="/7 /8" rating="14.0"/>
+</xmi:XMI>

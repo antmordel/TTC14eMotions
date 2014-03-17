@@ -65,10 +65,15 @@ mod @MOVIES@BEHAVIOR@ is
 	eq name( persons@OCLSf ) =
 		"persons"
 	.
-	op n@OCLSf : -> @StructuralFeature
+	op nP@OCLSf : -> @StructuralFeature
 	.
-	eq name( n@OCLSf ) =
-		"n"
+	eq name( nP@OCLSf ) =
+		"nP"
+	.
+	op nN@OCLSf : -> @StructuralFeature
+	.
+	eq name( nN@OCLSf ) =
+		"nN"
 	.
 	protecting @MOVIES@
 	.
