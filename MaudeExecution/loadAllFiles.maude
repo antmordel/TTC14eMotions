@@ -7,7 +7,7 @@ load CommonFiles/EcoreMM.maude
 load CommonFiles/e-Motions.maude
 
 load parameterwoven.ecore.maude
-load task1.behavior.maude
+load task1-3.behavior.maude
 load n1.xmi.maude
 
 set print conceal on .
@@ -41,6 +41,7 @@ mod EJECUCION is
 
   var T TE : Time .
   var MODEL : @Model .
+---(
   crl [tick] : 
         { MODEL } in time T 
       => 
@@ -48,7 +49,7 @@ mod EJECUCION is
     if TE := mte(MODEL) 
        /\ TE =/= zero  
        /\ (T plus TE) le 0 .
-
+)
  
 op result1 : -> Set{@Object} .
 
