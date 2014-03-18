@@ -1,0 +1,4 @@
+ideas:
+
+- modelchecking?
+- cuántos matching posibles?

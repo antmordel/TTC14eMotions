@@ -1,0 +1,38 @@
+
+mod MOVIES@MM is
+  
+  pr CONFIGURATION .
+  pr CONVERSION .
+  pr SET{Nat} .
+  pr FLOAT .
+  
+  ---- Objects are identified by naturals numbers
+  subsort Nat < Oid .
+  op freshOid : Nat -> Msg [ctor] .
+  
+  sort Movie Person Actor Actress Group Couple Clique .
+  ---- MovieType declaration is missed, at least for now
+  op Movie : -> Movie [ctor] .
+  ---- Person is abstract
+  op Couple : -> Couple [ctor] .
+  op Clique : -> Clique [ctor] .
+  ---- Group is abstract
+  op Actor : -> Actor [ctor] .
+  op Actress : -> Actress [ctor] .
+  
+  ---- Classes structure
+  subsort Movie Person Group < Cid .
+  subsort Actor Actress < Person .
+  subsort Couple Clique < Group .
+  
+  ---- Movie attributes
+  op title :_ :   String    -> Attribute [ctor] .
+  op rating :_ :  Float     -> Attribute [ctor] .
+  op persons :_ : Set{Nat}  -> Attribute [ctor] .
+    ---- to finish
+    
+  ---- Person attributes
+  op name :_ :   String     -> Attribute [ctor] .
+  op movies :_ : Set{Nat}   -> Attribute [ctor] .
+  
+endm
