@@ -1,0 +1,37 @@
+
+fmod 2-TUPLE is
+  pr NAT .
+  sort Tuple .
+  op <(_,_)> : Nat Nat -> Tuple .
+  
+endfm
+
+view 2-Tuple from TRIV to 2-TUPLE is  
+    sort Elt to Tuple .  
+endv 
+
+mod TASK2-1 is
+  pr TASK1 .
+  pr SET{2-Tuple} .
+  
+  op couplesFound : Set{2-Tuple} -> Msg [ctor] .
+  
+  vars O1 O2 O3 : Nat .
+  vars Atts1 Atts2 Atts3 : AttributeSet .
+  var V@Person : Person .
+  var MS1 MS2 : Set{Nat} .
+  var TupleSet : Set{2-Tuple} .
+  
+  crl [findCouples] :
+    < O1 : Movie | Atts1 >
+    < O2 : V@Person | movies : (O1, MS1), Atts2 >
+    < O3 : V@Person | movies : (O1, MS2), Atts3 >
+    couplesFound(TupleSet)
+  =>
+    < O1 : Movie | Atts1 >
+    < O2 : V@Person | movies : (O1, MS1), Atts2 >
+    < O3 : V@Person | movies : (O1, MS2), Atts3 >
+    couplesFound((<(O2, O3)>, TupleSet))
+  if not <(O2, O3)> in TupleSet .  
+  
+endm

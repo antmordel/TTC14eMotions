@@ -1,0 +1,41 @@
+---- TTC14 Report
+
+I'm looking for the (best) solution to task 2 before starting to implementing it in e-Motions.
+
+------------------------------------------------------------------------------------------------
+---- Task2-1
+------------------------------------------------------------------------------------------------
+The most naive version. Just store all couples in a set of tuples. It lasts a huge amount of time.
+In fact, for a N = 100 problem it does not finish in a reasonable time.
+
+Time for N = 20 is:
+*** rewrites: 1602980 in 13990ms cpu (14786ms real) (114575 rewrites/second)
+
+After minutes (40min more or less), the output of the profile is:
+
+Debug(1)> show profile .
+eq false xor A:Bool = A:Bool .
+rewrites: 3361 (0.00863503%)
+
+eq A:Bool xor A:Bool = false .
+rewrites: 12969804 (33.3218%)
+
+eq not A:Bool = true xor A:Bool .
+rewrites: 12973165 (33.3305%)
+
+eq E:Tuple in (S:Set{2-Tuple}, E:Tuple) = true .
+rewrites: 12969804 (33.3218%)
+
+eq E:Tuple in S:Set{2-Tuple} = false [owise] .
+rewrites: 3361 (0.00863503%)
+
+crl couplesFound(TupleSet) < O1 : Movie | Atts1 > < O2 : V@Person | Atts2,movies : (O1, MS1) > <
+    O3 : V@Person | Atts3,movies : (O1, MS2) > => ((couplesFound((TupleSet, <(O2,O3)>)) < O3 :
+    V@Person | Atts3,movies : (O1, MS2) >) < O2 : V@Person | Atts2,movies : (O1, MS1) >) < O1 :
+    Movie | Atts1 > if not <(O2,O3)> in TupleSet = true [label findCouples] .
+lhs matches: 12973166	rewrites: 3361 (0.00863503%)
+Fragment	Initial tries	Resolve tries	Successes	Failures
+
+------------------------------------------------------------------------------------------------
+---- Task2-2
+------------------------------------------------------------------------------------------------
