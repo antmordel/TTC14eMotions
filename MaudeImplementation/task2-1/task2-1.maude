@@ -2,7 +2,7 @@
 fmod 2-TUPLE is
   pr NAT .
   sort Tuple .
-  op <(_,_)> : Nat Nat -> Tuple .
+  op <(_,_)> : Nat Nat -> Tuple [comm] .
   
 endfm
 

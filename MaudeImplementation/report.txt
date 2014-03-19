@@ -9,7 +9,7 @@ The most naive version. Just store all couples in a set of tuples. It lasts a hu
 In fact, for a N = 100 problem it does not finish in a reasonable time.
 
 Time for N = 20 is:
-*** rewrites: 1602980 in 13990ms cpu (14786ms real) (114575 rewrites/second)
+*** rewrites: 796840 in 6424ms cpu (6441ms real) (124028 rewrites/second)
 
 After minutes (40min more or less), the output of the profile is:
 
