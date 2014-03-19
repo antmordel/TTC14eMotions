@@ -1,0 +1,18 @@
+
+fmod 2-TUPLE is
+  pr NAT .
+  sort Tuple .
+  op <(_,_)> : Nat Nat -> Tuple .
+  
+endfm
+
+view 2-Tuple from TRIV to 2-TUPLE is  
+    sort Elt to Tuple .  
+endv 
+
+mod TASK2-1 is
+  pr TASK1 .
+  pr SET{2-Tuple} .
+  
+  
+endm
