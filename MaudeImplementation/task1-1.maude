@@ -1,0 +1,76 @@
+---- This TASK1 differs from original TASK1 because in this the relation movies-persons is bidirectional
+---- TODO
+mod TASK1 is
+  pr MOVIES@MM .
+  
+  op createExample :    Nat -> Msg [ctor] .
+  op createExampleAux : Nat Nat -> Msg [ctor] .
+  op createPositive :   Nat -> Msg [ctor] .
+  op createNegative :   Nat -> Msg [ctor] .
+  
+  vars N N' : Nat .
+  var V@Movie : Movie .
+  var Conf : Configuration .
+  
+  eq createExample(N) = createExampleAux(0, N) .
+  ceq createExampleAux(N, N') = createPositive(N)
+                                createNegative(N)
+                                createExampleAux(s(N), N')
+  if N < N' .
+  eq createExampleAux(N, N) = none .
+  
+  rl [createPositiveRl] :
+    createPositive(N)
+    freshOid(N')
+  =>
+    < N'      : Movie | rating : (10.0 * float(N)) >
+    < N' + 1  : Movie | rating : (10.0 * float(N) + 1.0) >
+    < N' + 2  : Movie | rating : (10.0 * float(N) + 2.0) >
+    < N' + 3  : Movie | rating : (10.0 * float(N) + 3.0) >
+    < N' + 4  : Movie | rating : (10.0 * float(N) + 4.0) >
+    
+    < N' + 5  : Actor | name : ("a" + string((10 * N),     10)),
+                        movies : (N', N' + 1, N' + 2, N' + 3)     >
+    < N' + 6  : Actor | name : ("a" + string((10 * N + 1), 10)),
+                        movies : (N', N' + 1, N' + 2)             >
+    < N' + 7  : Actor | name : ("a" + string((10 * N + 2), 10)),
+                        movies : (N' + 1, N' + 2, N' + 3)         >
+    < N' + 8  : Actor | name : ("a" + string((10 * N + 3), 10)),
+                        movies : (N' + 1, N' + 2, N' + 3, N' + 4) >
+    < N' + 9  : Actor | name : ("a" + string((10 * N + 4), 10)),
+                        movies : (N' + 1, N' + 2, N' + 3, N' + 4) >
+                        
+    freshOid(N' + 10).
+    
+  rl [createNegative] :
+    createNegative(N)
+    freshOid(N')
+  =>
+    < N'      : Movie | rating : (10.0 * float(N) + 5.0) >
+    < N' + 1  : Movie | rating : (10.0 * float(N) + 6.0) >
+    < N' + 2  : Movie | rating : (10.0 * float(N) + 7.0) >
+    < N' + 3  : Movie | rating : (10.0 * float(N) + 8.0) >
+    < N' + 4  : Movie | rating : (10.0 * float(N) + 9.0) >
+  
+    < N' + 5  : Actor | name : ("a" + string((10 * N + 5), 10)),
+                        movies : (N', N' + 1)                     >
+    < N' + 6  : Actor | name : ("a" + string((10 * N + 6), 10)),
+                        movies : (N', N' + 1, N' + 2)             >
+    < N' + 7  : Actor | name : ("a" + string((10 * N + 7), 10)),
+                        movies : (N' + 1, N' + 2, N' + 3)         >
+    < N' + 8  : Actor | name : ("a" + string((10 * N + 8), 10)),
+                        movies : (N' + 2, N' + 3, N' + 4) >
+    < N' + 9  : Actor | name : ("a" + string((10 * N + 9), 10)),
+                        movies : (N' + 3, N' + 4) >
+                      
+    freshOid(N' + 10).
+  
+endm
+
+----rew in TASK1 : createExample(1) freshOid(0) .
+set print conceal on .
+print conceal <_:_|_> __ .
+
+rew in TASK1 : createExample(5) freshOid(0) .
+
+set print conceal off .

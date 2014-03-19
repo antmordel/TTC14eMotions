@@ -8,38 +8,97 @@ endfm
 
 view 2-Tuple from TRIV to 2-TUPLE is  
     sort Elt to Tuple .  
-endv 
+endv
+
+fmod MAYBE{X :: TRIV} is
+  sort Maybe{X} .
+  subsort X$Elt < Maybe{X} .
+  op null : -> Maybe{X} .
+endfm
+
+view Object from TRIV to CONFIGURATION is
+  sort Elt to Object .
+endv
 
 mod TASK2-2 is
   pr TASK1 .
   pr SET{2-Tuple} .
-  
-  op couplesFound : Set{2-Tuple} -> Msg [ctor] .
-  op studied : Set{Nat} -> Msg [ctor] .
+  pr MAYBE{Object} .
   
   op findCouples : -> Msg [ctor] .
-  op findCouplesAux : Movie -> Movie .
   
+  op {_}{_}{_}{_}{_}{_} : Configuration Configuration Configuration Configuration Maybe{Object} Set{2-Tuple} -> Set{2-Tuple} .
+  ---- starting argument
+  ---- persons
+  ---- movies 
+  ---- persons dealt
+  ---- fixed person on which we iterate
+  ---- set of pairs as result
+  op {_} : Configuration -> Set{2-Tuple} .
   
-  var Conf : Configuration .
-  vars O1 O2 O3 : Nat .
-  vars Atts1 Atts2 Atts3 : AttributeSet .
+  ************
+  **** Vars
+  ************
+  var Conf C1 C2 C3 C4 : Configuration .
+  vars O O1 O2 O3 : Nat .
+  vars Atts Atts1 Atts2 Atts3 : AttributeSet .
   var V@Person : Person .
   var MS1 MS2 : Set{Nat} .
-  var TupleSet : Set{2-Tuple} .
+  var TS : Set{2-Tuple} .
   
-  crl [callToFindCouples] : 
-  	findCouples studied(MS1)
-	< O1 : Movie | Atts1 >
+  rl [create5Tuple] :
+    { findCouples Conf }
   =>
-  	findCouples 
-    findCouplesAux(< O1 : Movie | Atts1 >)
-    studied((O1, MS1))
-  if not(O1 in MS1) .
+    { Conf }{ none }{ none }{ none }{ null }{ empty } .
+    
+    
+  ---------------------------------------------------------------------------------
+  ---- 1st step: We split Persons and Movies into their configurations
+  --------------------------------------------------------------------------------- 
+    
+  rl [splitPersons] :
+    { < O : V@Person | Atts >  Conf }
+    { C2 }{ C3 }{ none }{ null }{ empty }
+  => 
+    { Conf }{ < O : V@Person | Atts >  C2 }
+    { C3 }{ none }{ null }{ empty } .
+  
+  rl [splitMovies] :
+    { < O : Movie | Atts >  Conf }
+    { C2 }{ C3 }{ none }{ null }{ empty }
+  => 
+    { Conf }{ C2 }
+    { < O : Movie | Atts > C3 }{ none }{ null }{ empty } .
+  
+  rl [splitMessages] :
+    { M:Msg Conf }
+    { C2 }{ C3 }{ none }{ null }{ empty }
+  => 
+    { Conf }{ C2 }{ C3 }{ none }{ null }{ empty } .
+    
+  ---------------------------------------------------------------------------------
+  ---- 2nd step: We fix an actor or actress
+  ---------------------------------------------------------------------------------
+  
+  rl [fixingPerson] : 
+    { none }{ < O : V@Person | Atts > C1 }{ C2 }{ none }{ null }{ TS } 
+  => 
+    { none }{ C1 }{ C2 }{ none }{ < O : V@Person | Atts > }{ TS } .
+
+  ---------------------------------------------------------------------------------
+  ---- 3rd step:
+  --------------------------------------------------------------------------------- 
+  
+  rl [doingPairs] :
+    { none }{ < O1 : V@Person | Atts1 >  C1 }{ C2 }{ C3 }{ < O2 : Person | Atts2 > }{ TS } 
+  => 
+    if hay una movie que tenga a O1 y O2 como actores 
+        then { none } { C1 } { C2 } { < O1 : Person | Atts1 > C3 } { < O : Person | Atts > } { < O1 ; O2 > TS }
+        else { none } { C1 } { C2 } { < O1 : Person | Atts1 > C3 } { < O : Person | Atts > } { TS }
   
 endm
 
-rew [1] in TASK2-2 : findCouples studied(empty) freshOid(40) < 0 : Movie | rating : 0.0 > < 1 : Movie | rating :
+rew in TASK2-2 : { findCouples freshOid(40) < 0 : Movie | rating : 0.0 > < 1 : Movie | rating :
     1.0 > < 2 : Movie | rating : 2.0 > < 3 : Movie | rating : 3.0 > < 4 : Movie | rating
     : 4.0 > < 5 : Actor | name : "a0",movies : (0, 1, 2, 3) > < 6 : Actor | name : "a1",
     movies : (0, 1, 2) > < 7 : Actor | name : "a2",movies : (1, 2, 3) > < 8 : Actor |
@@ -58,5 +117,4 @@ rew [1] in TASK2-2 : findCouples studied(empty) freshOid(40) < 0 : Movie | ratin
     : 1.7e+1 > < 33 : Movie | rating : 1.8e+1 > < 34 : Movie | rating : 1.9e+1 > < 35 :
     Actor | name : "a15",movies : (30, 31) > < 36 : Actor | name : "a16",movies : (30,
     31, 32) > < 37 : Actor | name : "a17",movies : (31, 32, 33) > < 38 : Actor | name :
-    "a18",movies : (32, 33, 34) > < 39 : Actor | name : "a19",movies : (33, 34) > .
-
+    "a18",movies : (32, 33, 34) > < 39 : Actor | name : "a19",movies : (33, 34) > } .
