@@ -45,11 +45,6 @@ mod @MOVIES@BEHAVIOR@ is
 	eq name( year@OCLSf ) =
 		"year"
 	.
-	op type@OCLSf : -> @StructuralFeature
-	.
-	eq name( type@OCLSf ) =
-		"type"
-	.
 	op commonMovies@OCLSf : -> @StructuralFeature
 	.
 	eq name( commonMovies@OCLSf ) =

@@ -1,0 +1,11 @@
+
+
+mod N10 is
+	protecting @MOVIES@
+	.
+	op n10 : -> @Model
+	.
+	eq n10 =
+		_`{_`}( @movies@ , __( none , none , <_:_|_>( '/ , Parameter@movies , _#_( _:_( nP@Parameter@movies , 10 ) , _:_( nN@Parameter@movies , 10 ) , empty , empty ) ) ) )
+	.
+endm
