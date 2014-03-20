@@ -179,31 +179,31 @@
         <classGD href="ParameterWoven/parameterwoven.gcs#//@packagesGD.0/@classesGD.4"/>
       </els>
       <els xsi:type="behavior:Object" id="a" outLinks="//@rules.1/@patterns.1/@els.11 //@rules.1/@patterns.1/@els.12">
-        <sfs oclValue="'a'.concat((10*p.nP + 5).toString())">
+        <sfs oclValue="'a'.concat((10*p.nN + 5).toString())">
           <sf href="ParameterWoven/parameterwoven.ecore#//Person/name"/>
         </sfs>
         <classGD href="ParameterWoven/parameterwoven.gcs#//@packagesGD.0/@classesGD.1"/>
       </els>
       <els xsi:type="behavior:Object" id="b" outLinks="//@rules.1/@patterns.1/@els.13 //@rules.1/@patterns.1/@els.14 //@rules.1/@patterns.1/@els.15">
-        <sfs oclValue="'a'.concat((10*p.nP + 6).toString())">
+        <sfs oclValue="'a'.concat((10*p.nN + 6).toString())">
           <sf href="ParameterWoven/parameterwoven.ecore#//Person/name"/>
         </sfs>
         <classGD href="ParameterWoven/parameterwoven.gcs#//@packagesGD.0/@classesGD.1"/>
       </els>
       <els xsi:type="behavior:Object" id="c" outLinks="//@rules.1/@patterns.1/@els.16 //@rules.1/@patterns.1/@els.17 //@rules.1/@patterns.1/@els.18">
-        <sfs oclValue="'a'.concat((10*p.nP + 7).toString())">
+        <sfs oclValue="'a'.concat((10*p.nN + 7).toString())">
           <sf href="ParameterWoven/parameterwoven.ecore#//Person/name"/>
         </sfs>
         <classGD href="ParameterWoven/parameterwoven.gcs#//@packagesGD.0/@classesGD.2"/>
       </els>
       <els xsi:type="behavior:Object" id="d" outLinks="//@rules.1/@patterns.1/@els.19 //@rules.1/@patterns.1/@els.20 //@rules.1/@patterns.1/@els.21">
-        <sfs oclValue="'a'.concat((10*p.nP + 8).toString())">
+        <sfs oclValue="'a'.concat((10*p.nN + 8).toString())">
           <sf href="ParameterWoven/parameterwoven.ecore#//Person/name"/>
         </sfs>
         <classGD href="ParameterWoven/parameterwoven.gcs#//@packagesGD.0/@classesGD.2"/>
       </els>
       <els xsi:type="behavior:Object" id="e" outLinks="//@rules.1/@patterns.1/@els.22 //@rules.1/@patterns.1/@els.23">
-        <sfs oclValue="'a'.concat((10*p.nP + 9).toString())">
+        <sfs oclValue="'a'.concat((10*p.nN + 9).toString())">
           <sf href="ParameterWoven/parameterwoven.ecore#//Person/name"/>
         </sfs>
         <classGD href="ParameterWoven/parameterwoven.gcs#//@packagesGD.0/@classesGD.2"/>

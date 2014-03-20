@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<notation:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:behavior="http://www.lcc.uma.es/Behavior/1.0" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.1/notation" xmi:id="_kUK9AbBMEeOD0vhlR_wyPw" type="Behavior" name="task2.behavior_diagram" measurementUnit="Pixel">
+  <styles xmi:type="notation:DiagramStyle" xmi:id="_kUK9ArBMEeOD0vhlR_wyPw"/>
+  <element xmi:type="behavior:Behavior" href="task2.behavior#/"/>
+</notation:Diagram>

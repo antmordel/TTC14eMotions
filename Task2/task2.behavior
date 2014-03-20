@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<behavior:Behavior xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:behavior="http://www.lcc.uma.es/Behavior/1.0">
+  <metamodelGD href="../ConcreteSyntax/movies.gcs#/"/>
+</behavior:Behavior>
