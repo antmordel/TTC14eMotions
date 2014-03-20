@@ -4,8 +4,8 @@
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="movies"
     nsURI="http://parameterwoven/1.0" nsPrefix="movies">
   <eClassifiers xsi:type="ecore:EClass" name="Person" abstract="true">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="movies" upperBound="-1"
-        eType="#//Movie" eOpposite="#//Movie/persons"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="movies" ordered="false"
+        upperBound="-1" eType="#//Movie" eOpposite="#//Movie/persons"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Parameter">
