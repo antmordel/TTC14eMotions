@@ -26,9 +26,9 @@ mod TASK2-2 is
   
   op <{_}{_}{_}{_}{_}{_}> : Configuration Configuration Configuration Configuration Maybe{Object} Configuration -> Configuration .
   ---- starting argument
-  ---- persons
+  ---- people
   ---- movies 
-  ---- persons dealt
+  ---- people dealt
   ---- fixed person on which we iterate
   ---- configuration as result
   op {_} : Configuration -> Configuration .
@@ -50,10 +50,10 @@ mod TASK2-2 is
     
     
   ---------------------------------------------------------------------------------
-  ---- 1st step: We split Persons and Movies into their configurations
+  ---- 1st step: We split Person and Movies into their configurations
   --------------------------------------------------------------------------------- 
     
-  rl [splitPersons] :
+  rl [splitPeople] :
     <{ < O : V@Person | Atts >  Conf }
      { C2 }{ C3 }{ none }{ null }{ C4 }>
   => 
@@ -98,7 +98,7 @@ mod TASK2-2 is
      }> .
     
  ---------------------------------------------------------------------------------
- ---- 4th step: If the current Person set has been gone over all the other persons
+ ---- 4th step: If the current Person set has been gone over all the other people
  ----           we set the next person
  --------------------------------------------------------------------------------- 
  rl [setNextPerson] : 
