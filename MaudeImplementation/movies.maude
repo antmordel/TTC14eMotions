@@ -35,4 +35,11 @@ mod MOVIES@MM is
   op name :_ :   String     -> Attribute [ctor] .
   op movies :_ : Set{Nat}   -> Attribute [ctor] .
   
+  ---- Group attributes
+  op commonMovies :_ : Set{Nat} -> Attribute [ctor] .
+  
+  ---- Couple attributes
+  op p1 :_ : Nat -> Attribute [ctor] .
+  op p2 :_ : Nat -> Attribute [ctor] .
+  
 endm
