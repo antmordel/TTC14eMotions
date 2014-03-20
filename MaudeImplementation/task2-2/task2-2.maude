@@ -7,18 +7,6 @@
   and p2 references, and referencing all movies in which both persons played in using the commonMovies reference.  
 )
 
-
-fmod 2-TUPLE is
-  pr NAT .
-  sort 2-Tuple .
-  op <_;_> : Nat Nat -> 2-Tuple .
-  
-endfm
-
-view 2-Tuple from TRIV to 2-TUPLE is  
-    sort Elt to 2-Tuple .  
-endv
-
 fmod MAYBE{X :: TRIV} is
   sort Maybe{X} .
   subsort X$Elt < Maybe{X} .
@@ -31,20 +19,19 @@ endv
 
 mod TASK2-2 is
   pr TASK1 .
-  ex SET{2-Tuple} .
   pr MAYBE{Object} .
   ex SET{Nat} .  
   
   op findCouples : -> Msg [ctor] .
   
-  op {_}{_}{_}{_}{_}{_} : Configuration Configuration Configuration Configuration Maybe{Object} Set{2-Tuple} -> Set{2-Tuple} .
+  op {_}{_}{_}{_}{_}{_} : Configuration Configuration Configuration Configuration Maybe{Object} Configuration -> Configuration .
   ---- starting argument
   ---- persons
   ---- movies 
   ---- persons dealt
   ---- fixed person on which we iterate
   ---- set of pairs as result
-  op {_} : Configuration -> Set{2-Tuple} .
+  op {_} : Configuration -> Configuration .
   
   op areCouple? : Object Object -> Bool .
   op couple : Object Object -> 2-Tuple .
