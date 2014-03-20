@@ -1,4 +1,13 @@
 
+***(
+  In this task, a transformation shall be implemented that takes a graph consisting of inter-connected movies,
+  actors and actresses as input, and creates additional nodes and links in this graph.Specifically, the task is
+  to find all pairs of persons (actors or actresses) which played together in at least three movies. For every 
+  such pair, the transformation is supposed to create an object of type Couple referencing both persons using the p1 
+  and p2 references, and referencing all movies in which both persons played in using the commonMovies reference.  
+)
+
+
 fmod 2-TUPLE is
   pr NAT .
   sort 2-Tuple .
@@ -24,16 +33,7 @@ mod TASK2-2 is
   pr TASK1 .
   ex SET{2-Tuple} .
   pr MAYBE{Object} .
-  ex SET{Nat} .
-  
-  **************************************************
-  **** Auxiliar functions
-  **************************************************
-  var T : 2-Tuple .
-  op isEmpty? : Set{2-Tuple} -> Bool .
-  eq isEmpty?(empty) = true .
-  eq isEmpty?((T, TS)) = false .
-  
+  ex SET{Nat} .  
   
   op findCouples : -> Msg [ctor] .
   
@@ -113,6 +113,17 @@ mod TASK2-2 is
     else { none }{ C1 }{ C2 }{ < O1 : V@Person | movies : MS1, Atts1 > C3 }{ < O2 : V@Person | movies : MS2, Atts2 > }
          { TS }
     fi .
+    
+    rl [doingPairs] :
+      { none }{ < O1 : V@Person | movies : MS1, Atts1 >  C1 }{ C2 }{ C3 }
+      { < O2 : V@Person | movies : MS2, Atts2 > }{ TS } 
+    => 
+      if | intersection(MS1, MS2) | > 0
+      then { none }{ C1 }{ C2 }{ < O1 : V@Person | movies : MS1, Atts1 > C3 }{ < O2 : V@Person | movies : MS2, Atts2 > }
+           { (< O1 ; O2 >, TS) }
+      else { none }{ C1 }{ C2 }{ < O1 : V@Person | movies : MS1, Atts1 > C3 }{ < O2 : V@Person | movies : MS2, Atts2 > }
+           { TS }
+      fi .
     
   eq couple(< O1 : V@Person | Atts1 >, < O2 : V@Person | Atts2 >) = < O1 ; O2 > .
   
