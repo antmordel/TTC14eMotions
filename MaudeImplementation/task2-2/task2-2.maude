@@ -39,12 +39,11 @@ mod TASK2-2 is
   ************
   **** Vars
   ************
-  var Conf C1 C2 C3 C4 : Configuration .
-  vars O O1 O2 O3 : Nat .
+  var Conf C1 C2 C3 C4 C5 : Configuration .
+  vars O O1 O2 O3 New : Nat .
   vars Atts Atts1 Atts2 Atts3 : AttributeSet .
   var V@Person : Person .
   var MS1 MS2 : Set{Nat} .
-  var TS TS1 TS2 : Set{2-Tuple} .
   var Ob1 Ob2 : Object .
   
   rl [create5Tuple] :
@@ -75,7 +74,7 @@ mod TASK2-2 is
     { M:Msg Conf }
     { C2 }{ C3 }{ none }{ null }{ empty }
   => 
-    { Conf }{ C2 }{ C3 }{ none }{ null }{ empty } .
+    { Conf }{ C2 }{ C3 }{ none }{ null }{ M:Msg empty } .
     
   ---------------------------------------------------------------------------------
   ---- 2nd step: We fix an actor or actress
@@ -92,25 +91,14 @@ mod TASK2-2 is
   
   rl [doingPairs] :
     { none }{ < O1 : V@Person | movies : MS1, Atts1 >  C1 }{ C2 }{ C3 }
-    { < O2 : V@Person | movies : MS2, Atts2 > }{ TS } 
+    { < O2 : V@Person | movies : MS2, Atts2 > }{ freshOid(New) C4 } 
   => 
-    if | intersection(MS1, MS2) | > 0
-    then { none }{ C1 }{ C2 }{ < O1 : V@Person | movies : MS1, Atts1 > C3 }{ < O2 : V@Person | movies : MS2, Atts2 > }
-         { (< O1 ; O2 >, TS) }
-    else { none }{ C1 }{ C2 }{ < O1 : V@Person | movies : MS1, Atts1 > C3 }{ < O2 : V@Person | movies : MS2, Atts2 > }
-         { TS }
-    fi .
-    
-    rl [doingPairs] :
-      { none }{ < O1 : V@Person | movies : MS1, Atts1 >  C1 }{ C2 }{ C3 }
-      { < O2 : V@Person | movies : MS2, Atts2 > }{ TS } 
-    => 
-      if | intersection(MS1, MS2) | > 0
-      then { none }{ C1 }{ C2 }{ < O1 : V@Person | movies : MS1, Atts1 > C3 }{ < O2 : V@Person | movies : MS2, Atts2 > }
-           { (< O1 ; O2 >, TS) }
-      else { none }{ C1 }{ C2 }{ < O1 : V@Person | movies : MS1, Atts1 > C3 }{ < O2 : V@Person | movies : MS2, Atts2 > }
-           { TS }
-      fi .
+    { none }{ C1 }{ C2 }{ < O1 : V@Person | movies : MS1, Atts1 > C3 }{ < O2 : V@Person | movies : MS2, Atts2 > }
+    { if | intersection(MS1, MS2) | >= 3 
+      then < New : Couple | p1 : O1, p2 : O2, commonMovies : intersection(MS1, MS2) > freshOid(s New) C4
+      else freshOid(New) C4
+      fi
+    } .
     
   eq couple(< O1 : V@Person | Atts1 >, < O2 : V@Person | Atts2 >) = < O1 ; O2 > .
   
@@ -141,14 +129,6 @@ mod TASK2-2 is
   
 endm
 
-red in TASK2-2 : intersection((1, 2, 3), (2, 3, 4)) .
-
-match < O1 : V@Person | movies : MS1, Atts1 > <=? 
-  < 6 : Actor | name : "a1",
-    movies : (0, 1, 2) > .
-    
-    rew in TASK2-2 : { findCouples freshOid(20) < 6 : Actor | name : "a1",
-        movies : (0, 1, 2) > < 7 : Actor | name : "a2",movies : (1, 2, 3) > } .
 
 rew in TASK2-2 : | { findCouples freshOid(20) < 0 : Movie | rating : 0.0 > < 1 : Movie | rating :
     1.0 > < 2 : Movie | rating : 2.0 > < 3 : Movie | rating : 3.0 > < 4 : Movie | rating

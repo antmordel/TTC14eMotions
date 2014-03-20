@@ -66,6 +66,8 @@ mod TASK1 is
   
 endm
 
+eof
+
 ----rew in TASK1 : createExample(1) freshOid(0) .
 set print conceal on .
 print conceal <_:_|_> __ .
