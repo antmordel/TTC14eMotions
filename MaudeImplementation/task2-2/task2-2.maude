@@ -24,6 +24,7 @@ mod TASK2-2 is
   pr TASK1 .
   ex SET{2-Tuple} .
   pr MAYBE{Object} .
+  ex SET{Nat} .
   
   **************************************************
   **** Auxiliar functions
@@ -45,7 +46,8 @@ mod TASK2-2 is
   ---- set of pairs as result
   op {_} : Configuration -> Set{2-Tuple} .
   
-  op searchMovies : Configuration Object Object -> Set{2-Tuple} .
+  op areCouple? : Object Object -> Bool .
+  op couple : Object Object -> 2-Tuple .
   
   ************
   **** Vars
@@ -102,15 +104,19 @@ mod TASK2-2 is
   --------------------------------------------------------------------------------- 
   
   rl [doingPairs] :
-    { none }{ < O1 : V@Person | Atts1 >  C1 }{ C2 }{ C3 }{ < O2 : V@Person | Atts2 > }{ TS } 
+    { none }{ < O1 : V@Person | movies : MS1, Atts1 >  C1 }{ C2 }{ C3 }
+    { < O2 : V@Person | movies : MS2, Atts2 > }{ TS } 
   => 
-    if not(isEmpty?(searchMovies(C2, < O1 : V@Person | Atts1 >, < O2 : V@Person | Atts2 >)))
-    then { none }{ C1 }{ C2 }{ < O1 : V@Person | Atts1 > C3 }{ < O2 : V@Person | Atts2 > }
-         { (searchMovies(C2, < O1 : V@Person | Atts1 >, < O2 : V@Person | Atts2 >), TS) }
-    else { none }{ C1 }{ C2 }{ C3 }{ < O2 : V@Person | Atts2 > }{ TS }
+    if | intersection(MS1, MS2) | > 0
+    then { none }{ C1 }{ C2 }{ < O1 : V@Person | movies : MS1, Atts1 > C3 }{ < O2 : V@Person | movies : MS2, Atts2 > }
+         { (< O1 ; O2 >, TS) }
+    else { none }{ C1 }{ C2 }{ < O1 : V@Person | movies : MS1, Atts1 > C3 }{ < O2 : V@Person | movies : MS2, Atts2 > }
+         { TS }
     fi .
+    
+  eq couple(< O1 : V@Person | Atts1 >, < O2 : V@Person | Atts2 >) = < O1 ; O2 > .
   
-  eq searchMovies(< O1 : Movie | Atts1 > Conf, 
+***(   eq searchMovies(< O1 : Movie | Atts1 > Conf, 
                   < O2 : V@Person | movies : (MS1), Atts2 >, 
                   < O3 : V@Person | movies : (MS2), Atts3 >)
       = if ((O1 in MS1) and (O1 in MS2))
@@ -120,9 +126,10 @@ mod TASK2-2 is
                                  < O3 : V@Person | movies : (O1, MS2), Atts3 >))
         fi .
  eq searchMovies(none, Ob1, Ob2) = empty .
- 
+)
  ---------------------------------------------------------------------------------
- ---- 4th step: If the current Person set has been gone over we set the next person
+ ---- 4th step: If the current Person set has been gone over all the other persons
+ ----           we set the next person
  --------------------------------------------------------------------------------- 
  rl [setNextPerson] : 
    { none } { none } { C2 } { C3 } { < O2 : V@Person | Atts1 > } { TS } 
@@ -135,3 +142,23 @@ mod TASK2-2 is
  rl { none } { none } { C2 } { none } { null } { TS }  => TS  .
   
 endm
+
+red in TASK2-2 : intersection((1, 2, 3), (2, 3, 4)) .
+
+match < O1 : V@Person | movies : MS1, Atts1 > <=? 
+  < 6 : Actor | name : "a1",
+    movies : (0, 1, 2) > .
+    
+    rew in TASK2-2 : { findCouples freshOid(20) < 6 : Actor | name : "a1",
+        movies : (0, 1, 2) > < 7 : Actor | name : "a2",movies : (1, 2, 3) > } .
+
+rew in TASK2-2 : | { findCouples freshOid(20) < 0 : Movie | rating : 0.0 > < 1 : Movie | rating :
+    1.0 > < 2 : Movie | rating : 2.0 > < 3 : Movie | rating : 3.0 > < 4 : Movie | rating
+    : 4.0 > < 5 : Actor | name : "a0",movies : (0, 1, 2, 3) > < 6 : Actor | name : "a1",
+    movies : (0, 1, 2) > < 7 : Actor | name : "a2",movies : (1, 2, 3) > < 8 : Actor |
+    name : "a3",movies : (1, 2, 3, 4) > < 9 : Actor | name : "a4",movies : (1, 2, 3, 4) >
+    < 10 : Movie | rating : 5.0 > < 11 : Movie | rating : 6.0 > < 12 : Movie | rating :
+    7.0 > < 13 : Movie | rating : 8.0 > < 14 : Movie | rating : 9.0 > < 15 : Actor | name
+    : "a5",movies : (10, 11) > < 16 : Actor | name : "a6",movies : (10, 11, 12) > < 17 :
+    Actor | name : "a7",movies : (11, 12, 13) > < 18 : Actor | name : "a8",movies : (12,
+    13, 14) > < 19 : Actor | name : "a9",movies : (13, 14) > } | .
