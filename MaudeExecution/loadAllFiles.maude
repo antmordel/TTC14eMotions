@@ -8,7 +8,6 @@ load CommonFiles/e-Motions.maude
 
 load parameterwoven.ecore.maude
 ----load task1.behavior.maude
-----load n1.xmi.maude
 
 load task2.behavior.maude
 load out1.xmi.maude

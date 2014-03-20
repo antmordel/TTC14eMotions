@@ -74,7 +74,7 @@ mod @MOVIES@ is
 		nil
 	.
 	eq attributes( Parameter@movies ) =
-		n@Parameter@movies
+		__( nP@Parameter@movies , nN@Parameter@movies )
 	.
 	sort Actor@movies
 	.
@@ -170,7 +170,7 @@ mod @MOVIES@ is
 		persons@Movie@movies
 	.
 	eq attributes( Movie@movies ) =
-		__( title@Movie@movies , rating@Movie@movies , year@Movie@movies , type@Movie@movies )
+		__( title@Movie@movies , rating@Movie@movies , year@Movie@movies )
 	.
 	sort Group@movies
 	.
@@ -420,30 +420,56 @@ mod @MOVIES@ is
 	eq isUnique( name@Person@movies ) =
 		true
 	.
-	op n@Parameter@movies : -> @Attribute
+	op nP@Parameter@movies : -> @Attribute
 	.
-	eq name( n@Parameter@movies ) =
-		"n"
+	eq name( nP@Parameter@movies ) =
+		"nP"
 	.
-	eq type( n@Parameter@movies ) =
+	eq type( nP@Parameter@movies ) =
 		@Int
 	.
-	eq lowerBound( n@Parameter@movies ) =
+	eq lowerBound( nP@Parameter@movies ) =
 		1
 	.
-	eq upperBound( n@Parameter@movies ) =
+	eq upperBound( nP@Parameter@movies ) =
 		1
 	.
-	eq containingClass( n@Parameter@movies ) =
+	eq containingClass( nP@Parameter@movies ) =
 		Parameter@movies
 	.
-	eq isId( n@Parameter@movies ) =
+	eq isId( nP@Parameter@movies ) =
 		false
 	.
-	eq isOrdered( n@Parameter@movies ) =
+	eq isOrdered( nP@Parameter@movies ) =
 		true
 	.
-	eq isUnique( n@Parameter@movies ) =
+	eq isUnique( nP@Parameter@movies ) =
+		true
+	.
+	op nN@Parameter@movies : -> @Attribute
+	.
+	eq name( nN@Parameter@movies ) =
+		"nN"
+	.
+	eq type( nN@Parameter@movies ) =
+		@Int
+	.
+	eq lowerBound( nN@Parameter@movies ) =
+		1
+	.
+	eq upperBound( nN@Parameter@movies ) =
+		1
+	.
+	eq containingClass( nN@Parameter@movies ) =
+		Parameter@movies
+	.
+	eq isId( nN@Parameter@movies ) =
+		false
+	.
+	eq isOrdered( nN@Parameter@movies ) =
+		true
+	.
+	eq isUnique( nN@Parameter@movies ) =
 		true
 	.
 	op title@Movie@movies : -> @Attribute
@@ -522,32 +548,6 @@ mod @MOVIES@ is
 		true
 	.
 	eq isUnique( year@Movie@movies ) =
-		true
-	.
-	op type@Movie@movies : -> @Attribute
-	.
-	eq name( type@Movie@movies ) =
-		"type"
-	.
-	eq type( type@Movie@movies ) =
-		MovieType@movies
-	.
-	eq lowerBound( type@Movie@movies ) =
-		0
-	.
-	eq upperBound( type@Movie@movies ) =
-		1
-	.
-	eq containingClass( type@Movie@movies ) =
-		Movie@movies
-	.
-	eq isId( type@Movie@movies ) =
-		false
-	.
-	eq isOrdered( type@Movie@movies ) =
-		true
-	.
-	eq isUnique( type@Movie@movies ) =
 		true
 	.
 	op avgRating@Group@movies : -> @Attribute
