@@ -1,0 +1,103 @@
+
+
+mod @MOVIES@BEHAVIOR@ is
+	protecting E-MOTIONS
+	.
+	protecting DISCRETE_TIME
+	.
+	op movies@OCLSf : -> @StructuralFeature
+	.
+	eq name( movies@OCLSf ) =
+		"movies"
+	.
+	op name@OCLSf : -> @StructuralFeature
+	.
+	eq name( name@OCLSf ) =
+		"name"
+	.
+	op p1@OCLSf : -> @StructuralFeature
+	.
+	eq name( p1@OCLSf ) =
+		"p1"
+	.
+	op p2@OCLSf : -> @StructuralFeature
+	.
+	eq name( p2@OCLSf ) =
+		"p2"
+	.
+	op persons@OCLSf : -> @StructuralFeature
+	.
+	eq name( persons@OCLSf ) =
+		"persons"
+	.
+	op title@OCLSf : -> @StructuralFeature
+	.
+	eq name( title@OCLSf ) =
+		"title"
+	.
+	op rating@OCLSf : -> @StructuralFeature
+	.
+	eq name( rating@OCLSf ) =
+		"rating"
+	.
+	op year@OCLSf : -> @StructuralFeature
+	.
+	eq name( year@OCLSf ) =
+		"year"
+	.
+	op type@OCLSf : -> @StructuralFeature
+	.
+	eq name( type@OCLSf ) =
+		"type"
+	.
+	op commonMovies@OCLSf : -> @StructuralFeature
+	.
+	eq name( commonMovies@OCLSf ) =
+		"commonMovies"
+	.
+	op avgRating@OCLSf : -> @StructuralFeature
+	.
+	eq name( avgRating@OCLSf ) =
+		"avgRating"
+	.
+	op persons@OCLSf : -> @StructuralFeature
+	.
+	eq name( persons@OCLSf ) =
+		"persons"
+	.
+	op nP@OCLSf : -> @StructuralFeature
+	.
+	eq name( nP@OCLSf ) =
+		"nP"
+	.
+	op nN@OCLSf : -> @StructuralFeature
+	.
+	eq name( nN@OCLSf ) =
+		"nN"
+	.
+	protecting @MOVIES@
+	.
+	eq rulesInformation =
+		_`{_`}( @MGBehavior@ , <_:_|_>( 'Rule1:OCL-Type , AtomicRule@MGBehavior , _#_( _:_( name@Rule@MGBehavior , "Couple" ) , _:_( lowerBound@Rule@MGBehavior , null ) , _:_( upperBound@Rule@MGBehavior , null ) , _:_( soft@Rule@MGBehavior , false ) , _:_( periodicity@AtomicRule@MGBehavior , null ) ) ) )
+	.
+	crl [ Couple@Instantaneous ] :
+		_`{_`}( MM@:@Metamodel , __( <_:_|_>( per1:OCL-Type , PERSON@MOVIES@per1@CLASS:Person@movies , per1@SFS:Set{@StructuralFeatureInstance} ) , <_:_|_>( per2:OCL-Type , PERSON@MOVIES@per2@CLASS:Person@movies , per2@SFS:Set{@StructuralFeatureInstance} ) , <_:_|_>( CLK@:Oid , Clock@MGBehavior , _:_( time@Clock@MGBehavior , TIME@CLK@:Time ) ) , <_:_|_>( 'ids@ , Counter@MGBehavior , _:_( value@Counter@MGBehavior , VALUE@ids@:Int ) ) , <_:_|_>( 'rdm@ , Counter@MGBehavior , _:_( value@Counter@MGBehavior , VALUE@rdm@:Int ) ) , OBJSET@:Set{@Object} ) )
+	=>
+		readjust( Set`{_`}( mt ) , nil , _`{_`}( MM@:@Metamodel , __( <_:_|_>( per1:OCL-Type , PERSON@MOVIES@per1@CLASS:Person@movies , per1@SFS:Set{@StructuralFeatureInstance} ) , <_:_|_>( per2:OCL-Type , PERSON@MOVIES@per2@CLASS:Person@movies , per2@SFS:Set{@StructuralFeatureInstance} ) , complete( <_:_|_>( c:OCL-Type , Couple@movies , _#_( _:_( p1@Couple@movies , update( p1@Couple@movies , null , nil , link( per1:OCL-Type , null ) ) ) , _:_( p2@Couple@movies , update( p2@Couple@movies , null , nil , link( per2:OCL-Type , null ) ) ) , _:_( commonMovies@Group@movies , eval( _->`intersection`(_`)( __( per1:OCL-Type , ._( movies@OCLSf ) ) , __( per2:OCL-Type , ._( movies@OCLSf ) ) ) , env( _<-_( self , c:OCL-Type ) ) , MODEL@:@Model ) ) ) ) ) , <_:_|_>( CLK@:Oid , Clock@MGBehavior , _:_( time@Clock@MGBehavior , TIME@CLK@:Time ) ) , <_:_|_>( 'rdm@ , Counter@MGBehavior , _:_( value@Counter@MGBehavior , _+_( VALUE@rdm@:Int , 0 ) ) ) , OBJSET@:Set{@Object} , <_:_|_>( 'ids@ , Counter@MGBehavior , _:_( value@Counter@MGBehavior , _+_( VALUE@ids@:Int , 4 ) ) ) ) ) )
+	if ACTEXEC@:Oid := newId( VALUE@ids@:Int ) /\ MODEL@:@Model := _`{_`}( MM@:@Metamodel , __( <_:_|_>( per1:OCL-Type , PERSON@MOVIES@per1@CLASS:Person@movies , per1@SFS:Set{@StructuralFeatureInstance} ) , <_:_|_>( per2:OCL-Type , PERSON@MOVIES@per2@CLASS:Person@movies , per2@SFS:Set{@StructuralFeatureInstance} ) , <_:_|_>( CLK@:Oid , Clock@MGBehavior , _:_( time@Clock@MGBehavior , TIME@CLK@:Time ) ) , <_:_|_>( 'ids@ , Counter@MGBehavior , _:_( value@Counter@MGBehavior , VALUE@ids@:Int ) ) , <_:_|_>( 'rdm@ , Counter@MGBehavior , _:_( value@Counter@MGBehavior , VALUE@rdm@:Int ) ) , OBJSET@:Set{@Object} ) ) /\ eval( _>=_( _->`size`(`)( _->`intersection`(_`)( __( per1:OCL-Type , ._( movies@OCLSf ) ) , __( per2:OCL-Type , ._( movies@OCLSf ) ) ) ) , 3 ) , env( empty ) , MODEL@:@Model ) /\ T:OCL-Type := eval( 0 , env( empty ) , MODEL@:@Model ) /\ OR1@:Oid := newId( _+_( VALUE@ids@:Int , 1 ) ) /\ OR2@:Oid := newId( _+_( VALUE@ids@:Int , 2 ) ) /\ c:OCL-Type := newId( _+_( VALUE@ids@:Int , 3 ) ) /\ not_( couplehasnotbeencreated@Couple( Set`{_`}( _;_( per1:OCL-Type , per2:OCL-Type ) ) , none , MODEL@:@Model ) )
+	.
+	op couplehasnotbeencreated@Couple : Set Set{@Object} @Model -> Bool
+	.
+	ceq couplehasnotbeencreated@Couple( Set`{_`}( _;_( per1:OCL-Type , per2:OCL-Type ) ) , none , _`{_`}( MM@:@Metamodel , __( <_:_|_>( hasBeenPerfomerd:OCL-Type , AtomicActionExec@MGBehavior , _#_( _:_( action@ActionExec@MGBehavior , "Couple" ) , _:_( status@AtomicActionExec@MGBehavior , realized@ActionStatus@MGBehavior ) , _:_( participants@ActionExec@MGBehavior , Set`{_`}( _;_( L@hasBeenPerfomerd:MSet{OCL-Exp} , OR1@hasBeenPerfomerd:Oid , OR2@hasBeenPerfomerd:Oid ) ) ) , hasBeenPerfomerd@SFS:Set{@StructuralFeatureInstance} ) ) , OBJSET@:Set{@Object} , <_:_|_>( OR1@hasBeenPerfomerd:Oid , ObjectRole@MGBehavior , _#_( _:_( actualObject@ObjectRole@MGBehavior , per1:OCL-Type ) , OR1@hasBeenPerfomerd@SFS:Set{@StructuralFeatureInstance} ) ) , <_:_|_>( OR2@hasBeenPerfomerd:Oid , ObjectRole@MGBehavior , _#_( _:_( actualObject@ObjectRole@MGBehavior , per2:OCL-Type ) , OR2@hasBeenPerfomerd@SFS:Set{@StructuralFeatureInstance} ) ) ) ) ) =
+		true
+	if MODEL@:@Model := _`{_`}( MM@:@Metamodel , __( <_:_|_>( hasBeenPerfomerd:OCL-Type , AtomicActionExec@MGBehavior , _#_( _:_( action@ActionExec@MGBehavior , "Couple" ) , _:_( status@AtomicActionExec@MGBehavior , realized@ActionStatus@MGBehavior ) , _:_( participants@ActionExec@MGBehavior , Set`{_`}( _;_( L@hasBeenPerfomerd:MSet{OCL-Exp} , OR1@hasBeenPerfomerd:Oid , OR2@hasBeenPerfomerd:Oid ) ) ) , hasBeenPerfomerd@SFS:Set{@StructuralFeatureInstance} ) ) , OBJSET@:Set{@Object} , <_:_|_>( OR1@hasBeenPerfomerd:Oid , ObjectRole@MGBehavior , _#_( _:_( actualObject@ObjectRole@MGBehavior , per1:OCL-Type ) , OR1@hasBeenPerfomerd@SFS:Set{@StructuralFeatureInstance} ) ) , <_:_|_>( OR2@hasBeenPerfomerd:Oid , ObjectRole@MGBehavior , _#_( _:_( actualObject@ObjectRole@MGBehavior , per2:OCL-Type ) , OR2@hasBeenPerfomerd@SFS:Set{@StructuralFeatureInstance} ) ) ) )
+	.
+	eq couplehasnotbeencreated@Couple( OIDSET@:Set , OBJSET@:Set{@Object} , MODEL@:@Model ) =
+		false
+	[ owise ]
+	.
+	ceq mte( _`{_`}( MM@:@Metamodel , __( <_:_|_>( per1:OCL-Type , PERSON@MOVIES@per1@CLASS:Person@movies , per1@SFS:Set{@StructuralFeatureInstance} ) , <_:_|_>( per2:OCL-Type , PERSON@MOVIES@per2@CLASS:Person@movies , per2@SFS:Set{@StructuralFeatureInstance} ) , <_:_|_>( CLK@:Oid , Clock@MGBehavior , _:_( time@Clock@MGBehavior , TIME@CLK@:Time ) ) , <_:_|_>( 'ids@ , Counter@MGBehavior , _:_( value@Counter@MGBehavior , VALUE@ids@:Int ) ) , <_:_|_>( 'rdm@ , Counter@MGBehavior , _:_( value@Counter@MGBehavior , VALUE@rdm@:Int ) ) , OBJSET@:Set{@Object} ) ) ) =
+		0
+	if MODEL@:@Model := _`{_`}( MM@:@Metamodel , __( <_:_|_>( per1:OCL-Type , PERSON@MOVIES@per1@CLASS:Person@movies , per1@SFS:Set{@StructuralFeatureInstance} ) , <_:_|_>( per2:OCL-Type , PERSON@MOVIES@per2@CLASS:Person@movies , per2@SFS:Set{@StructuralFeatureInstance} ) , <_:_|_>( CLK@:Oid , Clock@MGBehavior , _:_( time@Clock@MGBehavior , TIME@CLK@:Time ) ) , <_:_|_>( 'ids@ , Counter@MGBehavior , _:_( value@Counter@MGBehavior , VALUE@ids@:Int ) ) , <_:_|_>( 'rdm@ , Counter@MGBehavior , _:_( value@Counter@MGBehavior , VALUE@rdm@:Int ) ) , OBJSET@:Set{@Object} ) ) /\ eval( _>=_( _->`size`(`)( _->`intersection`(_`)( __( per1:OCL-Type , ._( movies@OCLSf ) ) , __( per2:OCL-Type , ._( movies@OCLSf ) ) ) ) , 3 ) , env( empty ) , MODEL@:@Model ) /\ not_( couplehasnotbeencreated@Couple( Set`{_`}( _;_( per1:OCL-Type , per2:OCL-Type ) ) , none , MODEL@:@Model ) )
+	.
+endm

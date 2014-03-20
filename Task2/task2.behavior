@@ -1,4 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<behavior:Behavior xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:behavior="http://www.lcc.uma.es/Behavior/1.0">
-  <metamodelGD href="../ConcreteSyntax/movies.gcs#/"/>
+<behavior:Behavior xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:behavior="http://www.lcc.uma.es/Behavior/1.0">
+  <metamodelGD href="../Task1/ParameterWoven/parameterwoven.gcs#/"/>
+  <rules xsi:type="behavior:AtomicRule" name="Couple" lhs="//@rules.0/@patterns.0" rhs="//@rules.0/@patterns.1" nacs="//@rules.0/@patterns.2" maxDuration="0">
+    <patterns name="LHS">
+      <els xsi:type="behavior:Object" id="per1">
+        <classGD href="../Task1/ParameterWoven/parameterwoven.gcs#//@packagesGD.0/@classesGD.0"/>
+      </els>
+      <els xsi:type="behavior:Object" id="per2">
+        <classGD href="../Task1/ParameterWoven/parameterwoven.gcs#//@packagesGD.0/@classesGD.0"/>
+      </els>
+      <els xsi:type="behavior:Condition" oclValue="per1.movies->intersection(per2.movies)->size() >= 3"/>
+    </patterns>
+    <patterns name="RHS">
+      <els xsi:type="behavior:Object" id="per1" inLinks="//@rules.0/@patterns.1/@els.3">
+        <classGD href="../Task1/ParameterWoven/parameterwoven.gcs#//@packagesGD.0/@classesGD.0"/>
+      </els>
+      <els xsi:type="behavior:Object" id="per2" inLinks="//@rules.0/@patterns.1/@els.4">
+        <classGD href="../Task1/ParameterWoven/parameterwoven.gcs#//@packagesGD.0/@classesGD.0"/>
+      </els>
+      <els xsi:type="behavior:Object" id="c" outLinks="//@rules.0/@patterns.1/@els.3 //@rules.0/@patterns.1/@els.4">
+        <sfs oclValue="per1.movies->intersection(per2.movies)">
+          <sf href="../Task1/ParameterWoven/parameterwoven.ecore#//Group/commonMovies"/>
+        </sfs>
+        <classGD href="../Task1/ParameterWoven/parameterwoven.gcs#//@packagesGD.0/@classesGD.3"/>
+      </els>
+      <els xsi:type="behavior:Link" src="//@rules.0/@patterns.1/@els.2" target="//@rules.0/@patterns.1/@els.0" pos="">
+        <ref href="../Task1/ParameterWoven/parameterwoven.ecore#//Couple/p1"/>
+      </els>
+      <els xsi:type="behavior:Link" src="//@rules.0/@patterns.1/@els.2" target="//@rules.0/@patterns.1/@els.1">
+        <ref href="../Task1/ParameterWoven/parameterwoven.ecore#//Couple/p2"/>
+      </els>
+    </patterns>
+    <patterns name="coupleHasNotBeenCreated">
+      <els xsi:type="behavior:ActionExec" action="Couple" id="hasBeenPerfomerd" status="realized">
+        <participants actualObject="//@rules.0/@patterns.0/@els.0"/>
+        <participants actualObject="//@rules.0/@patterns.0/@els.1"/>
+      </els>
+    </patterns>
+  </rules>
 </behavior:Behavior>

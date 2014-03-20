@@ -2,7 +2,7 @@
 <ecore:EPackage xmi:version="2.0"
     xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="movies"
-    nsURI="http://movies/1.0" nsPrefix="movies">
+    nsURI="http://parameterwoven/1.0" nsPrefix="movies">
   <eClassifiers xsi:type="ecore:EClass" name="Person" abstract="true">
     <eStructuralFeatures xsi:type="ecore:EReference" name="movies" upperBound="-1"
         eType="#//Movie" eOpposite="#//Movie/persons"/>
@@ -24,7 +24,6 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="title" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="rating" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="year" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="#//MovieType"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="MovieType">
     <eLiterals name="MOVIE"/>

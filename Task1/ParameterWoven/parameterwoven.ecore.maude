@@ -170,7 +170,7 @@ mod @MOVIES@ is
 		persons@Movie@movies
 	.
 	eq attributes( Movie@movies ) =
-		__( title@Movie@movies , rating@Movie@movies , year@Movie@movies , type@Movie@movies )
+		__( title@Movie@movies , rating@Movie@movies , year@Movie@movies )
 	.
 	sort Group@movies
 	.
@@ -548,32 +548,6 @@ mod @MOVIES@ is
 		true
 	.
 	eq isUnique( year@Movie@movies ) =
-		true
-	.
-	op type@Movie@movies : -> @Attribute
-	.
-	eq name( type@Movie@movies ) =
-		"type"
-	.
-	eq type( type@Movie@movies ) =
-		MovieType@movies
-	.
-	eq lowerBound( type@Movie@movies ) =
-		0
-	.
-	eq upperBound( type@Movie@movies ) =
-		1
-	.
-	eq containingClass( type@Movie@movies ) =
-		Movie@movies
-	.
-	eq isId( type@Movie@movies ) =
-		false
-	.
-	eq isOrdered( type@Movie@movies ) =
-		true
-	.
-	eq isUnique( type@Movie@movies ) =
 		true
 	.
 	op avgRating@Group@movies : -> @Attribute

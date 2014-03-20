@@ -10,7 +10,7 @@
     <classesGD name="Actress" figurePath="\TTC14eMotions\ConcreteSyntax\img\actress.png">
       <class href="parameterwoven.ecore#//Actress"/>
     </classesGD>
-    <classesGD name="Couple">
+    <classesGD name="Couple" figurePath="\TTC14eMotions\ConcreteSyntax\img\couple.png">
       <class href="parameterwoven.ecore#//Couple"/>
     </classesGD>
     <classesGD name="Movie" figurePath="\TTC14eMotions\ConcreteSyntax\img\movie.png">
