@@ -7,3 +7,9 @@ Using e-Motions:
 	10000                              143
 	
 	* MaudeVersion times has been taken in Antonio's Mac instead of the Atene02 server.
+	
+	------------------------------------------------
+	
+	Task2 naive in e-Motions.
+	
+	EclipseVersion finishes with N=1 and N=10
