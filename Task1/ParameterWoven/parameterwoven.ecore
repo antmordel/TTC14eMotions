@@ -43,9 +43,12 @@
   <eClassifiers xsi:type="ecore:EClass" name="Collections">
     <eStructuralFeatures xsi:type="ecore:EReference" name="people" upperBound="-1"
         eType="#//Person"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="movies" upperBound="-1"
-        eType="#//Movie"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="movies" ordered="false"
+        upperBound="-1" eType="#//Movie"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="peopleDealtWith" upperBound="-1"
         eType="#//Person"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="fixedPerson" eType="#//Person"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="couples" upperBound="-1"
+        eType="#//Couple"/>
   </eClassifiers>
 </ecore:EPackage>

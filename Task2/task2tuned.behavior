@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<behavior:Behavior xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:behavior="http://www.lcc.uma.es/Behavior/1.0">
+  <metamodelGD href="../Task1/ParameterWoven/parameterwoven.gcs#/"/>
+  <rules xsi:type="behavior:AtomicRule" name="InitialRule" lhs="//@rules.0/@patterns.0" rhs="//@rules.0/@patterns.1" maxDuration="0">
+    <patterns name="LHS"/>
+    <patterns name="RHS">
+      <els xsi:type="behavior:Object" id="c">
+        <classGD href="../Task1/ParameterWoven/parameterwoven.gcs#//@packagesGD.0/@classesGD.8"/>
+      </els>
+    </patterns>
+  </rules>
+</behavior:Behavior>

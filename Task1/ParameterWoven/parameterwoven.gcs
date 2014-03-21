@@ -25,6 +25,9 @@
     <classesGD name="Parameter" figurePath="\TTC14eMotions\Task1\ParameterDSL\parameter.png">
       <class href="parameterwoven.ecore#//Parameter"/>
     </classesGD>
+    <classesGD name="Collections" figurePath="\TTC14eMotions\Task1\ParameterDSL\collections.png">
+      <class href="parameterwoven.ecore#//Collections"/>
+    </classesGD>
     <package href="parameterwoven.ecore#/"/>
   </packagesGD>
 </gcs:MetamodelGD>

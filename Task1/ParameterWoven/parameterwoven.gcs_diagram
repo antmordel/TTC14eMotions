@@ -51,6 +51,12 @@
         <element xmi:type="gcs:ClassGD" href="parameterwoven.gcs#//@packagesGD.0/@classesGD.7"/>
         <layoutConstraint xmi:type="notation:Bounds" xmi:id="_YgFKQqtyEeOMedhQ2XR9Zg" x="802" y="35"/>
       </children>
+      <children xmi:type="notation:Node" xmi:id="_aVr6YbDrEeOEz6Y6lWHwHQ" type="3001">
+        <children xmi:type="notation:Node" xmi:id="_aVtIgLDrEeOEz6Y6lWHwHQ" type="5001"/>
+        <styles xmi:type="notation:ShapeStyle" xmi:id="_aVr6YrDrEeOEz6Y6lWHwHQ" fontName="Segoe UI"/>
+        <element xmi:type="gcs:ClassGD" href="parameterwoven.gcs#//@packagesGD.0/@classesGD.8"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_aVr6Y7DrEeOEz6Y6lWHwHQ" x="935" y="18"/>
+      </children>
       <styles xmi:type="notation:DrawerStyle" xmi:id="_wCXCcatqEeOMedhQ2XR9Zg"/>
       <styles xmi:type="notation:SortingStyle" xmi:id="_wCXCcqtqEeOMedhQ2XR9Zg"/>
       <styles xmi:type="notation:FilteringStyle" xmi:id="_wCXCc6tqEeOMedhQ2XR9Zg"/>
@@ -62,7 +68,7 @@
     </children>
     <styles xmi:type="notation:ShapeStyle" xmi:id="_wCV0UatqEeOMedhQ2XR9Zg" fontName="Segoe UI"/>
     <element xmi:type="gcs:PackageGD" href="parameterwoven.gcs#//@packagesGD.0"/>
-    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_wCV0UqtqEeOMedhQ2XR9Zg" x="30" y="30" width="911"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_wCV0UqtqEeOMedhQ2XR9Zg" x="30" y="30" width="1171"/>
   </children>
   <styles xmi:type="notation:DiagramStyle" xmi:id="_v_oekqtqEeOMedhQ2XR9Zg"/>
   <element xmi:type="gcs:MetamodelGD" href="parameterwoven.gcs#/"/>
