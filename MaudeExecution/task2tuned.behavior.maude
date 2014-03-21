@@ -1,0 +1,133 @@
+
+
+mod @MOVIES@BEHAVIOR@ is
+	protecting E-MOTIONS
+	.
+	protecting DISCRETE_TIME
+	.
+	op movies@OCLSf : -> @StructuralFeature
+	.
+	eq name( movies@OCLSf ) =
+		"movies"
+	.
+	op name@OCLSf : -> @StructuralFeature
+	.
+	eq name( name@OCLSf ) =
+		"name"
+	.
+	op p1@OCLSf : -> @StructuralFeature
+	.
+	eq name( p1@OCLSf ) =
+		"p1"
+	.
+	op p2@OCLSf : -> @StructuralFeature
+	.
+	eq name( p2@OCLSf ) =
+		"p2"
+	.
+	op persons@OCLSf : -> @StructuralFeature
+	.
+	eq name( persons@OCLSf ) =
+		"persons"
+	.
+	op title@OCLSf : -> @StructuralFeature
+	.
+	eq name( title@OCLSf ) =
+		"title"
+	.
+	op rating@OCLSf : -> @StructuralFeature
+	.
+	eq name( rating@OCLSf ) =
+		"rating"
+	.
+	op year@OCLSf : -> @StructuralFeature
+	.
+	eq name( year@OCLSf ) =
+		"year"
+	.
+	op commonMovies@OCLSf : -> @StructuralFeature
+	.
+	eq name( commonMovies@OCLSf ) =
+		"commonMovies"
+	.
+	op avgRating@OCLSf : -> @StructuralFeature
+	.
+	eq name( avgRating@OCLSf ) =
+		"avgRating"
+	.
+	op persons@OCLSf : -> @StructuralFeature
+	.
+	eq name( persons@OCLSf ) =
+		"persons"
+	.
+	op nP@OCLSf : -> @StructuralFeature
+	.
+	eq name( nP@OCLSf ) =
+		"nP"
+	.
+	op nN@OCLSf : -> @StructuralFeature
+	.
+	eq name( nN@OCLSf ) =
+		"nN"
+	.
+	op people@OCLSf : -> @StructuralFeature
+	.
+	eq name( people@OCLSf ) =
+		"people"
+	.
+	op movies@OCLSf : -> @StructuralFeature
+	.
+	eq name( movies@OCLSf ) =
+		"movies"
+	.
+	op peopleDealtWith@OCLSf : -> @StructuralFeature
+	.
+	eq name( peopleDealtWith@OCLSf ) =
+		"peopleDealtWith"
+	.
+	op fixedPerson@OCLSf : -> @StructuralFeature
+	.
+	eq name( fixedPerson@OCLSf ) =
+		"fixedPerson"
+	.
+	op couples@OCLSf : -> @StructuralFeature
+	.
+	eq name( couples@OCLSf ) =
+		"couples"
+	.
+	protecting @MOVIES@
+	.
+	eq rulesInformation =
+		_`{_`}( @MGBehavior@ , __( <_:_|_>( 'Rule0:OCL-Type , AtomicRule@MGBehavior , _#_( _:_( name@Rule@MGBehavior , "InitialRule" ) , _:_( lowerBound@Rule@MGBehavior , null ) , _:_( upperBound@Rule@MGBehavior , null ) , _:_( soft@Rule@MGBehavior , false ) , _:_( periodicity@AtomicRule@MGBehavior , null ) ) ) , <_:_|_>( 'Rule0:OCL-Type , AtomicRule@MGBehavior , _#_( _:_( name@Rule@MGBehavior , "FixPerson" ) , _:_( lowerBound@Rule@MGBehavior , null ) , _:_( upperBound@Rule@MGBehavior , null ) , _:_( soft@Rule@MGBehavior , false ) , _:_( periodicity@AtomicRule@MGBehavior , null ) ) ) ) )
+	.
+	crl [ InitialRule@Instantaneous ] :
+		_`{_`}( MM@:@Metamodel , __( <_:_|_>( CLK@:Oid , Clock@MGBehavior , _:_( time@Clock@MGBehavior , TIME@CLK@:Time ) ) , <_:_|_>( 'ids@ , Counter@MGBehavior , _:_( value@Counter@MGBehavior , VALUE@ids@:Int ) ) , <_:_|_>( 'rdm@ , Counter@MGBehavior , _:_( value@Counter@MGBehavior , VALUE@rdm@:Int ) ) , OBJSET@:Set{@Object} ) )
+	=>
+		readjust( Set`{_`}( mt ) , nil , _`{_`}( MM@:@Metamodel , __( complete( <_:_|_>( c:OCL-Type , Collections@movies , _#_( _:_( movies@Collections@movies , eval( _.`allInstances( Movie@movies ) , env( _<-_( self , c:OCL-Type ) ) , MODEL@:@Model ) ) , _:_( people@Collections@movies , eval( _->`union`(_`)( _.`allInstances( Actor@movies ) , _.`allInstances( Actress@movies ) ) , env( _<-_( self , c:OCL-Type ) ) , MODEL@:@Model ) ) ) ) ) , <_:_|_>( CLK@:Oid , Clock@MGBehavior , _:_( time@Clock@MGBehavior , TIME@CLK@:Time ) ) , <_:_|_>( 'rdm@ , Counter@MGBehavior , _:_( value@Counter@MGBehavior , _+_( VALUE@rdm@:Int , 0 ) ) ) , OBJSET@:Set{@Object} , <_:_|_>( 'ids@ , Counter@MGBehavior , _:_( value@Counter@MGBehavior , _+_( VALUE@ids@:Int , 2 ) ) ) ) ) )
+	if ACTEXEC@:Oid := newId( VALUE@ids@:Int ) /\ MODEL@:@Model := _`{_`}( MM@:@Metamodel , __( <_:_|_>( CLK@:Oid , Clock@MGBehavior , _:_( time@Clock@MGBehavior , TIME@CLK@:Time ) ) , <_:_|_>( 'ids@ , Counter@MGBehavior , _:_( value@Counter@MGBehavior , VALUE@ids@:Int ) ) , <_:_|_>( 'rdm@ , Counter@MGBehavior , _:_( value@Counter@MGBehavior , VALUE@rdm@:Int ) ) , OBJSET@:Set{@Object} ) ) /\ T:OCL-Type := eval( 0 , env( empty ) , MODEL@:@Model ) /\ c:OCL-Type := newId( _+_( VALUE@ids@:Int , 1 ) ) /\ not_( notexecuted@InitialRule( Set`{_`}( mt ) , none , MODEL@:@Model ) )
+	.
+	op notexecuted@InitialRule : Set Set{@Object} @Model -> Bool
+	.
+	ceq notexecuted@InitialRule( Set`{_`}( mt ) , none , _`{_`}( MM@:@Metamodel , __( <_:_|_>( c1:OCL-Type , COLLECTIONS@MOVIES@c1@CLASS:Collections@movies , c1@SFS:Set{@StructuralFeatureInstance} ) , OBJSET@:Set{@Object} ) ) ) =
+		true
+	if MODEL@:@Model := _`{_`}( MM@:@Metamodel , __( <_:_|_>( c1:OCL-Type , COLLECTIONS@MOVIES@c1@CLASS:Collections@movies , c1@SFS:Set{@StructuralFeatureInstance} ) , OBJSET@:Set{@Object} ) )
+	.
+	eq notexecuted@InitialRule( OIDSET@:Set , OBJSET@:Set{@Object} , MODEL@:@Model ) =
+		false
+	[ owise ]
+	.
+	ceq mte( _`{_`}( MM@:@Metamodel , __( <_:_|_>( CLK@:Oid , Clock@MGBehavior , _:_( time@Clock@MGBehavior , TIME@CLK@:Time ) ) , <_:_|_>( 'ids@ , Counter@MGBehavior , _:_( value@Counter@MGBehavior , VALUE@ids@:Int ) ) , <_:_|_>( 'rdm@ , Counter@MGBehavior , _:_( value@Counter@MGBehavior , VALUE@rdm@:Int ) ) , OBJSET@:Set{@Object} ) ) ) =
+		0
+	if MODEL@:@Model := _`{_`}( MM@:@Metamodel , __( <_:_|_>( CLK@:Oid , Clock@MGBehavior , _:_( time@Clock@MGBehavior , TIME@CLK@:Time ) ) , <_:_|_>( 'ids@ , Counter@MGBehavior , _:_( value@Counter@MGBehavior , VALUE@ids@:Int ) ) , <_:_|_>( 'rdm@ , Counter@MGBehavior , _:_( value@Counter@MGBehavior , VALUE@rdm@:Int ) ) , OBJSET@:Set{@Object} ) ) /\ not_( notexecuted@InitialRule( Set`{_`}( mt ) , none , MODEL@:@Model ) )
+	.
+	crl [ FixPerson@Instantaneous ] :
+		_`{_`}( MM@:@Metamodel , __( <_:_|_>( c:OCL-Type , COLLECTIONS@MOVIES@c@CLASS:Collections@movies , _#_( _:_( fixedPerson@Collections@movies , FIXEDPERSON@c@ATT:OCL-Type ) , _:_( people@Collections@movies , PEOPLE@c@ATT:OCL-Type ) , c@SFS:Set{@StructuralFeatureInstance} ) ) , <_:_|_>( CLK@:Oid , Clock@MGBehavior , _:_( time@Clock@MGBehavior , TIME@CLK@:Time ) ) , <_:_|_>( 'ids@ , Counter@MGBehavior , _:_( value@Counter@MGBehavior , VALUE@ids@:Int ) ) , <_:_|_>( 'rdm@ , Counter@MGBehavior , _:_( value@Counter@MGBehavior , VALUE@rdm@:Int ) ) , OBJSET@:Set{@Object} ) )
+	=>
+		readjust( Set`{_`}( mt ) , nil , _`{_`}( MM@:@Metamodel , __( <_:_|_>( c:OCL-Type , COLLECTIONS@MOVIES@c@CLASS:Collections@movies , _#_( _:_( fixedPerson@Collections@movies , eval( p:OCL-Type , env( _<-_( self , c:OCL-Type ) ) , MODEL@:@Model ) ) , _:_( people@Collections@movies , eval( _->`excluding`(_`)( __( c:OCL-Type , ._( people@OCLSf ) ) , p:OCL-Type ) , env( _<-_( self , c:OCL-Type ) ) , MODEL@:@Model ) ) , c@SFS:Set{@StructuralFeatureInstance} ) ) , <_:_|_>( CLK@:Oid , Clock@MGBehavior , _:_( time@Clock@MGBehavior , TIME@CLK@:Time ) ) , <_:_|_>( 'rdm@ , Counter@MGBehavior , _:_( value@Counter@MGBehavior , _+_( VALUE@rdm@:Int , 0 ) ) ) , OBJSET@:Set{@Object} , <_:_|_>( 'ids@ , Counter@MGBehavior , _:_( value@Counter@MGBehavior , _+_( VALUE@ids@:Int , 3 ) ) ) ) ) )
+	if ACTEXEC@:Oid := newId( VALUE@ids@:Int ) /\ MODEL@:@Model := _`{_`}( MM@:@Metamodel , __( <_:_|_>( c:OCL-Type , COLLECTIONS@MOVIES@c@CLASS:Collections@movies , _#_( _:_( fixedPerson@Collections@movies , FIXEDPERSON@c@ATT:OCL-Type ) , _:_( people@Collections@movies , PEOPLE@c@ATT:OCL-Type ) , c@SFS:Set{@StructuralFeatureInstance} ) ) , <_:_|_>( CLK@:Oid , Clock@MGBehavior , _:_( time@Clock@MGBehavior , TIME@CLK@:Time ) ) , <_:_|_>( 'ids@ , Counter@MGBehavior , _:_( value@Counter@MGBehavior , VALUE@ids@:Int ) ) , <_:_|_>( 'rdm@ , Counter@MGBehavior , _:_( value@Counter@MGBehavior , VALUE@rdm@:Int ) ) , OBJSET@:Set{@Object} ) ) /\ p:OCL-Type := eval( _->`first`(`)( _->`asSequence`(`)( __( c:OCL-Type , ._( people@OCLSf ) ) ) ) , env( empty ) , MODEL@:@Model ) /\ eval( not_( _.`oclIsUndefined`(`)( __( c:OCL-Type , ._( fixedPerson@OCLSf ) ) ) ) , env( empty ) , MODEL@:@Model ) /\ T:OCL-Type := eval( 0 , env( empty ) , MODEL@:@Model ) /\ OR1@:Oid := newId( _+_( VALUE@ids@:Int , 1 ) ) /\ VAR1@:Oid := newId( _+_( VALUE@ids@:Int , 2 ) )
+	.
+	ceq mte( _`{_`}( MM@:@Metamodel , __( <_:_|_>( c:OCL-Type , COLLECTIONS@MOVIES@c@CLASS:Collections@movies , _#_( _:_( fixedPerson@Collections@movies , FIXEDPERSON@c@ATT:OCL-Type ) , _:_( people@Collections@movies , PEOPLE@c@ATT:OCL-Type ) , c@SFS:Set{@StructuralFeatureInstance} ) ) , <_:_|_>( CLK@:Oid , Clock@MGBehavior , _:_( time@Clock@MGBehavior , TIME@CLK@:Time ) ) , <_:_|_>( 'ids@ , Counter@MGBehavior , _:_( value@Counter@MGBehavior , VALUE@ids@:Int ) ) , <_:_|_>( 'rdm@ , Counter@MGBehavior , _:_( value@Counter@MGBehavior , VALUE@rdm@:Int ) ) , OBJSET@:Set{@Object} ) ) ) =
+		0
+	if MODEL@:@Model := _`{_`}( MM@:@Metamodel , __( <_:_|_>( c:OCL-Type , COLLECTIONS@MOVIES@c@CLASS:Collections@movies , _#_( _:_( fixedPerson@Collections@movies , FIXEDPERSON@c@ATT:OCL-Type ) , _:_( people@Collections@movies , PEOPLE@c@ATT:OCL-Type ) , c@SFS:Set{@StructuralFeatureInstance} ) ) , <_:_|_>( CLK@:Oid , Clock@MGBehavior , _:_( time@Clock@MGBehavior , TIME@CLK@:Time ) ) , <_:_|_>( 'ids@ , Counter@MGBehavior , _:_( value@Counter@MGBehavior , VALUE@ids@:Int ) ) , <_:_|_>( 'rdm@ , Counter@MGBehavior , _:_( value@Counter@MGBehavior , VALUE@rdm@:Int ) ) , OBJSET@:Set{@Object} ) ) /\ VAR1@:Oid := newId( _+_( VALUE@ids@:Int , 2 ) ) /\ p:OCL-Type := eval( _->`first`(`)( _->`asSequence`(`)( __( c:OCL-Type , ._( people@OCLSf ) ) ) ) , env( empty ) , MODEL@:@Model ) /\ eval( not_( _.`oclIsUndefined`(`)( __( c:OCL-Type , ._( fixedPerson@OCLSf ) ) ) ) , env( empty ) , MODEL@:@Model )
+	.
+endm

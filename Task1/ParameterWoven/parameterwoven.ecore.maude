@@ -26,7 +26,7 @@ mod @MOVIES@ is
 		nil
 	.
 	eq classes( movies ) =
-		__( Person@movies , Parameter@movies , Actor@movies , Actress@movies , Couple@movies , Movie@movies , Group@movies , Clique@movies )
+		__( Person@movies , Parameter@movies , Actor@movies , Actress@movies , Couple@movies , Movie@movies , Group@movies , Clique@movies , Collections@movies )
 	.
 	sort Person@movies
 	.
@@ -220,6 +220,30 @@ mod @MOVIES@ is
 	eq attributes( Clique@movies ) =
 		nil
 	.
+	sort Collections@movies
+	.
+	subsorts Collections@movies < @Class
+	.
+	op Collections@movies : -> Collections@movies
+	.
+	eq name( Collections@movies ) =
+		"Collections"
+	.
+	eq isAbstract( Collections@movies ) =
+		false
+	.
+	eq package( Collections@movies ) =
+		movies
+	.
+	eq superTypes( Collections@movies ) =
+		nil
+	.
+	eq references( Collections@movies ) =
+		__( people@Collections@movies , movies@Collections@movies , peopleDealtWith@Collections@movies , fixedPerson@Collections@movies , couples@Collections@movies )
+	.
+	eq attributes( Collections@movies ) =
+		nil
+	.
 	op movies@Person@movies : -> @Reference
 	.
 	eq name( movies@Person@movies ) =
@@ -392,6 +416,151 @@ mod @MOVIES@ is
 		true
 	.
 	eq isUnique( persons@Clique@movies ) =
+		true
+	.
+	op people@Collections@movies : -> @Reference
+	.
+	eq name( people@Collections@movies ) =
+		"people"
+	.
+	eq type( people@Collections@movies ) =
+		Person@movies
+	.
+	eq opposite( people@Collections@movies ) =
+		null
+	.
+	eq lowerBound( people@Collections@movies ) =
+		0
+	.
+	eq upperBound( people@Collections@movies ) =
+		*
+	.
+	eq containingClass( people@Collections@movies ) =
+		Collections@movies
+	.
+	eq isContainment( people@Collections@movies ) =
+		false
+	.
+	eq isOrdered( people@Collections@movies ) =
+		true
+	.
+	eq isUnique( people@Collections@movies ) =
+		true
+	.
+	op movies@Collections@movies : -> @Reference
+	.
+	eq name( movies@Collections@movies ) =
+		"movies"
+	.
+	eq type( movies@Collections@movies ) =
+		Movie@movies
+	.
+	eq opposite( movies@Collections@movies ) =
+		null
+	.
+	eq lowerBound( movies@Collections@movies ) =
+		0
+	.
+	eq upperBound( movies@Collections@movies ) =
+		*
+	.
+	eq containingClass( movies@Collections@movies ) =
+		Collections@movies
+	.
+	eq isContainment( movies@Collections@movies ) =
+		false
+	.
+	eq isOrdered( movies@Collections@movies ) =
+		false
+	.
+	eq isUnique( movies@Collections@movies ) =
+		true
+	.
+	op peopleDealtWith@Collections@movies : -> @Reference
+	.
+	eq name( peopleDealtWith@Collections@movies ) =
+		"peopleDealtWith"
+	.
+	eq type( peopleDealtWith@Collections@movies ) =
+		Person@movies
+	.
+	eq opposite( peopleDealtWith@Collections@movies ) =
+		null
+	.
+	eq lowerBound( peopleDealtWith@Collections@movies ) =
+		0
+	.
+	eq upperBound( peopleDealtWith@Collections@movies ) =
+		*
+	.
+	eq containingClass( peopleDealtWith@Collections@movies ) =
+		Collections@movies
+	.
+	eq isContainment( peopleDealtWith@Collections@movies ) =
+		false
+	.
+	eq isOrdered( peopleDealtWith@Collections@movies ) =
+		true
+	.
+	eq isUnique( peopleDealtWith@Collections@movies ) =
+		true
+	.
+	op fixedPerson@Collections@movies : -> @Reference
+	.
+	eq name( fixedPerson@Collections@movies ) =
+		"fixedPerson"
+	.
+	eq type( fixedPerson@Collections@movies ) =
+		Person@movies
+	.
+	eq opposite( fixedPerson@Collections@movies ) =
+		null
+	.
+	eq lowerBound( fixedPerson@Collections@movies ) =
+		0
+	.
+	eq upperBound( fixedPerson@Collections@movies ) =
+		1
+	.
+	eq containingClass( fixedPerson@Collections@movies ) =
+		Collections@movies
+	.
+	eq isContainment( fixedPerson@Collections@movies ) =
+		false
+	.
+	eq isOrdered( fixedPerson@Collections@movies ) =
+		true
+	.
+	eq isUnique( fixedPerson@Collections@movies ) =
+		true
+	.
+	op couples@Collections@movies : -> @Reference
+	.
+	eq name( couples@Collections@movies ) =
+		"couples"
+	.
+	eq type( couples@Collections@movies ) =
+		Couple@movies
+	.
+	eq opposite( couples@Collections@movies ) =
+		null
+	.
+	eq lowerBound( couples@Collections@movies ) =
+		0
+	.
+	eq upperBound( couples@Collections@movies ) =
+		*
+	.
+	eq containingClass( couples@Collections@movies ) =
+		Collections@movies
+	.
+	eq isContainment( couples@Collections@movies ) =
+		false
+	.
+	eq isOrdered( couples@Collections@movies ) =
+		true
+	.
+	eq isUnique( couples@Collections@movies ) =
 		true
 	.
 	op name@Person@movies : -> @Attribute
