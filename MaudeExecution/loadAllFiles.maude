@@ -18,7 +18,7 @@ load CommonFiles/e-Motions.maude
 load parameterwoven.ecore.maude
 ----load task1.behavior.maude
 
-load task2tuned.behavior.maude
+load task2.behavior.maude
 load out2.xmi.maude
 
 ---- set print conceal on .

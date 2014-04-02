@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:movies="http://parameterwoven/1.0">
+  <movies:Parameter nP="-1" nN="-1"/>
+  <movies:Actor movies="/42 /41" name="a35"/>
+  <movies:Actor movies="/41 /43 /42" name="a36"/>
+  <movies:Actor movies="/47 /49 /50 /48" name="a20"/>
+  <movies:Actor movies="/48 /50 /47 /49" name="a21"/>
+  <movies:Actor movies="/49 /48 /50" name="a22"/>
+  <movies:Actor movies="/54 /53" name="a25"/>
+  <movies:Actor movies="/56 /53 /54" name="a26"/>
+  <movies:Actor movies="/63 /61 /60 /62" name="a10"/>
+  <movies:Actor movies="/63 /60 /61 /62" name="a11"/>
+  <movies:Actor movies="/62 /61 /63" name="a12"/>
+  <movies:Actor movies="/67 /66" name="a15"/>
+  <movies:Actor movies="/68 /67 /66" name="a16"/>
+  <movies:Actor movies="/46 /55 /59 /51" name="a30"/>
+  <movies:Actor movies="/74 /72 /71 /73" name="a0"/>
+  <movies:Actor movies="/46 /59 /51 /55" name="a31"/>
+  <movies:Actor movies="/74 /73 /71 /72" name="a1"/>
+  <movies:Actor movies="/72 /74 /73" name="a2"/>
+  <movies:Actor movies="/55 /59 /51" name="a32"/>
+  <movies:Actor movies="/77 /76" name="a5"/>
+  <movies:Actor movies="/77 /76 /78" name="a6"/>
+  <movies:Actress movies="/51 /65 /55 /59" name="a33"/>
+  <movies:Actress movies="/55 /65 /59 /51" name="a34"/>
+  <movies:Actress movies="/42 /44 /43" name="a37"/>
+  <movies:Actress movies="/44 /43 /45" name="a38"/>
+  <movies:Actress movies="/44 /45" name="a39"/>
+  <movies:Actress movies="/50 /48 /49 /52" name="a23"/>
+  <movies:Actress movies="/50 /49 /48 /52" name="a24"/>
+  <movies:Actress movies="/54 /56 /57" name="a27"/>
+  <movies:Actress movies="/57 /56 /58" name="a28"/>
+  <movies:Actress movies="/58 /57" name="a29"/>
+  <movies:Actress movies="/61 /63 /64 /62" name="a13"/>
+  <movies:Actress movies="/64 /62 /63 /61" name="a14"/>
+  <movies:Actress movies="/67 /69 /68" name="a17"/>
+  <movies:Actress movies="/69 /70 /68" name="a18"/>
+  <movies:Actress movies="/70 /69" name="a19"/>
+  <movies:Actress movies="/74 /72 /73 /75" name="a3"/>
+  <movies:Actress movies="/74 /73 /72 /75" name="a4"/>
+  <movies:Actress movies="/78 /77 /79" name="a7"/>
+  <movies:Actress movies="/78 /80 /79" name="a8"/>
+  <movies:Actress movies="/80 /79" name="a9"/>
+  <movies:Movie persons="/1 /2" rating="35.0"/>
+  <movies:Movie persons="/1 /2 /23" rating="36.0"/>
+  <movies:Movie persons="/2 /23 /24" rating="37.0"/>
+  <movies:Movie persons="/23 /24 /25" rating="38.0"/>
+  <movies:Movie persons="/24 /25" rating="39.0"/>
+  <movies:Movie persons="/13 /15" rating="30.0"/>
+  <movies:Movie persons="/3 /4" rating="20.0"/>
+  <movies:Movie persons="/3 /4 /5 /26 /27" rating="21.0"/>
+  <movies:Movie persons="/3 /4 /5 /26 /27" rating="22.0"/>
+  <movies:Movie persons="/3 /4 /5 /26 /27" rating="23.0"/>
+  <movies:Movie persons="/13 /15 /18 /21 /22" rating="31.0"/>
+  <movies:Movie persons="/26 /27" rating="24.0"/>
+  <movies:Movie persons="/6 /7" rating="25.0"/>
+  <movies:Movie persons="/6 /7 /28" rating="26.0"/>
+  <movies:Movie persons="/13 /15 /18 /21 /22" rating="32.0"/>
+  <movies:Movie persons="/7 /28 /29" rating="27.0"/>
+  <movies:Movie persons="/28 /29 /30" rating="28.0"/>
+  <movies:Movie persons="/29 /30" rating="29.0"/>
+  <movies:Movie persons="/13 /15 /18 /21 /22" rating="33.0"/>
+  <movies:Movie persons="/8 /9" rating="10.0"/>
+  <movies:Movie persons="/8 /9 /10 /31 /32" rating="11.0"/>
+  <movies:Movie persons="/8 /9 /10 /31 /32" rating="12.0"/>
+  <movies:Movie persons="/8 /9 /10 /31 /32" rating="13.0"/>
+  <movies:Movie persons="/31 /32" rating="14.0"/>
+  <movies:Movie persons="/21 /22" rating="34.0"/>
+  <movies:Movie persons="/11 /12" rating="15.0"/>
+  <movies:Movie persons="/11 /12 /33" rating="16.0"/>
+  <movies:Movie persons="/12 /33 /34" rating="17.0"/>
+  <movies:Movie persons="/33 /34 /35" rating="18.0"/>
+  <movies:Movie persons="/34 /35" rating="19.0"/>
+  <movies:Movie persons="/14 /16"/>
+  <movies:Movie persons="/14 /16 /17 /36 /37" rating="1.0"/>
+  <movies:Movie persons="/14 /16 /17 /36 /37" rating="2.0"/>
+  <movies:Movie persons="/14 /16 /17 /36 /37" rating="3.0"/>
+  <movies:Movie persons="/36 /37" rating="4.0"/>
+  <movies:Movie persons="/19 /20" rating="5.0"/>
+  <movies:Movie persons="/19 /20 /38" rating="6.0"/>
+  <movies:Movie persons="/20 /38 /39" rating="7.0"/>
+  <movies:Movie persons="/38 /39 /40" rating="8.0"/>
+  <movies:Movie persons="/39 /40" rating="9.0"/>
+</xmi:XMI>

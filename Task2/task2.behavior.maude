@@ -70,6 +70,26 @@ mod @MOVIES@BEHAVIOR@ is
 	eq name( nN@OCLSf ) =
 		"nN"
 	.
+	op people@OCLSf : -> @StructuralFeature
+	.
+	eq name( people@OCLSf ) =
+		"people"
+	.
+	op peopleDealtWith@OCLSf : -> @StructuralFeature
+	.
+	eq name( peopleDealtWith@OCLSf ) =
+		"peopleDealtWith"
+	.
+	op fixedPerson@OCLSf : -> @StructuralFeature
+	.
+	eq name( fixedPerson@OCLSf ) =
+		"fixedPerson"
+	.
+	op couples@OCLSf : -> @StructuralFeature
+	.
+	eq name( couples@OCLSf ) =
+		"couples"
+	.
 	protecting @MOVIES@
 	.
 	eq rulesInformation =
