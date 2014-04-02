@@ -239,7 +239,7 @@ mod @MOVIES@ is
 		nil
 	.
 	eq references( Collections@movies ) =
-		__( people@Collections@movies , peopleDealtWith@Collections@movies , fixedPerson@Collections@movies , couples@Collections@movies )
+		__( people@Collections@movies , peopleDealtWith@Collections@movies , fixedPerson@Collections@movies )
 	.
 	eq attributes( Collections@movies ) =
 		nil
@@ -503,35 +503,6 @@ mod @MOVIES@ is
 		true
 	.
 	eq isUnique( fixedPerson@Collections@movies ) =
-		true
-	.
-	op couples@Collections@movies : -> @Reference
-	.
-	eq name( couples@Collections@movies ) =
-		"couples"
-	.
-	eq type( couples@Collections@movies ) =
-		Couple@movies
-	.
-	eq opposite( couples@Collections@movies ) =
-		null
-	.
-	eq lowerBound( couples@Collections@movies ) =
-		0
-	.
-	eq upperBound( couples@Collections@movies ) =
-		*
-	.
-	eq containingClass( couples@Collections@movies ) =
-		Collections@movies
-	.
-	eq isContainment( couples@Collections@movies ) =
-		false
-	.
-	eq isOrdered( couples@Collections@movies ) =
-		true
-	.
-	eq isUnique( couples@Collections@movies ) =
 		true
 	.
 	op name@Person@movies : -> @Attribute
