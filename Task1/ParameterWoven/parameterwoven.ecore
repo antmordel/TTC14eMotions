@@ -46,7 +46,5 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="peopleDealtWith" ordered="false"
         upperBound="-1" eType="#//Person"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="fixedPerson" eType="#//Person"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="couples" upperBound="-1"
-        eType="#//Couple"/>
   </eClassifiers>
 </ecore:EPackage>
