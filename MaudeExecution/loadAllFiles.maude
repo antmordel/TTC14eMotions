@@ -1,6 +1,12 @@
 ---- cd ../workspaceEmotionsPalladio/TTC14eMotions/MaudeExecution
 
 set print attribute on .
+set trace on .
+set trace rl on .
+set trace eq off .
+set trace rewrite off .
+set trace body off .
+set trace substitution off .
 
 load CommonFiles/mOdCL.maude
 load CommonFiles/model-checker.maude

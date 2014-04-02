@@ -5,9 +5,6 @@
     <patterns name="LHS"/>
     <patterns name="RHS">
       <els xsi:type="behavior:Object" id="c">
-        <sfs oclValue="Movie.allInstances()">
-          <sf href="../Task1/ParameterWoven/parameterwoven.ecore#//Collections/movies"/>
-        </sfs>
         <sfs oclValue="Actor.allInstances()->union(Actress.allInstances())">
           <sf href="../Task1/ParameterWoven/parameterwoven.ecore#//Collections/people"/>
         </sfs>
