@@ -471,7 +471,7 @@ mod @MOVIES@ is
 		false
 	.
 	eq isOrdered( peopleDealtWith@Collections@movies ) =
-		true
+		false
 	.
 	eq isUnique( peopleDealtWith@Collections@movies ) =
 		true

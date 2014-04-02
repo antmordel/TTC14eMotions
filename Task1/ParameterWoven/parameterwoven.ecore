@@ -43,8 +43,8 @@
   <eClassifiers xsi:type="ecore:EClass" name="Collections">
     <eStructuralFeatures xsi:type="ecore:EReference" name="people" ordered="false"
         upperBound="-1" eType="#//Person"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="peopleDealtWith" upperBound="-1"
-        eType="#//Person"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="peopleDealtWith" ordered="false"
+        upperBound="-1" eType="#//Person"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="fixedPerson" eType="#//Person"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="couples" upperBound="-1"
         eType="#//Couple"/>

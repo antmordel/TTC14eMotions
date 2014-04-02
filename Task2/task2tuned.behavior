@@ -60,13 +60,9 @@
         <ref href="../Task1/ParameterWoven/parameterwoven.ecore#//Collections/fixedPerson"/>
       </els>
       <els xsi:type="behavior:Condition" oclValue="(p.movies->intersection(fixed.movies))->size() >= 3"/>
-      <els xsi:type="behavior:Condition" oclValue="false"/>
     </patterns>
     <patterns name="RHS">
       <els xsi:type="behavior:Object" id="c" outLinks="//@rules.2/@patterns.1/@els.3 //@rules.2/@patterns.1/@els.4">
-        <sfs oclValue="c.people->excluding(p)">
-          <sf href="../Task1/ParameterWoven/parameterwoven.ecore#//Collections/people"/>
-        </sfs>
         <classGD href="../Task1/ParameterWoven/parameterwoven.gcs#//@packagesGD.0/@classesGD.8"/>
       </els>
       <els xsi:type="behavior:Object" id="p" inLinks="//@rules.2/@patterns.1/@els.3 //@rules.2/@patterns.1/@els.6">
@@ -113,7 +109,6 @@
         <ref href="../Task1/ParameterWoven/parameterwoven.ecore#//Collections/fixedPerson"/>
       </els>
       <els xsi:type="behavior:Condition" oclValue="(p.movies->intersection(fixed.movies))->size() &lt; 3"/>
-      <els xsi:type="behavior:Condition" oclValue="false"/>
     </patterns>
     <patterns name="RHS">
       <els xsi:type="behavior:Object" id="c" outLinks="//@rules.3/@patterns.1/@els.3 //@rules.3/@patterns.1/@els.4">
@@ -150,6 +145,9 @@
       <els xsi:type="behavior:Object" id="c">
         <sfs oclValue="c.peopleDealtWith">
           <sf href="../Task1/ParameterWoven/parameterwoven.ecore#//Collections/people"/>
+        </sfs>
+        <sfs oclValue="Set{}">
+          <sf href="../Task1/ParameterWoven/parameterwoven.ecore#//Collections/peopleDealtWith"/>
         </sfs>
         <classGD href="../Task1/ParameterWoven/parameterwoven.gcs#//@packagesGD.0/@classesGD.8"/>
       </els>
