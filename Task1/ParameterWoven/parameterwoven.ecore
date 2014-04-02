@@ -32,8 +32,8 @@
     <eLiterals name="VIDEOGAME" value="3"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Group" abstract="true">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="commonMovies" upperBound="-1"
-        eType="#//Movie"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="commonMovies" ordered="false"
+        upperBound="-1" eType="#//Movie"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="avgRating" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Clique" eSuperTypes="#//Group">

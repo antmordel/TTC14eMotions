@@ -15,28 +15,149 @@
       </els>
     </patterns>
     <patterns name="NotExecuted">
-      <els xsi:type="behavior:Object" id="c1">
+      <els xsi:type="behavior:Object" id="c">
         <classGD href="../Task1/ParameterWoven/parameterwoven.gcs#//@packagesGD.0/@classesGD.8"/>
       </els>
     </patterns>
   </rules>
   <rules xsi:type="behavior:AtomicRule" name="FixPerson" lhs="//@rules.1/@patterns.0" rhs="//@rules.1/@patterns.1" maxDuration="0">
-    <vbles name="p" type="Person" value="c.people->asSequence()->first()"/>
     <patterns name="LHS">
-      <els xsi:type="behavior:Object" id="c">
+      <els xsi:type="behavior:Object" id="c" outLinks="//@rules.1/@patterns.0/@els.3">
         <classGD href="../Task1/ParameterWoven/parameterwoven.gcs#//@packagesGD.0/@classesGD.8"/>
       </els>
       <els xsi:type="behavior:Condition" oclValue="c.fixedPerson.oclIsUndefined()"/>
+      <els xsi:type="behavior:Object" id="p" inLinks="//@rules.1/@patterns.0/@els.3">
+        <classGD href="../Task1/ParameterWoven/parameterwoven.gcs#//@packagesGD.0/@classesGD.0"/>
+      </els>
+      <els xsi:type="behavior:Link" src="//@rules.1/@patterns.0/@els.0" target="//@rules.1/@patterns.0/@els.2">
+        <ref href="../Task1/ParameterWoven/parameterwoven.ecore#//Collections/people"/>
+      </els>
     </patterns>
     <patterns name="RHS">
-      <els xsi:type="behavior:Object" id="c">
-        <sfs oclValue="p">
-          <sf href="../Task1/ParameterWoven/parameterwoven.ecore#//Collections/fixedPerson"/>
-        </sfs>
+      <els xsi:type="behavior:Object" id="c" outLinks="//@rules.1/@patterns.1/@els.2">
+        <classGD href="../Task1/ParameterWoven/parameterwoven.gcs#//@packagesGD.0/@classesGD.8"/>
+      </els>
+      <els xsi:type="behavior:Object" id="p" inLinks="//@rules.1/@patterns.1/@els.2">
+        <classGD href="../Task1/ParameterWoven/parameterwoven.gcs#//@packagesGD.0/@classesGD.0"/>
+      </els>
+      <els xsi:type="behavior:Link" src="//@rules.1/@patterns.1/@els.0" target="//@rules.1/@patterns.1/@els.1">
+        <ref href="../Task1/ParameterWoven/parameterwoven.ecore#//Collections/fixedPerson"/>
+      </els>
+    </patterns>
+  </rules>
+  <rules xsi:type="behavior:AtomicRule" name="DoingPairs-AreCouple" lhs="//@rules.2/@patterns.0" rhs="//@rules.2/@patterns.1" maxDuration="0">
+    <patterns name="LHS">
+      <els xsi:type="behavior:Object" id="c" outLinks="//@rules.2/@patterns.0/@els.2 //@rules.2/@patterns.0/@els.4">
+        <classGD href="../Task1/ParameterWoven/parameterwoven.gcs#//@packagesGD.0/@classesGD.8"/>
+      </els>
+      <els xsi:type="behavior:Object" id="p" inLinks="//@rules.2/@patterns.0/@els.2">
+        <classGD href="../Task1/ParameterWoven/parameterwoven.gcs#//@packagesGD.0/@classesGD.0"/>
+      </els>
+      <els xsi:type="behavior:Link" src="//@rules.2/@patterns.0/@els.0" target="//@rules.2/@patterns.0/@els.1">
+        <ref href="../Task1/ParameterWoven/parameterwoven.ecore#//Collections/people"/>
+      </els>
+      <els xsi:type="behavior:Object" id="fixed" inLinks="//@rules.2/@patterns.0/@els.4">
+        <classGD href="../Task1/ParameterWoven/parameterwoven.gcs#//@packagesGD.0/@classesGD.0"/>
+      </els>
+      <els xsi:type="behavior:Link" src="//@rules.2/@patterns.0/@els.0" target="//@rules.2/@patterns.0/@els.3">
+        <ref href="../Task1/ParameterWoven/parameterwoven.ecore#//Collections/fixedPerson"/>
+      </els>
+      <els xsi:type="behavior:Condition" oclValue="(p.movies->intersection(fixed.movies))->size() >= 3"/>
+      <els xsi:type="behavior:Condition" oclValue="false"/>
+    </patterns>
+    <patterns name="RHS">
+      <els xsi:type="behavior:Object" id="c" outLinks="//@rules.2/@patterns.1/@els.3 //@rules.2/@patterns.1/@els.4">
         <sfs oclValue="c.people->excluding(p)">
           <sf href="../Task1/ParameterWoven/parameterwoven.ecore#//Collections/people"/>
         </sfs>
         <classGD href="../Task1/ParameterWoven/parameterwoven.gcs#//@packagesGD.0/@classesGD.8"/>
+      </els>
+      <els xsi:type="behavior:Object" id="p" inLinks="//@rules.2/@patterns.1/@els.3 //@rules.2/@patterns.1/@els.6">
+        <classGD href="../Task1/ParameterWoven/parameterwoven.gcs#//@packagesGD.0/@classesGD.0"/>
+      </els>
+      <els xsi:type="behavior:Object" id="fixed" inLinks="//@rules.2/@patterns.1/@els.4 //@rules.2/@patterns.1/@els.7">
+        <classGD href="../Task1/ParameterWoven/parameterwoven.gcs#//@packagesGD.0/@classesGD.0"/>
+      </els>
+      <els xsi:type="behavior:Link" src="//@rules.2/@patterns.1/@els.0" target="//@rules.2/@patterns.1/@els.1">
+        <ref href="../Task1/ParameterWoven/parameterwoven.ecore#//Collections/peopleDealtWith"/>
+      </els>
+      <els xsi:type="behavior:Link" src="//@rules.2/@patterns.1/@els.0" target="//@rules.2/@patterns.1/@els.2">
+        <ref href="../Task1/ParameterWoven/parameterwoven.ecore#//Collections/fixedPerson"/>
+      </els>
+      <els xsi:type="behavior:Object" id="couple" outLinks="//@rules.2/@patterns.1/@els.6 //@rules.2/@patterns.1/@els.7">
+        <sfs oclValue="p.movies->intersection(fixed.movies)">
+          <sf href="../Task1/ParameterWoven/parameterwoven.ecore#//Group/commonMovies"/>
+        </sfs>
+        <classGD href="../Task1/ParameterWoven/parameterwoven.gcs#//@packagesGD.0/@classesGD.3"/>
+      </els>
+      <els xsi:type="behavior:Link" src="//@rules.2/@patterns.1/@els.5" target="//@rules.2/@patterns.1/@els.1">
+        <ref href="../Task1/ParameterWoven/parameterwoven.ecore#//Couple/p1"/>
+      </els>
+      <els xsi:type="behavior:Link" src="//@rules.2/@patterns.1/@els.5" target="//@rules.2/@patterns.1/@els.2">
+        <ref href="../Task1/ParameterWoven/parameterwoven.ecore#//Couple/p2"/>
+      </els>
+    </patterns>
+  </rules>
+  <rules xsi:type="behavior:AtomicRule" name="DoingPairs-AreNotCouple" lhs="//@rules.3/@patterns.0" rhs="//@rules.3/@patterns.1" maxDuration="0">
+    <patterns name="LHS">
+      <els xsi:type="behavior:Object" id="c" outLinks="//@rules.3/@patterns.0/@els.2 //@rules.3/@patterns.0/@els.4">
+        <classGD href="../Task1/ParameterWoven/parameterwoven.gcs#//@packagesGD.0/@classesGD.8"/>
+      </els>
+      <els xsi:type="behavior:Object" id="p" inLinks="//@rules.3/@patterns.0/@els.2">
+        <classGD href="../Task1/ParameterWoven/parameterwoven.gcs#//@packagesGD.0/@classesGD.0"/>
+      </els>
+      <els xsi:type="behavior:Link" src="//@rules.3/@patterns.0/@els.0" target="//@rules.3/@patterns.0/@els.1">
+        <ref href="../Task1/ParameterWoven/parameterwoven.ecore#//Collections/people"/>
+      </els>
+      <els xsi:type="behavior:Object" id="fixed" inLinks="//@rules.3/@patterns.0/@els.4">
+        <classGD href="../Task1/ParameterWoven/parameterwoven.gcs#//@packagesGD.0/@classesGD.0"/>
+      </els>
+      <els xsi:type="behavior:Link" src="//@rules.3/@patterns.0/@els.0" target="//@rules.3/@patterns.0/@els.3">
+        <ref href="../Task1/ParameterWoven/parameterwoven.ecore#//Collections/fixedPerson"/>
+      </els>
+      <els xsi:type="behavior:Condition" oclValue="(p.movies->intersection(fixed.movies))->size() &lt; 3"/>
+      <els xsi:type="behavior:Condition" oclValue="false"/>
+    </patterns>
+    <patterns name="RHS">
+      <els xsi:type="behavior:Object" id="c" outLinks="//@rules.3/@patterns.1/@els.3 //@rules.3/@patterns.1/@els.4">
+        <classGD href="../Task1/ParameterWoven/parameterwoven.gcs#//@packagesGD.0/@classesGD.8"/>
+      </els>
+      <els xsi:type="behavior:Object" id="p" inLinks="//@rules.3/@patterns.1/@els.3">
+        <classGD href="../Task1/ParameterWoven/parameterwoven.gcs#//@packagesGD.0/@classesGD.0"/>
+      </els>
+      <els xsi:type="behavior:Object" id="fixed" inLinks="//@rules.3/@patterns.1/@els.4">
+        <classGD href="../Task1/ParameterWoven/parameterwoven.gcs#//@packagesGD.0/@classesGD.0"/>
+      </els>
+      <els xsi:type="behavior:Link" src="//@rules.3/@patterns.1/@els.0" target="//@rules.3/@patterns.1/@els.1">
+        <ref href="../Task1/ParameterWoven/parameterwoven.ecore#//Collections/peopleDealtWith"/>
+      </els>
+      <els xsi:type="behavior:Link" src="//@rules.3/@patterns.1/@els.0" target="//@rules.3/@patterns.1/@els.2">
+        <ref href="../Task1/ParameterWoven/parameterwoven.ecore#//Collections/fixedPerson"/>
+      </els>
+    </patterns>
+  </rules>
+  <rules xsi:type="behavior:AtomicRule" name="NextPerson" lhs="//@rules.4/@patterns.0" rhs="//@rules.4/@patterns.1" maxDuration="0">
+    <patterns name="LHS">
+      <els xsi:type="behavior:Object" id="c" outLinks="//@rules.4/@patterns.0/@els.2">
+        <classGD href="../Task1/ParameterWoven/parameterwoven.gcs#//@packagesGD.0/@classesGD.8"/>
+      </els>
+      <els xsi:type="behavior:Object" id="fixed" inLinks="//@rules.4/@patterns.0/@els.2">
+        <classGD href="../Task1/ParameterWoven/parameterwoven.gcs#//@packagesGD.0/@classesGD.0"/>
+      </els>
+      <els xsi:type="behavior:Link" src="//@rules.4/@patterns.0/@els.0" target="//@rules.4/@patterns.0/@els.1" pos="">
+        <ref href="../Task1/ParameterWoven/parameterwoven.ecore#//Collections/fixedPerson"/>
+      </els>
+      <els xsi:type="behavior:Condition" oclValue="c.people->size() = 0"/>
+    </patterns>
+    <patterns name="RHS">
+      <els xsi:type="behavior:Object" id="c">
+        <sfs oclValue="c.peopleDealtWith">
+          <sf href="../Task1/ParameterWoven/parameterwoven.ecore#//Collections/people"/>
+        </sfs>
+        <classGD href="../Task1/ParameterWoven/parameterwoven.gcs#//@packagesGD.0/@classesGD.8"/>
+      </els>
+      <els xsi:type="behavior:Object" id="fixed">
+        <classGD href="../Task1/ParameterWoven/parameterwoven.gcs#//@packagesGD.0/@classesGD.0"/>
       </els>
     </patterns>
   </rules>

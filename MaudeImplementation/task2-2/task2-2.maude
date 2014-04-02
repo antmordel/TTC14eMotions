@@ -83,7 +83,7 @@ mod TASK2-2 is
     <{ none }{ C1 }{ C2 }{ none }{ < O : V@Person | Atts > }{ C4 }> .
 
   ---------------------------------------------------------------------------------
-  ---- 3rd step: Look for all pairs given a person
+  ---- 3rd step: Given a person, look for all pairs
   --------------------------------------------------------------------------------- 
   
   rl [doingPairs] :

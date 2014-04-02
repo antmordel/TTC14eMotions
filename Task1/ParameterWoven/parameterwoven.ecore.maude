@@ -384,7 +384,7 @@ mod @MOVIES@ is
 		false
 	.
 	eq isOrdered( commonMovies@Group@movies ) =
-		true
+		false
 	.
 	eq isUnique( commonMovies@Group@movies ) =
 		true
