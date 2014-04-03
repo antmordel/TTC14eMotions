@@ -1,0 +1,107 @@
+
+
+mod @MOVIES@BEHAVIOR@ is
+	protecting E-MOTIONS
+	.
+	protecting DISCRETE_TIME
+	.
+	op movies@OCLSf : -> @StructuralFeature
+	.
+	eq name( movies@OCLSf ) =
+		"movies"
+	.
+	op name@OCLSf : -> @StructuralFeature
+	.
+	eq name( name@OCLSf ) =
+		"name"
+	.
+	op p1@OCLSf : -> @StructuralFeature
+	.
+	eq name( p1@OCLSf ) =
+		"p1"
+	.
+	op p2@OCLSf : -> @StructuralFeature
+	.
+	eq name( p2@OCLSf ) =
+		"p2"
+	.
+	op persons@OCLSf : -> @StructuralFeature
+	.
+	eq name( persons@OCLSf ) =
+		"persons"
+	.
+	op title@OCLSf : -> @StructuralFeature
+	.
+	eq name( title@OCLSf ) =
+		"title"
+	.
+	op rating@OCLSf : -> @StructuralFeature
+	.
+	eq name( rating@OCLSf ) =
+		"rating"
+	.
+	op year@OCLSf : -> @StructuralFeature
+	.
+	eq name( year@OCLSf ) =
+		"year"
+	.
+	op commonMovies@OCLSf : -> @StructuralFeature
+	.
+	eq name( commonMovies@OCLSf ) =
+		"commonMovies"
+	.
+	op avgRating@OCLSf : -> @StructuralFeature
+	.
+	eq name( avgRating@OCLSf ) =
+		"avgRating"
+	.
+	op persons@OCLSf : -> @StructuralFeature
+	.
+	eq name( persons@OCLSf ) =
+		"persons"
+	.
+	op nP@OCLSf : -> @StructuralFeature
+	.
+	eq name( nP@OCLSf ) =
+		"nP"
+	.
+	op nN@OCLSf : -> @StructuralFeature
+	.
+	eq name( nN@OCLSf ) =
+		"nN"
+	.
+	op people@OCLSf : -> @StructuralFeature
+	.
+	eq name( people@OCLSf ) =
+		"people"
+	.
+	op peopleDealtWith@OCLSf : -> @StructuralFeature
+	.
+	eq name( peopleDealtWith@OCLSf ) =
+		"peopleDealtWith"
+	.
+	op fixedPerson@OCLSf : -> @StructuralFeature
+	.
+	eq name( fixedPerson@OCLSf ) =
+		"fixedPerson"
+	.
+	protecting @MOVIES@
+	.
+	eq rulesInformation =
+		_`{_`}( @MGBehavior@ , <_:_|_>( 'Rule1:OCL-Type , AtomicRule@MGBehavior , _#_( _:_( name@Rule@MGBehavior , "ComputingAvg" ) , _:_( lowerBound@Rule@MGBehavior , null ) , _:_( upperBound@Rule@MGBehavior , null ) , _:_( soft@Rule@MGBehavior , false ) , _:_( periodicity@AtomicRule@MGBehavior , null ) ) ) )
+	.
+	crl [ ComputingAvg@Instantaneous ] :
+		_`{_`}( MM@:@Metamodel , __( <_:_|_>( couple:OCL-Type , COUPLE@MOVIES@couple@CLASS:Couple@movies , _#_( _:_( avgRating@Group@movies , AVGRATING@couple@ATT:OCL-Type ) , couple@SFS:Set{@StructuralFeatureInstance} ) ) , <_:_|_>( CLK@:Oid , Clock@MGBehavior , _:_( time@Clock@MGBehavior , TIME@CLK@:Time ) ) , <_:_|_>( 'ids@ , Counter@MGBehavior , _:_( value@Counter@MGBehavior , VALUE@ids@:Int ) ) , <_:_|_>( 'rdm@ , Counter@MGBehavior , _:_( value@Counter@MGBehavior , VALUE@rdm@:Int ) ) , OBJSET@:Set{@Object} ) )
+	=>
+		readjust( Set`{_`}( mt ) , nil , _`{_`}( MM@:@Metamodel , __( <_:_|_>( couple:OCL-Type , COUPLE@MOVIES@couple@CLASS:Couple@movies , _#_( _:_( avgRating@Group@movies , eval( accumulator:OCL-Type , env( _<-_( self , couple:OCL-Type ) ) , MODEL@:@Model ) ) , couple@SFS:Set{@StructuralFeatureInstance} ) ) , <_:_|_>( CLK@:Oid , Clock@MGBehavior , _:_( time@Clock@MGBehavior , TIME@CLK@:Time ) ) , <_:_|_>( 'rdm@ , Counter@MGBehavior , _:_( value@Counter@MGBehavior , _+_( VALUE@rdm@:Int , 0 ) ) ) , OBJSET@:Set{@Object} , <_:_|_>( 'ids@ , Counter@MGBehavior , _:_( value@Counter@MGBehavior , _+_( VALUE@ids@:Int , 3 ) ) ) ) ) )
+	if ACTEXEC@:Oid := newId( VALUE@ids@:Int ) /\ MODEL@:@Model := _`{_`}( MM@:@Metamodel , __( <_:_|_>( couple:OCL-Type , COUPLE@MOVIES@couple@CLASS:Couple@movies , _#_( _:_( avgRating@Group@movies , AVGRATING@couple@ATT:OCL-Type ) , couple@SFS:Set{@StructuralFeatureInstance} ) ) , <_:_|_>( CLK@:Oid , Clock@MGBehavior , _:_( time@Clock@MGBehavior , TIME@CLK@:Time ) ) , <_:_|_>( 'ids@ , Counter@MGBehavior , _:_( value@Counter@MGBehavior , VALUE@ids@:Int ) ) , <_:_|_>( 'rdm@ , Counter@MGBehavior , _:_( value@Counter@MGBehavior , VALUE@rdm@:Int ) ) , OBJSET@:Set{@Object} ) ) /\ accumulator:OCL-Type := eval( _->`iterate_( _->`asSequence`(`)( __( couple:OCL-Type , ._( commonMovies@OCLSf ) ) ) , _`,_|_( c , _=_( res , 0 ) , _+_( res , c ) ) ) , env( empty ) , MODEL@:@Model ) /\ AVGRATING@couple@ATT:OCL-Type := eval( 0.0 , env( _<-_( self , couple:OCL-Type ) ) , MODEL@:@Model ) /\ T:OCL-Type := eval( 0 , env( empty ) , MODEL@:@Model ) /\ OR1@:Oid := newId( _+_( VALUE@ids@:Int , 1 ) ) /\ VAR1@:Oid := newId( _+_( VALUE@ids@:Int , 2 ) )
+	.
+	op c : -> Vid
+	.
+	op res : -> Vid
+	.
+	ceq mte( _`{_`}( MM@:@Metamodel , __( <_:_|_>( couple:OCL-Type , COUPLE@MOVIES@couple@CLASS:Couple@movies , _#_( _:_( avgRating@Group@movies , AVGRATING@couple@ATT:OCL-Type ) , couple@SFS:Set{@StructuralFeatureInstance} ) ) , <_:_|_>( CLK@:Oid , Clock@MGBehavior , _:_( time@Clock@MGBehavior , TIME@CLK@:Time ) ) , <_:_|_>( 'ids@ , Counter@MGBehavior , _:_( value@Counter@MGBehavior , VALUE@ids@:Int ) ) , <_:_|_>( 'rdm@ , Counter@MGBehavior , _:_( value@Counter@MGBehavior , VALUE@rdm@:Int ) ) , OBJSET@:Set{@Object} ) ) ) =
+		0
+	if MODEL@:@Model := _`{_`}( MM@:@Metamodel , __( <_:_|_>( couple:OCL-Type , COUPLE@MOVIES@couple@CLASS:Couple@movies , _#_( _:_( avgRating@Group@movies , AVGRATING@couple@ATT:OCL-Type ) , couple@SFS:Set{@StructuralFeatureInstance} ) ) , <_:_|_>( CLK@:Oid , Clock@MGBehavior , _:_( time@Clock@MGBehavior , TIME@CLK@:Time ) ) , <_:_|_>( 'ids@ , Counter@MGBehavior , _:_( value@Counter@MGBehavior , VALUE@ids@:Int ) ) , <_:_|_>( 'rdm@ , Counter@MGBehavior , _:_( value@Counter@MGBehavior , VALUE@rdm@:Int ) ) , OBJSET@:Set{@Object} ) ) /\ VAR1@:Oid := newId( _+_( VALUE@ids@:Int , 2 ) ) /\ accumulator:OCL-Type := eval( _->`iterate_( _->`asSequence`(`)( __( couple:OCL-Type , ._( commonMovies@OCLSf ) ) ) , _`,_|_( c , _=_( res , 0 ) , _+_( res , c ) ) ) , env( empty ) , MODEL@:@Model ) /\ AVGRATING@couple@ATT:OCL-Type := eval( 0.0 , env( _<-_( self , couple:OCL-Type ) ) , MODEL@:@Model )
+	.
+endm
