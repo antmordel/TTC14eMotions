@@ -1,3 +1,6 @@
+in ../../movies.maude
+in ../../task1.maude
+in ../task2-2.maude
 
 rew in TASK2-2 : { findCouples freshOid(40) < 0 : Movie | rating : 0.0 > < 1 : Movie | rating :
     1.0 > < 2 : Movie | rating : 2.0 > < 3 : Movie | rating : 3.0 > < 4 : Movie | rating

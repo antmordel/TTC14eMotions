@@ -13,7 +13,7 @@ fmod MAYBE{X :: TRIV} is
   op null : -> Maybe{X} .
 endfm
 
-view Object from TRIV to CONFIGURATION is
+view Object from TRIV to MY-CONFIGURATION is
   sort Elt to Object .
 endv
 
@@ -92,7 +92,7 @@ mod TASK2-2 is
   => 
     <{ none }{ C1 }{ C2 }{ < O1 : V@Person | movies : MS1, Atts1 > C3 }{ < O2 : V@Person | movies : MS2, Atts2 > }
      { if | intersection(MS1, MS2) | >= 3 
-       then < New : Couple | p1 : O1, p2 : O2, commonMovies : intersection(MS1, MS2) > freshOid(s New) C4
+       then < New : Couple | p1 : O1, p2 : O2, commonMovies : intersection(MS1, MS2), avgRating : 0.0 > freshOid(s New) C4
        else freshOid(New) C4
        fi
      }> .

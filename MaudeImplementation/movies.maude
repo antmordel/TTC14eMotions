@@ -1,7 +1,22 @@
 
+mod MY-CONFIGURATION is
+  sorts Attribute AttributeSet .
+  subsort Attribute < AttributeSet .
+  op none : -> AttributeSet  [ctor] .
+  op _,_ : AttributeSet AttributeSet -> AttributeSet [ctor assoc comm id: none] .
+
+  sorts Oid Cid Object Msg Portal Configuration .
+  subsort Object Msg Portal < Configuration .
+  op <_:_|_> : Oid Cid AttributeSet -> Object [ctor object format (nr b++i o ! o d r--i d)] .
+  op none : -> Configuration [ctor] .
+  op __ : Configuration Configuration -> Configuration [ctor config assoc comm id: none] .
+  op <> : -> Portal [ctor] .  
+endm
+
+
 mod MOVIES@MM is
   
-  pr CONFIGURATION .
+  pr MY-CONFIGURATION .
   pr CONVERSION .
   pr SET{Nat} .
   pr FLOAT .
@@ -37,6 +52,7 @@ mod MOVIES@MM is
   
   ---- Group attributes
   op commonMovies :_ : Set{Nat} -> Attribute [ctor] .
+  op avgRating :_ : Float -> Attribute [ctor] .
   
   ---- Couple attributes
   op p1 :_ : Nat -> Attribute [ctor] .
