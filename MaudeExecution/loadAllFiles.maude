@@ -59,7 +59,7 @@ mod EJECUCION is
         { delta(MODEL, TE) } in time (T plus TE) 
     if TE := mte(MODEL) 
        /\ TE =/= zero  
-       /\ (T plus TE) le 0 .
+       /\ (T plus TE) le 0 . 
 )
  
 op result1 : -> Set{@Object} .
