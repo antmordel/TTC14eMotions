@@ -1,0 +1,11 @@
+
+
+mod N2000 is
+	eq n2000 =
+		_`{_`}( @movies@ , __( none , none , <_:_|_>( '/ , Parameter@movies , _#_( _:_( nP@Parameter@movies , 2000 ) , _:_( nN@Parameter@movies , 2000 ) , empty , empty ) ) ) )
+	.
+	op n2000 : -> @Model
+	.
+	protecting @MOVIES@
+	.
+endm
