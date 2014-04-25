@@ -1,0 +1,28 @@
+
+load ../CommonFiles/mOdCL.maude
+load ../CommonFiles/model-checker.maude
+load ../CommonFiles/MGDefinitions.maude
+load ../CommonFiles/MGRealTimeMaude24.maude
+load ../CommonFiles/EcoreMM.maude
+load ../CommonFiles/e-Motions.maude
+
+load parameterwoven.ecore.maude
+load task1.behavior.maude
+load inputModel/n1000.xmi.maude
+
+set print conceal on .
+print conceal <_:_|_> __ .
+
+mod EJECUCION is
+  protecting @MOVIES@BEHAVIOR@ .
+  protecting N1000 .
+
+  op result1 : -> Set{@Object} .
+  op s : -> Vid .
+endm
+
+---Simulation
+rew init(n1000) .
+
+set print conceal off .
+

@@ -885,31 +885,7 @@ mod MGDISTRIBUTIONS is
   ---- Added to support DoublePDF distribution from Palladio Model Component
   ---- A typical DoublePDF specification could be:
   ---- DoublePDF[ (1.0; 0.25000000) (2.0; 0.50000000) (3.0; 0.25000000) ]
-  op doublePDF : String Int -> Int .
-  op doublePDF : String Int Float Int -> Int .
-  eq doublePDF(S:String, I:Int) 
-    = doublePDF(S:String, 0, 0.0, unifDistr(0, 100, I:Int)) .
-    
-  eq doublePDF(S:String, Pos:Int, Acc:Float, R:Int)
-    = if R:Int 
-         <
-         Acc:Float + 100.0 * string2float(substr(S:String, 
-                                                 2 + find(S:String, ";", Pos:Int), 
-                                                 sd(find(S:String, ")", Pos:Int), 2 + find(S:String, ";", Pos:Int))))
-      then trunc(
-             rat(
-               string2float(
-                 substr(S:String,  
-                        s find(S:String, "(", Pos:Int), 
-                        sd(find(S:String, ";", Pos:Int), 1 + find(S:String, "(", Pos:Int))))))
-      else doublePDF(S:String, 
-                     find(S:String, "(", 1 + Pos:Int), 
-                     Acc:Float + 100.0 * string2float(substr(S:String, 
-                                                             2 + find(S:String, ";", Pos:Int), 
-                                                             sd(find(S:String, ")", Pos:Int), 2 + find(S:String, ";", Pos:Int)))), 
-                     R:Int)
-      fi .
-
+  
   ---------------------------------------------------------------------------------
   vars val val2 : Float .
   vars ps ps2 : PosRat .

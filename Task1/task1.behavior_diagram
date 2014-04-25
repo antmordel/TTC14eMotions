@@ -55,7 +55,7 @@
       </children>
       <styles xmi:type="notation:ShapeStyle" xmi:id="_l3R04atyEeOMedhQ2XR9Zg" fontName="Segoe UI"/>
       <element xmi:type="behavior:Pattern" href="task1.behavior#//@rules.0/@patterns.0"/>
-      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_l3R04qtyEeOMedhQ2XR9Zg" width="136" height="151"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_l3R04qtyEeOMedhQ2XR9Zg" x="10" y="5" width="136" height="151"/>
     </children>
     <children xmi:type="notation:Node" xmi:id="_l3R06KtyEeOMedhQ2XR9Zg" type="2005">
       <children xmi:type="notation:Node" xmi:id="_l3R066tyEeOMedhQ2XR9Zg" type="5050"/>
@@ -297,7 +297,7 @@
       </children>
       <styles xmi:type="notation:ShapeStyle" xmi:id="_l3R06atyEeOMedhQ2XR9Zg" fontName="Segoe UI"/>
       <element xmi:type="behavior:Pattern" href="task1.behavior#//@rules.0/@patterns.1"/>
-      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_l3R06qtyEeOMedhQ2XR9Zg" x="155" width="1166" height="316"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_l3R06qtyEeOMedhQ2XR9Zg" x="145" y="5" width="1166" height="316"/>
     </children>
     <styles xmi:type="notation:DiagramStyle" xmi:id="_l2ULkatyEeOMedhQ2XR9Zg"/>
     <element xmi:type="behavior:AtomicRule" href="task1.behavior#createPositive"/>
