@@ -51,6 +51,11 @@
             \addtocounter{marginalnote}{1}}
 % MARGIN NOTES
 
+% Maude code
+\usepackage{listings}
+
+% Maude code
+
 
 \begin{document}
 
@@ -77,7 +82,7 @@
 \maketitle
 
 \begin{abstract}
-TO-DO
+TO-DO. Podemos darle dos enfoques: o basado en e-Motions, o basado en la lógica de reescritura y presentamos las soluciones de e-Motions y Maude. En caso de usar la primera también podemos usar las soluciones de Maude, como un añadido en cada tarea. En caso de la segunda podemos poner en cada tarea una subsubsection con e-Motions y otra con Maude.
 \end{abstract}
 
 %-------------------------------------------------------------
@@ -98,20 +103,29 @@ TO-DO
 \todo{explicar cómo cada tarea viene dada por la definición de un DSL. En la mayoría de los casos la sintaxis puede ser reutilizada pero no el comportamiento (?)}
 \subsection{Task 1}\label{sub:task1}
 
-Task 1 consists in to generate synthetic models (conforming the movie database metamodel~\cite{imdbcase}) from an input parameter $N \geq 0$. Following an e-Motions based approach, we define the abstract and concrete syntax and the behavior of our so-called \textit{Task 1 DSL}, which takes an empty model and a parameter $N$ and generate as output a model.
+Task 1 consists in to generate synthetic models (conforming the movie database metamodel~\cite{imdbcase}) from an input parameter $N \geq 0$. Following an e-Motions based approach, we define the abstract and concrete syntax and the behavior of our so-called \textit{Task 1 DSL}, which takes a model with a parameter $N$ and generate as output a model containing synthetic data to be used as test case.
 
 As it has been introduced in Section~\ref{sub:emotions}, the abstract syntax of a DSL is given by means of a Ecore metamodel, which is provided in~\cite{imdbsources} and, in the following, we call it \textit{Movies MM}. However, the \textit{parameter N} concept has to be modeled in some way, since in e-Motions the state\mnote{con este state me refiero al estado del sistema, de una ejecución} is just a model. Hence, a new concept call \code{Parameter} with two Integer attributes \code{nP} and \code{nN} (positive and negative graphs respectively) has been added to Movies MM. This results in a so-called \textit{Movies* MM}.\mnote{podríamos referenciar a los trabajos donde esto se hace de forma modular}
 
 For the concrete syntax, Fig.~\ref{fig:concreteSyntax} shows how an image has been attached to each concept modeled in the Movies* MM. The behavior of this \textit{Task 1 DSL} is given by means of two in-place rules: \code{createPositive} and \code{createNegative}. Figure~\ref{fig:createPositive} shows the \code{createPositive} rule, which takes an object \code{p} of type \textit{Parameter} with \textit{nP} attribute is greater or equal than $0$ and, after the rule application, synthetic data conforming to the Henshin rules~\cite{imdbcase} are created. Fig.~\ref{fig:createNegative} shows the \code{createNegative} rule, which is analogously defined.
 
+Once the syntax and the behavior of the system has been coded, the user may specify a model, which conforms to \textit{Movies* MM}, containing an object \code{Parameter} with its two attributes \code{nP} and \code{nN} properly set. This model is used as initial model of the execution. 
 
-\begin{figure}
+\subsubsection*{Maude version}
+Concerned with the performance of e-Motions, we have specified a Maude equivalent version of Task 1. This proposal of Task 1 consists of a object-based Maude specification, which is composed by two main modules: \code{MOVIES@MM} defining the classes structure and \code{TASK1} defining the solution. The solution is coded using again two rules: \code{createPositive} and \code{createNegative}.\mnote{podriamos ponerlo en un apéndice el código} \todo{poner código con esta solución.} One could realized that the Maude version is very much like the e-Motions version. In fact, the former is just the textual version of the latter. 
+
+
+\begin{figure}[htp]
   \includegraphics[width=\textwidth, draft, height=2cm]{imgs/concreteSyntax.png}
   \caption{Concrete syntax for \textit{Movies* MM}.}
   \label{fig:concreteSyntax}
 \end{figure}
 
-\begin{figure}
+\todo{Correctness?}
+
+\todo{Time tables once we have installed maude in the Ubuntu image}
+
+\begin{figure}[htp]
   \subfloat[The \code{createPositive} rule.\label{fig:createPositive}]{%
     \includegraphics[width=\textheight, angle=90]{imgs/createPositiveRule.png}
   }
@@ -123,7 +137,7 @@ For the concrete syntax, Fig.~\ref{fig:concreteSyntax} shows how an image has be
   \caption{Task 1 rules.}
 \end{figure}
 
-Once the syntax and the behavior of the system has been coded, the user may specify  
+\section{Task 2}
 
 
 \bibliographystyle{splncs03}
