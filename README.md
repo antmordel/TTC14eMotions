@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Proposed solution based on e-Motions
 ==================================================================
 
@@ -8,3 +9,9 @@
       
 * Default relations in Ecore are unique and ordered, so a relation with cardinality * is transformed into OrderedSet. However, the intersection among ordered sets are not supported by mOdCL. Would the intersection among OrdSet make sense? Currently, we set order attribute so we are dealing with Set (note that this is not the original metamodel).
 
+=======
+TTC14eMotions
+=============
+
+A solutions using the Maude-based e-Motions tool.
+>>>>>>> 6dd72236d764ed74be98fe697489f21a70525171
