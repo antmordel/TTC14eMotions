@@ -25,6 +25,7 @@
   \newcommand{\change}[1]{#1}
   \newcommand{\delete}[1]{}
   \newcommand{\tbc}[1]{#1}
+  \newcommand{\todo}[1]{}
   \newcommand{\mnote}[1]{}
 \fi
 
@@ -56,6 +57,7 @@
 
 % Maude code
 
+\DeclareGraphicsExtensions{.png}
 
 \begin{document}
 
@@ -103,7 +105,7 @@ TO-DO. Podemos darle dos enfoques: o basado en e-Motions, o basado en la lógica
 \todo{explicar cómo cada tarea viene dada por la definición de un DSL. En la mayoría de los casos la sintaxis puede ser reutilizada pero no el comportamiento (?)}
 \subsection{Task 1}\label{sub:task1}
 
-Task 1 consists in to generate synthetic models (conforming the movie database metamodel~\cite{imdbcase}) from an input parameter $N \geq 0$. Following an e-Motions based approach, we define the abstract and concrete syntax and the behavior of our so-called \textit{Task 1 DSL}, which takes a model with a parameter $N$ and generate as output a model containing synthetic data to be used as test case.
+Task 1 comprises the generation of synthetic models (conforming the movie database metamodel~\cite{imdbcase}) from an input parameter $N \geq 0$. Following an e-Motions based approach, we define the abstract and concrete syntax and the behavior of our so-called \textit{Task 1 DSL}, which takes a model with a parameter $N$ and generate as output a model containing synthetic data to be used as test case.
 
 As it has been introduced in Section~\ref{sub:emotions}, the abstract syntax of a DSL is given by means of a Ecore metamodel, which is provided in~\cite{imdbsources} and, in the following, we call it \textit{Movies MM}. However, the \textit{parameter N} concept has to be modeled in some way, since in e-Motions the state\mnote{con este state me refiero al estado del sistema, de una ejecución} is just a model. Hence, a new concept call \code{Parameter} with two Integer attributes \code{nP} and \code{nN} (positive and negative graphs respectively) has been added to Movies MM. This results in a so-called \textit{Movies* MM}.\mnote{podríamos referenciar a los trabajos donde esto se hace de forma modular}
 
@@ -112,11 +114,29 @@ For the concrete syntax, Fig.~\ref{fig:concreteSyntax} shows how an image has be
 Once the syntax and the behavior of the system has been coded, the user may specify a model, which conforms to \textit{Movies* MM}, containing an object \code{Parameter} with its two attributes \code{nP} and \code{nN} properly set. This model is used as initial model of the execution. 
 
 \subsubsection*{Maude version}
-Concerned with the performance of e-Motions, we have specified a Maude equivalent version of Task 1. This proposal of Task 1 consists of a object-based Maude specification, which is composed by two main modules: \code{MOVIES@MM} defining the classes structure and \code{TASK1} defining the solution. The solution is coded using again two rules: \code{createPositive} and \code{createNegative}.\mnote{podriamos ponerlo en un apéndice el código} \todo{poner código con esta solución.} One could realized that the Maude version is very much like the e-Motions version. In fact, the former is just the textual version of the latter. 
+Concerned with the performance of e-Motions, we have specified a Maude equivalent version of Task 1. This proposal of Task 1 consists of a object-based Maude specification, which is composed by two main modules: the \code{MOVIES@MM} module defining the classes structure and the \code{TASK1} module defining the solution. The solution is coded using again two rules: \code{createPositive} and \code{createNegative}.\mnote{podriamos ponerlo en un apéndice el código} \todo{poner código con esta solución.} One could realized that the Maude version is very much like the e-Motions version. In fact, the former is just the textual version of the latter. 
 
 
 \begin{figure}[htp]
-  \includegraphics[width=\textwidth, draft, height=2cm]{imgs/concreteSyntax.png}
+  \subfloat[Actor.\label{fig:actor}]{
+    \makebox[60px][c]{\includegraphics[scale=1]{imgs/actor}}
+  }
+  \hfill
+  \subfloat[Actress.\label{fig:actress}]{
+    \makebox[60px][c]{\includegraphics[scale=1]{imgs/actress}}
+  }
+  \hfill
+  \subfloat[Movie.\label{fig:movie}]{
+    \makebox[60px][c]{\includegraphics[scale=1]{imgs/movie}}
+  }
+  \hfill
+  \subfloat[Couple.\label{fig:couple}]{
+    \makebox[60px][c]{\includegraphics[scale=1]{imgs/couple}}
+  }
+  \hfill
+  \subfloat[Parameter.\label{fig:parameter}]{
+    \makebox[60px][c]{\includegraphics[scale=1]{imgs/parameter}}
+  }
   \caption{Concrete syntax for \textit{Movies* MM}.}
   \label{fig:concreteSyntax}
 \end{figure}
@@ -127,18 +147,30 @@ Concerned with the performance of e-Motions, we have specified a Maude equivalen
 
 \begin{figure}[htp]
   \subfloat[The \code{createPositive} rule.\label{fig:createPositive}]{%
-    \includegraphics[width=\textheight, angle=90]{imgs/createPositiveRule.png}
+    \includegraphics[width=\textheight, angle=90]{imgs/createPositiveRule}
   }
   \hfill
-  \subfloat[The \code{negativePositive} rule.\todo{change it}\label{fig:createNegative}]{%
-    \includegraphics[width=\textheight, angle=90]{imgs/createPositiveRule.png}
+%  \subfloat[Rules' headers.]{
+%    \includegraphics[width=0.2\textwidth]{imgs/headersCreate}
+%  }
+%  \hfill
+  \subfloat[The \code{negativePositive} rule.\label{fig:createNegative}]{%
+    \includegraphics[width=\textheight, angle=90]{imgs/createNegativeRule}
   }
   \label{fig:task1}
   \caption{Task 1 rules.}
 \end{figure}
 
-\section{Task 2}
+\subsection{Task 2}
+Task 2 consists of extract all couples from a given model, either from Task 1 or IMBd database~\cite{todo}. Two persons are couple whether they played together in at least three movies~\cite{imdbcase}.
 
+Fig.~\ref{fig:createCouple} shows the \code{createCouple} rule which implements this task. The \code{createCouple} rule consists of a LHS with a OCL condition, which states \textit{``LHS holds iff there are two persons \code{per1} and \code{per2}, such that the number of movies in the intersection between \code{per1}'s movies and \code{per2}'s movies is greater or equal than 3''}. Moreover, the \code{coupleHasNotBeenCreated} NAC avoids the application of the rule if the couple already exists. 
+
+\begin{figure}[htp]
+  \centering
+  \includegraphics[width=\textwidth]{imgs/ruleCouples}
+    \caption{\code{createCouple} rule.}\label{fig:createCouple}
+\end{figure}
 
 \bibliographystyle{splncs03}
 \bibliography{TTC14}
