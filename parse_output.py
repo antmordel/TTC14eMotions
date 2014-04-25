@@ -27,7 +27,7 @@ for line in ifile:
       time = time/1000.0
       if arguments.verbose:
         print('   Rewrites: '+line[line.find(' ')+1:line.find(' ', line.find(' ')+1)]
-              +' in time '+str(time)+'s.')
+              +' in time \033[91m'+str(time)+'s\033[0m .')
       elif arguments.show_time:
         print('   Time: '+str(time)+'s.')
     elif 'result ' in line:
@@ -36,6 +36,9 @@ for line in ifile:
       else:
         modelStarted = True
         ofile.write(line[line.find(':')+2:])
+    else:
+      if not('==========================================' in line) and not('Bye.' in line):
+        print('   Ouch! There was an error in the parsing, maybe in the Maude execution?')
 
 ifile.close()
 ofile.close()
