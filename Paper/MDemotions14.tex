@@ -252,16 +252,29 @@ Fig.~\ref{fig:createCouple} shows the \code{createCouple} rule which implements 
 
 However, although this solution works, one can notice that the number of matchings in the LHS of the rule is combinatorial. The fact that there are such a large number of matchings makes this solution too inefficient. \todo{add numbers supporting this.}
 
-We have implemented another solution in which we limit the number of matchings using the next algorithm:
-\begin{enumerate}
-  \item 
-\end{enumerate}
-
 \begin{figure}[htp]
   \centering
   \includegraphics[width=\textwidth]{imgs/ruleCouples}
   \caption{\code{createCouple} rule.}\label{fig:createCouple}
 \end{figure}
+
+We have implemented another solution in which we limit the number of matchings using the next algorithm:
+\begin{enumerate}
+  \item We split \code{Person}s and \code{Movie}s into separate configurations.
+  \item We fix a \code{Person}.
+  \item Given a \code{Person}, we look for all couples.
+  \item Whether the current \code{Person} set has been gone over all the other persons, we set the next person, and the current person is move to the resulting collection.
+\end{enumerate}
+
+Following this approach the number of persons to match as possible couple decrease. A new concept so-called \code{Collection} is added to the metamodel with its concrete syntax to implement the algorithm above mentioned. Fig.~\ref{fig:areCouples} shows one of the rules specified for this solution,\footnote{The rest of the rules are available at \url{https://github.com/antmordel/ttc14emotions}.} namely those that creates new couples. The box is the concrete syntax for the \code{Collection} concept.
+
+\begin{figure}[htp]
+  \centering
+  \includegraphics[width=\textwidth]{imgs/areCouples}
+  \caption{\code{doingCouples} rule.}\label{fig:areCouples}
+\end{figure}
+
+\todo{add numbers}
 
 \subsubsection{Maude-based solution}
 

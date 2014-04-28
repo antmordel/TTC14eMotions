@@ -1,0 +1,42 @@
+
+mod TASK2-FIRST-VERSION is
+  pr TASK1 .
+  
+  op findCouples : -> Msg [ctor] .
+  
+  op coupleInConf : Object Configuration -> Bool .
+  
+  op {_} : Configuration -> Configuration .
+  
+  vars O1 O2 O3 O4 O5 O6 N : Nat .
+  vars Atts1 Atts2 Atts3 : AttributeSet .
+  var V@Person : Person .
+  var MS1 MS2 : Set{Nat} .
+  var Conf : Configuration .
+  var C Ob : Object . var B : Bool .
+  
+  eq [coupleInConf] : coupleInConf(< O1 : Couple | commonMovies : (MS1), p1 : O2, p2 : O3, Atts1 >,
+                  < O4 : Couple | commonMovies : (MS2), p1 : O5, p2 : O6, Atts2 > Conf)
+  = if ((O2 == O5) and (O3 == O6)) or ((O2 == O6) and (O3 == O5)) then
+      true
+    else
+      coupleInConf(< O1 : Couple | commonMovies : (MS1), p1 : O2, p2 : O3, Atts1 >, Conf) 
+    fi .
+  eq coupleInConf(C, none) = false .
+  eq coupleInConf(C, Ob Conf) = coupleInConf(C, Conf) [owise] .
+  
+  
+  crl [findCouples] :
+   { freshOid(N) findCouples
+    < O1 : V1:Person | movies : MS1, Atts1 >
+    < O2 : V2:Person | movies : MS2, Atts2 > Conf }
+  =>
+   { freshOid(s(N)) findCouples
+    < O1 : V1:Person | movies : MS1, Atts1 >
+    < O2 : V2:Person | movies : MS2, Atts2 >
+    C Conf }
+  if | intersection((MS1), (MS2)) | >= 3
+    /\ C := < N : Couple | commonMovies : (intersection((MS1), (MS2))), p1 : O1, p2 : O2 >
+    /\ not coupleInConf(C, Conf) .
+  
+endm
