@@ -13,10 +13,11 @@ mod TASK2-FIRST-VERSION is
   var Conf : Configuration .
   var C : Object .
   
-  eq coupleInConf(< O1 : Couple | commonMovies : MS1, p1 : O2, p2 : O3, Atts1 >,
-                  < O4 : Couple | commonMovies : MS1, p1 : O5, p2 : O6, Atts2 > Conf)
-                  = (O2 == O5 and O3 == O6) or (O2 == O6 and O3 == O5) .
-  eq coupleInConf(C, Conf) = false [owise] .
+  eq [coupleInConf] : coupleInConf(< O1 : Couple | commonMovies : MS1, p1 : O2, p2 : O3, Atts1 >,
+                  < O4 : Couple | commonMovies : MS2, p1 : O5, p2 : O6, Atts2 > Conf)
+  = ((O2 == O5) and (O3 == O6)) or ((O2 == O6) and (O3 == O5))
+    or coupleInConf(< O1 : Couple | commonMovies : MS1, p1 : O2, p2 : O3, Atts1 >, Conf) .
+  eq coupleInConf(C, none) = false .
   
   crl [findCouples] :
     freshOid(N) findCouples(Conf)
@@ -31,3 +32,54 @@ mod TASK2-FIRST-VERSION is
   /\ not(coupleInConf(C, Conf)) .
   
 endm
+
+set trace on .
+set trace select on .
+trace select coupleInConf .
+
+rew freshOid(20) 
+<  0 : Movie | rating : 0.0 > 
+<  1 : Movie | rating : 1.0 > 
+<  2 : Movie | rating : 2.0 > 
+<  3 : Movie | rating : 3.0 > 
+<  4 : Movie | rating : 4.0 > 
+---<  5 : Actor | name : "a0",movies : (0, 1, 2, 3) > 
+---<  6 : Actor | name : "a1",movies : (0, 1, 2, 3) > 
+<  7 : Actor | name : "a2",movies : (1, 2, 3) > 
+<  8 : Actress | name : "a3",movies : (1, 2, 3, 4) > 
+<  9 : Actress | name : "a4",movies : (1, 2, 3, 4) > 
+<  10 : Movie | rating : 5.0 > 
+<  11 : Movie | rating : 6.0 > 
+<  12 : Movie | rating : 7.0 > 
+<  13 : Movie | rating : 8.0 > 
+<  14 : Movie | rating : 9.0 > 
+<  15 : Actor | name : "a5",movies : (10, 11) > 
+<  16 : Actor | name : "a6",movies : (10, 11, 12) > 
+<  17 : Actress | name : "a7",movies : (11, 12, 13) > 
+<  18 : Actress | name : "a8",movies : (12, 13, 14) > 
+<  19 : Actress | name : "a9",movies : (13, 14) >
+ findCouples(none) .
+ 
+ match freshOid(N) findCouples(Conf)
+    < O1 : V@Person | movies : (MS1), Atts1 >
+    < O2 : V@Person | movies : (MS2), Atts2 > <=? freshOid(21) findCouples(
+<  20 : Couple | commonMovies : (1, 2, 3),p1 : 6,p2 : 7 >) 
+<  0 : Movie | rating : 0.0 > 
+<  1 : Movie | rating : 1.0 > 
+<  2 : Movie | rating : 2.0 > 
+<  3 : Movie | rating : 3.0 > 
+<  4 : Movie | rating : 4.0 > 
+<  6 : Actor | name : "a1",movies : (0, 1, 2, 3) > 
+<  7 : Actor | name : "a2",movies : (1, 2, 3) > 
+<  8 : Actress | name : "a3",movies : (1, 2, 3, 4) > 
+<  9 : Actress | name : "a4",movies : (1, 2, 3, 4) > 
+<  10 : Movie | rating : 5.0 > 
+<  11 : Movie | rating : 6.0 > 
+<  12 : Movie | rating : 7.0 > 
+<  13 : Movie | rating : 8.0 > 
+<  14 : Movie | rating : 9.0 > 
+<  15 : Actor | name : "a5",movies : (10, 11) > 
+<  16 : Actor | name : "a6",movies : (10, 11, 12) > 
+<  17 : Actress | name : "a7",movies : (11, 12, 13) > 
+<  18 : Actress | name : "a8",movies : (12, 13, 14) > 
+<  19 : Actress | name : "a9",movies : (13, 14) > .
