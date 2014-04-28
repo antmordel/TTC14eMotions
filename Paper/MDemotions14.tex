@@ -115,9 +115,9 @@
 
 \todo{two sentences introducing Maude}
 
-Maude may be seen as a general framework where to develop model transformations. In this way, some work has been done~\cite{troyaATL}. Since a term is very general, one could specify graphs or models as terms. Thus, a Maude module can define a \textit{in-place} model transformation, where rewriting rules define transitions between two states or models.
+Maude may be seen as a general framework where to develop model transformations. In this way, some work has been done~\cite{TroyaV10}. Since a term is very general, one could specify graphs or models as terms. Thus, a Maude module can define a \textit{in-place} model transformation, where rewriting rules define transitions between two states or models.
 
-e-Motions~\cite{emotions} is a Domain-Specific Modeling Language (DSML) and a very general tool that supports the specification and simulation of any real-time DSML. Artifacts developed in e-Motions are translated to Maude in a transparent way. The e-Motions simulation is achieved using the Maude engine. Therefore, e-Motions can be seen as a framework where graphically code in Maude.
+e-Motions~\cite{RiveraDV10} is a Domain-Specific Modeling Language (DSML) and a very general tool that supports the specification and simulation of any real-time DSML. Artifacts developed in e-Motions are translated to Maude in a transparent way. The e-Motions simulation is achieved using the Maude engine. Therefore, e-Motions can be seen as a framework where graphically code in Maude.
 
 \subsection{e-Motions}\label{sub:emotions}
 For the sake of comprehension of the rest of the paper, in this section we briefly present e-Motions. The definition of a Domain-Specific Language (DSL)\mnote{hablamos de DSLs en general, no?} comprises three tasks: (i) the definition of the abstract syntax, (ii) the definition of the concrete syntax and (iii) the specification of the behavior.
@@ -225,7 +225,7 @@ eq createExample(s(N)) = createPositive(N)
 
 \todo{Correctness?}
 
-\todo{Time tables once we have installed maude in the Ubuntu image}
+\todo{Tiempos}
 
 \begin{figure}[htp]
   \subfloat[The \code{createPositive} rule.\label{fig:createPositive}]{%
@@ -244,7 +244,7 @@ eq createExample(s(N)) = createPositive(N)
 \end{figure}
 
 \subsection{Task 2}
-Task 2 consists of extract all couples from a given model, either from Task 1 or IMBd database~\cite{todo}. Two persons are couple whether they played together in at least three movies~\cite{imdbcase}. Once again we present the e-Motions and the Maude solution.
+Task 2 consists of extract all couples from a given model, either from Task 1 or IMBd database~\cite{imdbsources}. Two persons are couple whether they played together in at least three movies~\cite{imdbcase}. Once again we present the e-Motions and the Maude solution.
 
 \subsubsection{e-Motions-based solution}
 
@@ -277,6 +277,9 @@ Following this approach the number of persons to match as possible couple decrea
 \todo{add numbers}
 
 \subsubsection{Maude-based solution}
+
+
+\section{Conclusions}
 
 \bibliographystyle{splncs03}
 \bibliography{TTC14}
