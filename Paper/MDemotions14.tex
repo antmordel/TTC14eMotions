@@ -248,7 +248,14 @@ Task 2 consists of extract all couples from a given model, either from Task 1 or
 
 \subsubsection{e-Motions-based solution}
 
-Fig.~\ref{fig:createCouple} shows the \code{createCouple} rule which implements this task. The \code{createCouple} rule consists of a LHS with a OCL condition, which states \textit{``LHS holds iff there are two persons \code{per1} and \code{per2}, such that the number of movies in the intersection between \code{per1}'s movies and \code{per2}'s movies is greater or equal than 3''}. Moreover, the \code{coupleHasNotBeenCreated} NAC avoids the application of the rule if the couple already exists.
+Fig.~\ref{fig:createCouple} shows the \code{createCouple} rule which implements the whole task. \code{Person} objects are shown using square shapes because \code{Person} is an abstract class and it does not have image attached. The \code{createCouple} rule consists of a LHS with a OCL condition, which states \textit{``LHS holds iff there are two persons \code{per1} and \code{per2}, such that the number of movies in the intersection between \code{per1}'s movies and \code{per2}'s movies is greater or equal than 3''}. Moreover, the \code{coupleHasNotBeenCreated} NAC avoids the application of the rule if the couple already exists. 
+
+However, although this solution works, one can notice that the number of matchings in the LHS of the rule is combinatorial. The fact that there are such a large number of matchings makes this solution too inefficient. \todo{add numbers supporting this.}
+
+We have implemented another solution in which we limit the number of matchings using the next algorithm:
+\begin{enumerate}
+  \item 
+\end{enumerate}
 
 \begin{figure}[htp]
   \centering
