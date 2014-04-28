@@ -248,7 +248,7 @@ Task 2 consists of extract all couples from a given model, either from Task 1 or
 
 \subsubsection{e-Motions-based solution}
 
-Fig.~\ref{fig:createCouple} shows the \code{createCouple} rule which implements this task. The \code{createCouple} rule consists of a LHS with a OCL condition, which states \textit{``LHS holds iff there are two persons \code{per1} and \code{per2}, such that the number of movies in the intersection between \code{per1}'s movies and \code{per2}'s movies is greater or equal than 3''}. Moreover, the \code{coupleHasNotBeenCreated} NAC avoids the application of the rule if the couple already exists. 
+Fig.~\ref{fig:createCouple} shows the \code{createCouple} rule which implements this task. The \code{createCouple} rule consists of a LHS with a OCL condition, which states \textit{``LHS holds iff there are two persons \code{per1} and \code{per2}, such that the number of movies in the intersection between \code{per1}'s movies and \code{per2}'s movies is greater or equal than 3''}. Moreover, the \code{coupleHasNotBeenCreated} NAC avoids the application of the rule if the couple already exists.
 
 \begin{figure}[htp]
   \centering
