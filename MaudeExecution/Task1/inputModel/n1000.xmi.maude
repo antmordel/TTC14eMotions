@@ -2,7 +2,7 @@
 
 mod N1000 is
 	eq n1000 =
-		_`{_`}( @movies@ , __( none , none , <_:_|_>( '/ , Parameter@movies , _#_( _:_( nP@Parameter@movies , 1000 ) , _:_( nN@Parameter@movies , 1000 ) , empty , empty ) ) ) )
+		_`{_`}( @movies@ , __( none , none , <_:_|_>( '/ , Parameter@movies , _#_( _:_( nP@Parameter@movies , 999 ) , _:_( nN@Parameter@movies , 999 ) , empty , empty ) ) ) )
 	.
 	op n1000 : -> @Model
 	.
