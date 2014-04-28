@@ -21,4 +21,4 @@ endm
 ---Simulation
 rew init(n2) .
 
----load ../../quit.maude
+load ../../quit.maude
