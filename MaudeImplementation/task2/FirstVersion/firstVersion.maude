@@ -1,37 +1,33 @@
 
-fmod 2-TUPLE is
-  pr NAT .
-  sort Tuple .
-  op <(_,_)> : Nat Nat -> Tuple [comm] .
-  
-endfm
-
-view 2-Tuple from TRIV to 2-TUPLE is  
-    sort Elt to Tuple .  
-endv 
-
-mod TASK2-1 is
+mod TASK2-FIRST-VERSION is
   pr TASK1 .
-  pr SET{2-Tuple} .
   
-  op couplesFound : Set{2-Tuple} -> Msg [ctor] .
+  op findCouples : Configuration -> Msg [ctor] .
   
-  vars O1 O2 O3 : Nat .
+  op coupleInConf : Object Configuration -> Bool .
+  
+  vars O1 O2 O3 O4 O5 O6 N : Nat .
   vars Atts1 Atts2 Atts3 : AttributeSet .
   var V@Person : Person .
   var MS1 MS2 : Set{Nat} .
-  var TupleSet : Set{2-Tuple} .
+  var Conf : Configuration .
+  var C : Object .
+  
+  eq coupleInConf(< O1 : Couple | commonMovies : MS1, p1 : O2, p2 : O3, Atts1 >,
+                  < O4 : Couple | commonMovies : MS1, p1 : O5, p2 : O6, Atts2 > Conf)
+                  = (O2 == O5 and O3 == O6) or (O2 == O6 and O3 == O5) .
+  eq coupleInConf(C, Conf) = false [owise] .
   
   crl [findCouples] :
-    < O1 : Movie | Atts1 >
-    < O2 : V@Person | movies : (O1, MS1), Atts2 >
-    < O3 : V@Person | movies : (O1, MS2), Atts3 >
-    couplesFound(TupleSet)
+    freshOid(N) findCouples(Conf)
+    < O1 : V@Person | movies : (MS1), Atts1 >
+    < O2 : V@Person | movies : (MS2), Atts2 >
   =>
-    < O1 : Movie | Atts1 >
-    < O2 : V@Person | movies : (O1, MS1), Atts2 >
-    < O3 : V@Person | movies : (O1, MS2), Atts3 >
-    couplesFound((<(O2, O3)>, TupleSet))
-  if not <(O2, O3)> in TupleSet .  
+    freshOid(s(N)) findCouples(C Conf)
+    < O1 : V@Person | movies : (MS1), Atts1 >
+    < O2 : V@Person | movies : (MS2), Atts2 >
+  if | intersection(MS1, MS2) | >= 3 
+  /\ C := < N : Couple | commonMovies : (intersection(MS1, MS2)), p1 : O1, p2 : O2 >
+  /\ not(coupleInConf(C, Conf)) .
   
 endm
