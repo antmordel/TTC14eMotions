@@ -13,7 +13,6 @@ mod TASK1 is
                            createNegative(N)
                            createExample(N) .
   
-  
   rl [createPositive] :
     createPositive(N)
     freshOid(N')
