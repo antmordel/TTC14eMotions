@@ -1,7 +1,5 @@
-set print conceal on .
-print conceal <_:_|_> __ .
 
-rew in TASK2 : couplesFound(empty) freshOid(2000) < 0 : Movie | rating : 0.0 > < 1 : Movie | rating : 1.0 > <
+rew in TASK2-FIRST-VERSION : { findCouples freshOid(2000) < 0 : Movie | rating : 0.0 > < 1 : Movie | rating : 1.0 > <
     2 : Movie | rating : 2.0 > < 3 : Movie | rating : 3.0 > < 4 : Movie | rating : 4.0 > < 5 :
     Actor | name : "a0",movies : (0, 1, 2, 3) > < 6 : Actor | name : "a1",movies : (0, 1, 2) > <
     7 : Actor | name : "a2",movies : (1, 2, 3) > < 8 : Actor | name : "a3",movies : (1, 2, 3, 4)
@@ -1038,6 +1036,6 @@ rew in TASK2 : couplesFound(empty) freshOid(2000) < 0 : Movie | rating : 0.0 > <
     Movie | rating : 9.99e+2 > < 1995 : Actor | name : "a995",movies : (1990, 1991) > < 1996 :
     Actor | name : "a996",movies : (1990, 1991, 1992) > < 1997 : Actor | name : "a997",movies :
     (1991, 1992, 1993) > < 1998 : Actor | name : "a998",movies : (1992, 1993, 1994) > < 1999 :
-    Actor | name : "a999",movies : (1993, 1994) > .
+    Actor | name : "a999",movies : (1993, 1994) > } .
     
-set print conceal off .
+ .
