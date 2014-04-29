@@ -85,7 +85,7 @@
 \pagestyle{headings} % switches on printing of running heads
 %\addtocmark{XXXX} % additional mark in the TOC
 
-\title{Solving the Movie Database Case: A solution using the Maude-based e-Motions tool.}
+\title{Solving The Movie Database Case: A solution using the Maude-based e-Motions tool}
 \titlerunning{TO-DO} % abbreviated title (for running head) also used for the TOC unless \toctitle is used
 
 \author{Antonio~Moreno-Delgado \and Francisco~Dur\'an}
@@ -120,13 +120,13 @@ Maude may be seen as a general framework where to develop model transformations.
 e-Motions~\cite{RiveraDV10} is a Domain-Specific Modeling Language (DSML) and a very general tool that supports the specification and simulation of any real-time DSML. Artifacts developed in e-Motions are translated to Maude in a transparent way. The e-Motions simulation is achieved using the Maude engine. Therefore, e-Motions can be seen as a framework where graphically code in Maude.
 
 \subsection{e-Motions}\label{sub:emotions}
-For the sake of comprehension of the rest of the paper, in this section we briefly present e-Motions. The definition of a Domain-Specific Language (DSL)\mnote{hablamos de DSLs en general, no?} comprises three tasks: (i) the definition of the abstract syntax, (ii) the definition of the concrete syntax and (iii) the specification of the behavior.
+For the sake of comprehension of the rest of the paper, in this section we briefly present e-Motions. The definition of a Domain-Specific Language (DSL) typically comprises three tasks: (i) the definition of its abstract syntax, (ii) the definition of its concrete syntax and (iii) the specification of its behavior.
 
-The abstract syntax is defined by means of a Ecore metamodel, in which all the language concepts and the relations between them are specified. The concrete syntax is achieved defining the so-called Graphical Concrete Syntax (GCS). A GCS is a model (conforms the GCS metamodel) where an image is attached to each concept defined in the abstract syntax.
+In e-Motions the abstract syntax is defined by means of a Ecore metamodel, in which all the language concepts and the relations between them are specified. The concrete syntax is provided by defining the so-called Graphical Concrete Syntax (GCS). A GCS is a model (conforms the GCS metamodel) where an image is attached to each concept defined in the abstract syntax.
 
-The behavior of a DSL is specified using visual graph-transformation rules. An e-Motions rule consists of a---possibly conditional---Left-Hand Side (LHS), a Right-Hand Side (RHS) and zero or more Negative Application Conditions (NACs). The LHS defines a (sub)-graph matching, optionally conditional. The RHS specifies a (sub)-graph replacement, which if the rule is applied, every object in the LHS that is not in the RHS is deleted, new objects in the RHS that are not in the LHS are created, and those objects whose attributes (or links) are changed are updated. NACs specify conditions or (sub)-graph such that if there is a matching, the rule cannot be fired.
+In e-Motions the behavior of a DSL is specified using visual graph-transformation rules. An e-Motions rule consists of a---possibly conditional---Left-Hand Side (LHS), a Right-Hand Side (RHS) and zero or more Negative Application Conditions (NACs). The LHS defines a (sub)-graph matching, optionally conditional. The RHS specifies a (sub)-graph replacement, which if the rule is applied, every object in the LHS that is not in the RHS is deleted, new objects in the RHS that are not in the LHS are created, and those objects whose attributes (or links) are changed are updated. NACs specify conditions or (sub)-graphs such that if there is a matching, the rule cannot be fired.
 
-Fig.~\ref{fig:assemble} shows an example of an e-Motions rule.\footnote{A bunch of examples and installation help are available at \url{http://atenea.lcc.uma.es/e-Motions}.} The objects in both the RHS and LHS are represented by their images defined in the GCS model. Rule \code{Assemble}'s LHS defines the precondition of the rule. It models a assemble machine who needs both a head and a handle in its connected conveyor. If the \code{NAC1}, stating that the current matched \code{Assemble} has not unfinished other rule, is not satisfied, the rule can be applied. The rule is applied as follows. All objects in the LHS which they do not appear in the RHS are deleted, i.e. \code{he} and \code{ha} objects. Those objects in the RHS which do not appear in the LHS are created, setting their attributes properly, i.e. the \code{ham} object with its three attributes. The rest of objects remain changeless. Moreover, as e-Motions is a framework where to define real-time systems, each rule is applied in a established time, i.e. \code{[prodTime,prodTime]} in the \code{Assemble} rule. A rule may contain zero or more local or auxiliary variables. All attribute or variable assignments and conditions are coded in Object-Constraint Language (OCL)~\cite{ocl}.
+Fig.~\ref{fig:assemble} shows an example of an e-Motions rule.\footnote{System documentation and several examples are available at \url{http://atenea.lcc.uma.es/e-Motions}.} The objects in both the RHS and LHS are represented by their images defined in the GCS model. Rule \code{Assemble}'s LHS defines the precondition of the rule. It models a assemble machine who needs both a head and a handle in its connected conveyor. If the \code{NAC1}, stating that the current matched \code{Assemble} has not unfinished other rule, is not satisfied, the rule can be applied. The rule is applied as follows. All objects in the LHS which they do not appear in the RHS are deleted, i.e. \code{he} and \code{ha} objects. Those objects in the RHS which do not appear in the LHS are created, setting their attributes properly, i.e. the \code{ham} object with its three attributes. The rest of objects remain changeless. Moreover, as e-Motions is a framework where to define real-time systems, each rule is applied in a established time, i.e. \code{[prodTime,prodTime]} in the \code{Assemble} rule. A rule may contain zero or more local or auxiliary variables. All attribute or variable assignments and conditions are expressed using Object-Constraint Language (OCL)~\cite{ocl}.
 
 The abstract and concrete syntax, and the behavior of a DSL are models and the e-Motions tool has been developed following MDE principles. The Maude code corresponding to a system defined in e-Motions is generated by an ATL/TCS transformation~\cite{atl}.
 
@@ -141,28 +141,39 @@ The abstract and concrete syntax, and the behavior of a DSL are models and the e
 %-------------------------------------------------------------
 \section{Solution}\label{sec:solution}
 
-Since e-Motions supports in a very intuitive, user-close\mnote{esto se diría así?} and visual way, we show how the IMDb problem~\cite{imdbcase} can be solved using it. Each task is solved using the definition of a DSL, which shares in general the abstract and concrete syntax. The rewrite rules defining the behavior depends on the solution given. All rewrite rules are \textit{instantaneous}, since the case to be solved do not have time requirements.
+\delete{Since e-Motions supports in a very intuitive, user-close and visual way, we show how the IMDb problem~\cite{imdbcase} can be solved using it. Each task is solved using the definition of a DSL, which shares in general the abstract and concrete syntax. The rewrite rules defining the behavior depends on the solution given. All rewrite rules are \textit{instantaneous}, since the case to be solved do not have time requirements.}
 
-However, e-Motions is very general: it supports OCL expressions and time requirements. This makes that the Maude code generated by e-Motions tool is not as time performance\mnote{se dice así?} as desired. Together with the e-Motions solution we present a optimized Maude solution. This approach is very similar to real software engineering problems, in which a initial prototype is specified and once the developers are confident with the design, they develop the final implementation.
+We show how the IMDb problem can be solved using e-Motions tool. Each task is figured out using the definition of a DSL, which shares, in general, the abstract and concrete syntax. In fact, the abstract syntax is given in advance in~\cite{imdbsources}. The rewrite rules defining the behavior depends on the concrete task and its solution. All rewrite rules are \textit{instantaneous}, since the case to be solved do not have time requirements.
+
+e-Motions is very general: it supports OCL expressions and time requirements. This makes that the Maude code generated by e-Motions tool is not as time performant as desired. Together with the e-Motions solution we present a optimized Maude solution for each task. 
+
+
+\todo{terminar esta sección:}
+
+e-Motions-based solution which are visual, very intuitive and very close to the problem domain are shown against Maude-based solution. Although Maude-based solutions are also very expressive, the fact that  
+
+Both e-Motions-based and Maude-based solutions are very expressive and very close to the problem domain
 
 Finally, although e-Motions is presented as a Eclipse tool, we run the simulations with the code generated by it directly in a Maude instance, since the transformation from a e-Motions-based system into Maude code takes time.
 
 \subsection{Task 1}\label{sub:task1}
 
-Task 1 comprises the generation of synthetic models (conforming the movie database metamodel~\cite{imdbcase}) from an input parameter $N \geq 0$. In the following we present a e-Motions based solution and a Maude solution. 
+Task 1 comprises the generation of synthetic models (conforming the movie database metamodel~\cite{imdbcase}) from an input parameter $N \geq 0$. In the following we present an e-Motions based solution and a Maude solution. 
 
 
-\subsubsection{e-Motions-based solution}
+\subsubsection{e-Motions-based solution.}
 
-Following an e-Motions based approach, we define the abstract and concrete syntax and the behavior of our so-called \textit{Task 1 DSL}, which takes a model with a parameter $N$ and generate as output a model containing synthetic data to be used as test case.
+Following an e-Motions based approach, we define the abstract and concrete syntax and the behavior of our so-called \textit{Task 1 DSL}. Taking a parameter $N$ as input model, \textit{Task 1 DSL} generates a model containing synthetic data.
 
-As it has been introduced in Section~\ref{sub:emotions}, the abstract syntax of a DSL is given by means of a Ecore metamodel, which is provided in~\cite{imdbsources} and, in the following, we call it \textit{Movies MM}. However, the \textit{parameter N} concept has to be modeled in some way, since in e-Motions the state\mnote{con este state me refiero al estado del sistema, de una ejecución} is just a model. Hence, a new concept call \code{Parameter} with two Integer attributes \code{nP} and \code{nN} (positive and negative graphs respectively) has been added to Movies MM. This results in a so-called \textit{Movies* MM}.\mnote{podríamos referenciar a los trabajos donde esto se hace de forma modular}
+As it has been introduced in Section~\ref{sub:emotions}, the abstract syntax of a DSL is given in e-Motions by means of a Ecore metamodel. In fact, this metamodel is provided beforehand in~\cite{imdbsources}. We call this metamodel \textit{Movies MM}. However, the \textit{parameter N} has to be modeled in some way, since in e-Motions the state is just a model. Hence, a new concept call \code{Parameter} has been added to Movies MM. This results in a so-called \textit{Movies* MM}. The class \code{Parameter} has two integer attributes \code{nP} and \code{nN}, positive graphs and negative graphs, due to data generation following Henshing graphs~\cite{henshing} is divided into positive and negative cases.
 
-For the concrete syntax, Fig.~\ref{fig:concreteSyntax} shows how an image has been attached to each concept modeled in the Movies* MM. The behavior of this \textit{Task 1 DSL} is given by means of two in-place rules: \code{createPositive} and \code{createNegative}. Figure~\ref{fig:createPositive} shows the \code{createPositive} rule, which takes an object \code{p} of type \textit{Parameter} with \textit{nP} attribute is greater or equal than $0$ and, after the rule application, synthetic data conforming to the Henshin rules~\cite{imdbcase} are created. Fig.~\ref{fig:createNegative} shows the \code{createNegative} rule, which is analogously defined.
+For the concrete syntax, Fig.~\ref{fig:concreteSyntax} shows how an image has been attached to each concept modeled in the Movies* MM. The behavior of this \textit{Task 1 DSL} is given by means of two in-place rules: \code{createPositive} and \code{createNegative}. Figure~\ref{fig:createPositive} shows the \code{createPositive} rule, which takes an object \code{p} of type \textit{Parameter} with \textit{nP} attribute greater or equal than $0$ and, after the rule application, synthetic data conforming to the Henshin rules~\cite{henshing} are created. Fig.~\ref{fig:createNegative} shows the \code{createNegative} rule, which is analogously defined.
 
-Once the syntax and the behavior of the system has been coded, the user may specify a model, which conforms to \textit{Movies* MM}, containing an object \code{Parameter} with its two attributes \code{nP} and \code{nN} properly set. This model is used as initial model of the execution. 
+Once the syntax and the behavior of the system has been coded, the user may specify a model, which conforms to \textit{Movies* MM}, containing an object \code{Parameter} with its two attributes \code{nP} and \code{nN} properly set. This model is used as initial model of the execution.
 
-\subsubsection*{Maude version}
+This solution is really close to the problem specification~\cite{imdbcase}. Both Fig.~\ref{fig:task1} and Fig.~2 in~\cite{imdbcase} specifying the data generation are almost the same. This solution demonstrates how close is the solution to the problem domain, and how user-friendly is e-Motions.
+
+\subsubsection{Maude version.}
 This proposal of Task 1 consists of a object-based Maude specification, which is composed by two main modules: the \code{MOVIES@MM} module defining the classes structure and the \code{TASK1} module defining the solution. The solution is coded using again two rules: \code{createPositive} and \code{createNegative}. One could realized that the Maude version is very much like the e-Motions version. In fact, the former is almost the textual version of the latter. Listing~\ref{lst:createPositive} shows the \code{createPositive} Maude rule that takes the \code{createPositive(N:Nat)} message and a \code{freshOid} auxiliary message---used to create new object identifiers---and returns such a object configuration conforming the Henshin specification~\cite{imdbcase}.
 
 The messages \code{createPositive} and \code{createNegative} are generated in zero-rewrite steps with the equation showed in Listing~\ref{lst:createexampleeq}.
@@ -239,8 +250,8 @@ eq createExample(s(N)) = createPositive(N)
   \subfloat[The \code{negativePositive} rule.\label{fig:createNegative}]{%
     \includegraphics[width=\textheight, angle=90]{imgs/createNegativeRule}
   }
-  \label{fig:task1}
-  \caption{Task 1 rules.}
+ 
+  \caption{Task 1 rules. \label{fig:task1}}
 \end{figure}
 
 \subsection{Task 2}
