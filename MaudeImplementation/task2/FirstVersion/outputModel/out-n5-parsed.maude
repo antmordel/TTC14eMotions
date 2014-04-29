@@ -1,0 +1,151 @@
+{findCouples freshOid(150) 
+<  0 : Movie | rating : 0.0 > 
+<  1 : Movie | rating : 1.0 > 
+<  2 : Movie | rating : 2.0 > 
+<  3 : Movie | rating : 3.0 > 
+<  4 : Movie | rating : 4.0 > 
+<  5 : Actor | name : "a0",movies : (0, 1, 2, 3) > 
+<  6 : Actor | name : "a1",movies : (0, 1, 2, 3) > 
+<  7 : Actor | name : "a2",movies : (1, 2, 3) > 
+<  8 : Actress | name : "a3",movies : (1, 2, 3, 4) > 
+<  9 : Actress | name : "a4",movies : (1, 2, 3, 4) > 
+<  10 : Movie | rating : 5.0 > 
+<  11 : Movie | rating : 6.0 > 
+<  12 : Movie | rating : 7.0 > 
+<  13 : Movie | rating : 8.0 > 
+<  14 : Movie | rating : 9.0 > 
+<  15 : Actor | name : "a5",movies : (10, 11) > 
+<  16 : Actor | name : "a6",movies : (10, 11, 12) > 
+<  17 : Actress | name : "a7",movies : (11, 12, 13) > 
+<  18 : Actress | name : "a8",movies : (12, 13, 14) > 
+<  19 : Actress | name : "a9",movies : (13, 14) > 
+<  20 : Movie | rating : 1.0e+1 > 
+<  21 : Movie | rating : 1.1e+1 > 
+<  22 : Movie | rating : 1.2e+1 > 
+<  23 : Movie | rating : 1.3e+1 > 
+<  24 : Movie | rating : 1.4e+1 > 
+<  25 : Actor | name : "a10",movies : (20, 21, 22, 23) > 
+<  26 : Actor | name : "a11",movies : (20, 21, 22, 23) > 
+<  27 : Actor | name : "a12",movies : (21, 22, 23) > 
+<  28 : Actress | name : "a13",movies : (21, 22, 23, 24) > 
+<  29 : Actress | name : "a14",movies : (21, 22, 23, 24) > 
+<  30 : Movie | rating : 1.5e+1 > 
+<  31 : Movie | rating : 1.6e+1 > 
+<  32 : Movie | rating : 1.7e+1 > 
+<  33 : Movie | rating : 1.8e+1 > 
+<  34 : Movie | rating : 1.9e+1 > 
+<  35 : Actor | name : "a15",movies : (30, 31) > 
+<  36 : Actor | name : "a16",movies : (30, 31, 32) > 
+<  37 : Actress | name : "a17",movies : (31, 32, 33) > 
+<  38 : Actress | name : "a18",movies : (32, 33, 34) > 
+<  39 : Actress | name : "a19",movies : (33, 34) > 
+<  40 : Movie | rating : 2.0e+1 > 
+<  41 : Movie | rating : 2.1e+1 > 
+<  42 : Movie | rating : 2.2e+1 > 
+<  43 : Movie | rating : 2.3e+1 > 
+<  44 : Movie | rating : 2.4e+1 > 
+<  45 : Actor | name : "a20",movies : (40, 41, 42, 43) > 
+<  46 : Actor | name : "a21",movies : (40, 41, 42, 43) > 
+<  47 : Actor | name : "a22",movies : (41, 42, 43) > 
+<  48 : Actress | name : "a23",movies : (41, 42, 43, 44) > 
+<  49 : Actress | name : "a24",movies : (41, 42, 43, 44) > 
+<  50 : Movie | rating : 2.5e+1 > 
+<  51 : Movie | rating : 2.6e+1 > 
+<  52 : Movie | rating : 2.7e+1 > 
+<  53 : Movie | rating : 2.8e+1 > 
+<  54 : Movie | rating : 2.9e+1 > 
+<  55 : Actor | name : "a25",movies : (50, 51) > 
+<  56 : Actor | name : "a26",movies : (50, 51, 52) > 
+<  57 : Actress | name : "a27",movies : (51, 52, 53) > 
+<  58 : Actress | name : "a28",movies : (52, 53, 54) > 
+<  59 : Actress | name : "a29",movies : (53, 54) > 
+<  60 : Movie | rating : 3.0e+1 > 
+<  61 : Movie | rating : 3.1e+1 > 
+<  62 : Movie | rating : 3.2e+1 > 
+<  63 : Movie | rating : 3.3e+1 > 
+<  64 : Movie | rating : 3.4e+1 > 
+<  65 : Actor | name : "a30",movies : (60, 61, 62, 63) > 
+<  66 : Actor | name : "a31",movies : (60, 61, 62, 63) > 
+<  67 : Actor | name : "a32",movies : (61, 62, 63) > 
+<  68 : Actress | name : "a33",movies : (61, 62, 63, 64) > 
+<  69 : Actress | name : "a34",movies : (61, 62, 63, 64) > 
+<  70 : Movie | rating : 3.5e+1 > 
+<  71 : Movie | rating : 3.6e+1 > 
+<  72 : Movie | rating : 3.7e+1 > 
+<  73 : Movie | rating : 3.8e+1 > 
+<  74 : Movie | rating : 3.9e+1 > 
+<  75 : Actor | name : "a35",movies : (70, 71) > 
+<  76 : Actor | name : "a36",movies : (70, 71, 72) > 
+<  77 : Actress | name : "a37",movies : (71, 72, 73) > 
+<  78 : Actress | name : "a38",movies : (72, 73, 74) > 
+<  79 : Actress | name : "a39",movies : (73, 74) > 
+<  80 : Movie | rating : 4.0e+1 > 
+<  81 : Movie | rating : 4.1e+1 > 
+<  82 : Movie | rating : 4.2e+1 > 
+<  83 : Movie | rating : 4.3e+1 > 
+<  84 : Movie | rating : 4.4e+1 > 
+<  85 : Actor | name : "a40",movies : (80, 81, 82, 83) > 
+<  86 : Actor | name : "a41",movies : (80, 81, 82, 83) > 
+<  87 : Actor | name : "a42",movies : (81, 82, 83) > 
+<  88 : Actress | name : "a43",movies : (81, 82, 83, 84) > 
+<  89 : Actress | name : "a44",movies : (81, 82, 83, 84) > 
+<  90 : Movie | rating : 4.5e+1 > 
+<  91 : Movie | rating : 4.6e+1 > 
+<  92 : Movie | rating : 4.7e+1 > 
+<  93 : Movie | rating : 4.8e+1 > 
+<  94 : Movie | rating : 4.9e+1 > 
+<  95 : Actor | name : "a45",movies : (90, 91) > 
+<  96 : Actor | name : "a46",movies : (90, 91, 92) > 
+<  97 : Actress | name : "a47",movies : (91, 92, 93) > 
+<  98 : Actress | name : "a48",movies : (92, 93, 94) > 
+<  99 : Actress | name : "a49",movies : (93, 94) > 
+<  100 : Couple | commonMovies : (0, 1, 2, 3),p1 : 5,p2 : 6 > 
+<  101 : Couple | commonMovies : (1, 2, 3),p1 : 5,p2 : 7 > 
+<  102 : Couple | commonMovies : (1, 2, 3),p1 : 5,p2 : 8 > 
+<  103 : Couple | commonMovies : (1, 2, 3),p1 : 5,p2 : 9 > 
+<  104 : Couple | commonMovies : (1, 2, 3),p1 : 6,p2 : 7 > 
+<  105 : Couple | commonMovies : (1, 2, 3),p1 : 6,p2 : 8 > 
+<  106 : Couple | commonMovies : (1, 2, 3),p1 : 6,p2 : 9 > 
+<  107 : Couple | commonMovies : (1, 2, 3),p1 : 7,p2 : 8 > 
+<  108 : Couple | commonMovies : (1, 2, 3),p1 : 7,p2 : 9 > 
+<  109 : Couple | commonMovies : (1, 2, 3, 4),p1 : 8,p2 : 9 > 
+<  110 : Couple | commonMovies : (20, 21, 22, 23),p1 : 25,p2 : 26 > 
+<  111 : Couple | commonMovies : (21, 22, 23),p1 : 25,p2 : 27 > 
+<  112 : Couple | commonMovies : (21, 22, 23),p1 : 25,p2 : 28 > 
+<  113 : Couple | commonMovies : (21, 22, 23),p1 : 25,p2 : 29 > 
+<  114 : Couple | commonMovies : (21, 22, 23),p1 : 26,p2 : 27 > 
+<  115 : Couple | commonMovies : (21, 22, 23),p1 : 26,p2 : 28 > 
+<  116 : Couple | commonMovies : (21, 22, 23),p1 : 26,p2 : 29 > 
+<  117 : Couple | commonMovies : (21, 22, 23),p1 : 27,p2 : 28 > 
+<  118 : Couple | commonMovies : (21, 22, 23),p1 : 27,p2 : 29 > 
+<  119 : Couple | commonMovies : (21, 22, 23, 24),p1 : 28,p2 : 29 > 
+<  120 : Couple | commonMovies : (40, 41, 42, 43),p1 : 45,p2 : 46 > 
+<  121 : Couple | commonMovies : (41, 42, 43),p1 : 45,p2 : 47 > 
+<  122 : Couple | commonMovies : (41, 42, 43),p1 : 45,p2 : 48 > 
+<  123 : Couple | commonMovies : (41, 42, 43),p1 : 45,p2 : 49 > 
+<  124 : Couple | commonMovies : (41, 42, 43),p1 : 46,p2 : 47 > 
+<  125 : Couple | commonMovies : (41, 42, 43),p1 : 46,p2 : 48 > 
+<  126 : Couple | commonMovies : (41, 42, 43),p1 : 46,p2 : 49 > 
+<  127 : Couple | commonMovies : (41, 42, 43),p1 : 47,p2 : 48 > 
+<  128 : Couple | commonMovies : (41, 42, 43),p1 : 47,p2 : 49 > 
+<  129 : Couple | commonMovies : (41, 42, 43, 44),p1 : 48,p2 : 49 > 
+<  130 : Couple | commonMovies : (60, 61, 62, 63),p1 : 65,p2 : 66 > 
+<  131 : Couple | commonMovies : (61, 62, 63),p1 : 65,p2 : 67 > 
+<  132 : Couple | commonMovies : (61, 62, 63),p1 : 65,p2 : 68 > 
+<  133 : Couple | commonMovies : (61, 62, 63),p1 : 65,p2 : 69 > 
+<  134 : Couple | commonMovies : (61, 62, 63),p1 : 66,p2 : 67 > 
+<  135 : Couple | commonMovies : (61, 62, 63),p1 : 66,p2 : 68 > 
+<  136 : Couple | commonMovies : (61, 62, 63),p1 : 66,p2 : 69 > 
+<  137 : Couple | commonMovies : (61, 62, 63),p1 : 67,p2 : 68 > 
+<  138 : Couple | commonMovies : (61, 62, 63),p1 : 67,p2 : 69 > 
+<  139 : Couple | commonMovies : (61, 62, 63, 64),p1 : 68,p2 : 69 > 
+<  140 : Couple | commonMovies : (80, 81, 82, 83),p1 : 85,p2 : 86 > 
+<  141 : Couple | commonMovies : (81, 82, 83),p1 : 85,p2 : 87 > 
+<  142 : Couple | commonMovies : (81, 82, 83),p1 : 85,p2 : 88 > 
+<  143 : Couple | commonMovies : (81, 82, 83),p1 : 85,p2 : 89 > 
+<  144 : Couple | commonMovies : (81, 82, 83),p1 : 86,p2 : 87 > 
+<  145 : Couple | commonMovies : (81, 82, 83),p1 : 86,p2 : 88 > 
+<  146 : Couple | commonMovies : (81, 82, 83),p1 : 86,p2 : 89 > 
+<  147 : Couple | commonMovies : (81, 82, 83),p1 : 87,p2 : 88 > 
+<  148 : Couple | commonMovies : (81, 82, 83),p1 : 87,p2 : 89 > 
+<  149 : Couple | commonMovies : (81, 82, 83, 84),p1 : 88,p2 : 89 >}

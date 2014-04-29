@@ -1,0 +1,172 @@
+
+***(
+  In this task, a transformation shall be implemented that takes a graph consisting of inter-connected movies,
+  actors and actresses as input, and creates additional nodes and links in this graph.Specifically, the task is
+  to find all pairs of persons (actors or actresses) which played together in at least three movies. For every 
+  such pair, the transformation is supposed to create an object of type Couple referencing both persons using the p1 
+  and p2 references, and referencing all movies in which both persons played in using the commonMovies reference.  
+)
+
+fmod MAYBE{X :: TRIV} is
+  sort Maybe{X} .
+  subsort X$Elt < Maybe{X} .
+  op null : -> Maybe{X} .
+endfm
+
+view Object from TRIV to MY-CONFIGURATION is
+  sort Elt to Object .
+endv
+
+mod TASK2-SECOND-VERSION is
+  pr TASK1 .
+  pr MAYBE{Object} .
+  ex SET{Nat} .  
+  
+  op findCouples : -> Msg [ctor] .
+  
+  op <{_}{_}{_}{_}{_}{_}> : Configuration Configuration Configuration Configuration Maybe{Object} Configuration -> Configuration .
+  ---- starting argument
+  ---- people
+  ---- movies 
+  ---- people dealt
+  ---- fixed person on which we iterate
+  ---- configuration as result
+  op {_} : Configuration -> Configuration .
+  
+  ************
+  **** Vars
+  ************
+  var Conf C1 C2 C3 C4 C5 : Configuration .
+  vars O O1 O2 O3 New : Nat .
+  vars Atts Atts1 Atts2 Atts3 : AttributeSet .
+  var V@Person : Person .
+  var MS1 MS2 : Set{Nat} .
+  var Ob1 Ob2 : Object .
+  
+  rl [create5Tuple] :
+    { findCouples Conf }
+  =>
+    <{ Conf }{ none }{ none }{ none }{ null }{ none }> .
+    
+    
+  ---------------------------------------------------------------------------------
+  ---- 1st step: We split Person and Movies into their configurations
+  --------------------------------------------------------------------------------- 
+    
+  rl [splitPeople] :
+    <{ < O : V@Person | Atts >  Conf }
+     { C2 }{ C3 }{ none }{ null }{ C4 }>
+  => 
+    <{ Conf }{ < O : V@Person | Atts >  C2 }
+     { C3 }{ none }{ null }{ C4 }> .
+  
+  rl [splitMovies] :
+    <{ < O : Movie | Atts >  Conf }
+     { C2 }{ C3 }{ none }{ null }{ C4 }>
+  => 
+    <{ Conf }{ C2 }
+     { < O : Movie | Atts > C3 }{ none }{ null }{ C4 }> .
+  
+  rl [splitMessages] :
+    <{ M:Msg Conf }
+     { C2 }{ C3 }{ none }{ null }{ C4 }>
+  => 
+    <{ Conf }{ C2 }{ C3 }{ none }{ null }{ M:Msg C4 }> .
+    
+  ---------------------------------------------------------------------------------
+  ---- 2nd step: We fix an actor or actress
+  ---------------------------------------------------------------------------------
+  
+  rl [fixingPerson] : 
+    <{ none }{ < O : V@Person | Atts > C1 }{ C2 }{ none }{ null }{ C4 }>
+  => 
+    <{ none }{ C1 }{ C2 }{ none }{ < O : V@Person | Atts > }{ C4 }> .
+
+  ---------------------------------------------------------------------------------
+  ---- 3rd step: Given a person, look for all pairs
+  --------------------------------------------------------------------------------- 
+  
+  rl [doingPairs] :
+    <{ none }{ < O1 : V@Person | movies : MS1, Atts1 >  C1 }{ C2 }{ C3 }
+     { < O2 : V@Person | movies : MS2, Atts2 > }{ freshOid(New) C4 }>
+  => 
+    <{ none }{ C1 }{ C2 }{ < O1 : V@Person | movies : MS1, Atts1 > C3 }{ < O2 : V@Person | movies : MS2, Atts2 > }
+     { if | intersection(MS1, MS2) | >= 3 
+       then < New : Couple | p1 : O1, p2 : O2, commonMovies : intersection(MS1, MS2), avgRating : 0.0 > freshOid(s New) C4
+       else freshOid(New) C4
+       fi
+     }> .
+    
+ ---------------------------------------------------------------------------------
+ ---- 4th step: If the current Person set has been gone over all the other people
+ ----           we set the next person
+ --------------------------------------------------------------------------------- 
+ rl [setNextPerson] : 
+   <{ none } { none } { C2 } { C3 } { < O2 : V@Person | Atts1 > } { C4 }> 
+ => 
+   <{ none } { C3 } { C2 } { none } { null } { < O2 : V@Person | Atts1 > C4 }> .
+ 
+ ---------------------------------------------------------------------------------
+ ---- 5th step: Returning the result
+ ---------------------------------------------------------------------------------
+ rl <{ none } { none } { C2 } { none } { null } { C4 }>  => C2 C4  .
+  
+endm
+
+eof
+
+rew { findCouples freshOid(20) 
+  < 0 : Movie | rating : 0.0 > 
+  < 1 : Movie | rating : 1.0 >
+  < 2 : Movie | rating : 2.0 >
+  < 3 : Movie | rating : 3.0 >
+  < 4 : Movie | rating : 4.0 >
+  < 5 : Actor | name : "a0",movies : (0, 1, 2, 3) >
+  < 6 : Actor | name : "a1",movies : (0, 1, 2) >
+  < 7 : Actor | name : "a2",movies : (1, 2, 3) >
+  < 8 : Actor | name : "a3",movies : (1, 2, 3, 4) >
+  < 9 : Actor | name : "a4",movies : (1, 2, 3, 4) >
+  < 10 : Movie | rating : 5.0 > 
+  < 11 : Movie | rating : 6.0 >
+  < 12 : Movie | rating : 7.0 >
+  < 13 : Movie | rating : 8.0 >
+  < 14 : Movie | rating : 9.0 >
+  < 15 : Actor | name : "a5",movies : (10, 11) >
+  < 16 : Actor | name : "a6",movies : (10, 11, 12) >
+  < 17 : Actor | name : "a7",movies : (11, 12, 13) >
+  < 18 : Actor | name : "a8",movies : (12, 13, 14) >
+  < 19 : Actor | name : "a9",movies : (13, 14) > } .
+
+
+*** result:
+freshOid(27)
+  < 0 : Movie | rating : 0.0 >
+  < 1 : Movie | rating : 1.0 >
+  < 2 : Movie | rating : 2.0 >
+  < 3 : Movie | rating : 3.0 >
+  < 4 : Movie | rating : 4.0 >
+  < 5 : Actor | name : "a0", movies : (0, 1, 2, 3) >
+  < 6 : Actor | name : "a1", movies : (0, 1, 2) >
+  < 7 : Actor | name : "a2",movies : (1, 2, 3) >
+  < 8 : Actor | name : "a3",movies : (1, 2, 3, 4) >
+  < 9 : Actor | name : "a4",movies : (1, 2, 3, 4) >
+  < 10 : Movie | rating : 5.0 >
+  < 11 : Movie | rating : 6.0 >
+  < 12 : Movie | rating : 7.0 >
+  < 13 : Movie | rating : 8.0 >
+  < 14 : Movie | rating : 9.0 >
+  < 15 : Actor | name : "a5",movies : (10, 11) >
+  < 16 : Actor | name : "a6",movies : (10, 11, 12) >
+  < 17 : Actor | name : "a7",movies : (11, 12, 13) >
+  < 18 : Actor | name : "a8",movies : (12, 13, 14) >
+  < 19 : Actor | name : "a9",movies : (13, 14) >
+  
+  < 20 : Couple | commonMovies : (0, 1, 2), p1 : 6, p2 : 5 >
+  < 21 : Couple | commonMovies : (1, 2, 3),p1 : 7,p2 : 5 >
+  < 22 : Couple | commonMovies : (1, 2, 3),p1 : 8,p2 : 5 >
+  < 23 : Couple | commonMovies : (1, 2, 3),p1 : 9,p2 : 5 >
+  < 24 : Couple | commonMovies : (1, 2, 3),p1 : 8,p2 : 7 >
+  < 25 : Couple | commonMovies : (1, 2, 3),p1 : 9,p2 : 7 >
+  < 26 : Couple | commonMovies : (1, 2, 3, 4),p1 : 9,p2 : 8 >
+  
+  
