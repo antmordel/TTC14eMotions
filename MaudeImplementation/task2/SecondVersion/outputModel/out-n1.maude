@@ -20,28 +20,36 @@ rewrite in TASK2-SECOND-VERSION : {freshOid(20) (((((((((((((((((((findCouples
 <  2 : Movie | rating : 2.0 >) 
 <  1 : Movie | rating : 1.0 >) 
 <  0 : Movie | rating : 0.0 >} .
-rewrites: 101 in 0ms cpu (0ms real) (~ rewrites/second)
-result Configuration: <{none}{
-<  8 : Actress | name : "a3",movies : (1, 2, 3, 4) > 
-<  9 : Actress | name : "a4",movies : (1, 2, 3, 4) > 
-<  17 : Actress | name : "a7",movies : (11, 12, 13) > 
-<  18 : Actress | name : "a8",movies : (12, 13, 14) > 
-<  19 : Actress | name : "a9",movies : (13, 14) >}{
+rewrites: 831 in 0ms cpu (0ms real) (~ rewrites/second)
+result Configuration: freshOid(30) 
 <  0 : Movie | rating : 0.0 > 
 <  1 : Movie | rating : 1.0 > 
 <  2 : Movie | rating : 2.0 > 
 <  3 : Movie | rating : 3.0 > 
 <  4 : Movie | rating : 4.0 > 
+<  5 : Actor | name : "a0",movies : (0, 1, 2, 3) > 
+<  6 : Actor | name : "a1",movies : (0, 1, 2, 3) > 
+<  7 : Actor | name : "a2",movies : (1, 2, 3) > 
+<  8 : Actress | name : "a3",movies : (1, 2, 3, 4) > 
+<  9 : Actress | name : "a4",movies : (1, 2, 3, 4) > 
 <  10 : Movie | rating : 5.0 > 
 <  11 : Movie | rating : 6.0 > 
 <  12 : Movie | rating : 7.0 > 
 <  13 : Movie | rating : 8.0 > 
-<  14 : Movie | rating : 9.0 >}{
-<  6 : Actor | name : "a1",movies : (0, 1, 2, 3) > 
-<  7 : Actor | name : "a2",movies : (1, 2, 3) > 
+<  14 : Movie | rating : 9.0 > 
 <  15 : Actor | name : "a5",movies : (10, 11) > 
-<  16 : Actor | name : "a6",movies : (10, 11, 12) >}{
-<  5 : Actor | name : "a0",movies : (0, 1, 2, 3) >}{freshOid(22) 
+<  16 : Actor | name : "a6",movies : (10, 11, 12) > 
+<  17 : Actress | name : "a7",movies : (11, 12, 13) > 
+<  18 : Actress | name : "a8",movies : (12, 13, 14) > 
+<  19 : Actress | name : "a9",movies : (13, 14) > 
 <  20 : Couple | commonMovies : (0, 1, 2, 3),avgRating : 0.0,p1 : 6,p2 : 5 > 
-<  21 : Couple | commonMovies : (1, 2, 3),avgRating : 0.0,p1 : 7,p2 : 5 >}>
+<  21 : Couple | commonMovies : (1, 2, 3),avgRating : 0.0,p1 : 7,p2 : 5 > 
+<  22 : Couple | commonMovies : (1, 2, 3),avgRating : 0.0,p1 : 8,p2 : 5 > 
+<  23 : Couple | commonMovies : (1, 2, 3),avgRating : 0.0,p1 : 9,p2 : 5 > 
+<  24 : Couple | commonMovies : (1, 2, 3),avgRating : 0.0,p1 : 7,p2 : 6 > 
+<  25 : Couple | commonMovies : (1, 2, 3),avgRating : 0.0,p1 : 8,p2 : 6 > 
+<  26 : Couple | commonMovies : (1, 2, 3),avgRating : 0.0,p1 : 9,p2 : 6 > 
+<  27 : Couple | commonMovies : (1, 2, 3),avgRating : 0.0,p1 : 8,p2 : 7 > 
+<  28 : Couple | commonMovies : (1, 2, 3),avgRating : 0.0,p1 : 9,p2 : 7 > 
+<  29 : Couple | commonMovies : (1, 2, 3, 4),avgRating : 0.0,p1 : 9,p2 : 8 >
 Bye.
