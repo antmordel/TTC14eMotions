@@ -39,7 +39,7 @@ mod TASK2-SECOND-VERSION is
   var Conf C1 C2 C3 C4 C5 : Configuration .
   vars O O1 O2 O3 New : Nat .
   vars Atts Atts1 Atts2 Atts3 : AttributeSet .
-  var V@Person : Person .
+  var V@Person V1@Person V2@Person : Person .
   var MS1 MS2 : Set{Nat} .
   var Ob1 Ob2 : Object .
   
@@ -87,10 +87,10 @@ mod TASK2-SECOND-VERSION is
   --------------------------------------------------------------------------------- 
   
   rl [doingPairs] :
-    <{ none }{ < O1 : V@Person | movies : MS1, Atts1 >  C1 }{ C2 }{ C3 }
-     { < O2 : V@Person | movies : MS2, Atts2 > }{ freshOid(New) C4 }>
+    <{ none }{ < O1 : V1@Person | movies : MS1, Atts1 >  C1 }{ C2 }{ C3 }
+     { < O2 : V2@Person | movies : MS2, Atts2 > }{ freshOid(New) C4 }>
   => 
-    <{ none }{ C1 }{ C2 }{ < O1 : V@Person | movies : MS1, Atts1 > C3 }{ < O2 : V@Person | movies : MS2, Atts2 > }
+    <{ none }{ C1 }{ C2 }{ < O1 : V1@Person | movies : MS1, Atts1 > C3 }{ < O2 : V2@Person | movies : MS2, Atts2 > }
      { if | intersection(MS1, MS2) | >= 3 
        then < New : Couple | p1 : O1, p2 : O2, commonMovies : intersection(MS1, MS2), avgRating : 0.0 > freshOid(s New) C4
        else freshOid(New) C4
