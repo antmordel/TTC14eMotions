@@ -21,7 +21,7 @@ for line in ifile:
   else:
     if 'rewrite in' in line: # 1st line
       if arguments.verbose:
-        print('   '+line[0:len(line)-2].replace('rewrite', 'Rewritten'))
+        print('   '+line[0:line.find(':')].replace('rewrite', 'Rewritten')+'.')
     elif 'rewrites:' in line: # 2nd line
       time = int(line[line.find('(')+1:line.find('ms', line.find('('))])
       time = time/1000.0
