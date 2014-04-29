@@ -41,3 +41,11 @@ echo " Done!"
 echo " Starting parsing..."
 python parse_output.py -i MaudeImplementation/task2/SecondVersion/outputModel/out-n300.maude -o MaudeImplementation/task2/SecondVersion/outputModel/out-n300-parsed.maude --verbose
 echo " Success!"
+
+echo " Task 2 (SecondVersion): N = 400";
+echo "   loading..."
+maude -no-banner MaudeImplementation/movies.maude MaudeImplementation/task1/task1.maude MaudeImplementation/task2/SecondVersion/secondVersion.maude MaudeImplementation/task2/SecondVersion/inputModel/n400.maude MaudeImplementation/quit.maude > MaudeImplementation/task2/SecondVersion/outputModel/out-n400.maude
+echo " Done!"
+echo " Starting parsing..."
+python parse_output.py -i MaudeImplementation/task2/SecondVersion/outputModel/out-n400.maude -o MaudeImplementation/task2/SecondVersion/outputModel/out-n400-parsed.maude --verbose
+echo " Success!"
