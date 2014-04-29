@@ -20,7 +20,7 @@ rewrite in TASK2-SECOND-VERSION : {freshOid(20) (((((((((((((((((((findCouples
 <  2 : Movie | rating : 2.0 >) 
 <  1 : Movie | rating : 1.0 >) 
 <  0 : Movie | rating : 0.0 >} .
-rewrites: 101 in 0ms cpu (0ms real) (687074 rewrites/second)
+rewrites: 101 in 0ms cpu (0ms real) (~ rewrites/second)
 result Configuration: <{none}{
 <  8 : Actress | name : "a3",movies : (1, 2, 3, 4) > 
 <  9 : Actress | name : "a4",movies : (1, 2, 3, 4) > 
