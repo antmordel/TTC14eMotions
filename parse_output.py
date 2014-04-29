@@ -36,9 +36,9 @@ for line in ifile:
       else:
         modelStarted = True
         ofile.write(line[line.find(':')+2:])
-    else:
-      if not('==========================================' in line) and not('Bye.' in line):
-        print('   Ouch! There was an error in the parsing, maybe in the Maude execution?')
+#    else:
+#      if not('==========================================' in line) and not('Bye.' in line):
+#        print('   Ouch! There was an error in the parsing, maybe in the Maude execution?')
 
 ifile.close()
 ofile.close()

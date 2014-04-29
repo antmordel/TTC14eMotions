@@ -1,0 +1,21 @@
+rew in TASK2-FIRST-VERSION : { freshOid(20) 
+<  0 : Movie | rating : 0.0 > 
+<  1 : Movie | rating : 1.0 > 
+<  2 : Movie | rating : 2.0 > 
+<  3 : Movie | rating : 3.0 > 
+<  4 : Movie | rating : 4.0 > 
+<  5 : Actor | name : "a0",movies : (0, 1, 2, 3) > 
+<  6 : Actor | name : "a1",movies : (0, 1, 2, 3) > 
+<  7 : Actor | name : "a2",movies : (1, 2, 3) > 
+<  8 : Actress | name : "a3",movies : (1, 2, 3, 4) > 
+<  9 : Actress | name : "a4",movies : (1, 2, 3, 4) > 
+<  10 : Movie | rating : 5.0 > 
+<  11 : Movie | rating : 6.0 > 
+<  12 : Movie | rating : 7.0 > 
+<  13 : Movie | rating : 8.0 > 
+<  14 : Movie | rating : 9.0 > 
+<  15 : Actor | name : "a5",movies : (10, 11) > 
+<  16 : Actor | name : "a6",movies : (10, 11, 12) > 
+<  17 : Actress | name : "a7",movies : (11, 12, 13) > 
+<  18 : Actress | name : "a8",movies : (12, 13, 14) > 
+<  19 : Actress | name : "a9",movies : (13, 14) > findCouples } .

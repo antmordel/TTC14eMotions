@@ -18,6 +18,14 @@ echo " Starting parsing..."
 python parse_output.py -i MaudeExecution/Task2/SecondVersion/outputModel/out-n2.xmi.maude -o MaudeExecution/Task2/SecondVersion/outputModel/out-n2-parsed.xmi.maude --verbose
 echo " Success!"
 
+echo " Task 2 (SecondVersion): N = 10";
+echo "   loading..."
+maude2.4 -no-banner MaudeExecution/Task2/SecondVersion/loadAllFilesN10.maude > MaudeExecution/Task2/SecondVersion/outputModel/out-n10.xmi.maude
+echo " Done!"
+echo " Starting parsing..."
+python parse_output.py -i MaudeExecution/Task2/SecondVersion/outputModel/out-n10.xmi.maude -o MaudeExecution/Task2/SecondVersion/outputModel/out-n10-parsed.xmi.maude --verbose
+echo " Success!"
+
 echo " Task 2 (SecondVersion): N = 20";
 echo "   loading..."
 maude2.4 -no-banner MaudeExecution/Task2/SecondVersion/loadAllFilesN20.maude > MaudeExecution/Task2/SecondVersion/outputModel/out-n20.xmi.maude
