@@ -1,0 +1,11 @@
+
+
+mod N20 is
+	protecting @MOVIES@
+	.
+	eq n20 =
+		_`{_`}( @movies@ , __( none , none , <_:_|_>( '/ , Parameter@movies , _#_( _:_( nP@Parameter@movies , 19 ) , _:_( nN@Parameter@movies , 19 ) , empty , empty ) ) ) )
+	.
+	op n20 : -> @Model
+	.
+endm
