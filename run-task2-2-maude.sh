@@ -26,6 +26,14 @@ echo " Starting parsing..."
 python parse_output.py -i MaudeImplementation/task2/SecondVersion/outputModel/out-n10.maude -o MaudeImplementation/task2/SecondVersion/outputModel/out-n10-parsed.maude --verbose
 echo " Success!"
 
+echo " Task 2 (SecondVersion): N = 100";
+echo "   loading..."
+maude -no-banner MaudeImplementation/movies.maude MaudeImplementation/task1/task1.maude MaudeImplementation/task2/SecondVersion/secondVersion.maude MaudeImplementation/task2/SecondVersion/inputModel/n100.maude MaudeImplementation/quit.maude > MaudeImplementation/task2/SecondVersion/outputModel/out-n100.maude
+echo " Done!"
+echo " Starting parsing..."
+python parse_output.py -i MaudeImplementation/task2/SecondVersion/outputModel/out-n100.maude -o MaudeImplementation/task2/SecondVersion/outputModel/out-n100-parsed.maude --verbose
+echo " Success!"
+
 echo " Task 2 (SecondVersion): N = 200";
 echo "   loading..."
 maude -no-banner MaudeImplementation/movies.maude MaudeImplementation/task1/task1.maude MaudeImplementation/task2/SecondVersion/secondVersion.maude MaudeImplementation/task2/SecondVersion/inputModel/n200.maude MaudeImplementation/quit.maude > MaudeImplementation/task2/SecondVersion/outputModel/out-n200.maude
