@@ -81,3 +81,11 @@ echo " Done!"
 echo " Starting parsing..."
 python parse_output.py -i MaudeImplementation/task1/outputModel/out-n8000.maude -o MaudeImplementation/task1/outputModel/out-n8000-parsed.maude --verbose
 echo " Success!"
+
+echo " -> Task 1: N = 9000";
+echo "   loading..."
+maude -no-banner MaudeImplementation/movies.maude MaudeImplementation/task1/task1.maude MaudeImplementation/task1/inputModel/n9000.maude MaudeImplementation/quit.maude > MaudeImplementation/task1/outputModel/out-n9000.maude
+echo " Done!"
+echo " Starting parsing..."
+python parse_output.py -i MaudeImplementation/task1/outputModel/out-n9000.maude -o MaudeImplementation/task1/outputModel/out-n9000-parsed.maude --verbose
+echo " Success!"
