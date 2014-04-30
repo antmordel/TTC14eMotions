@@ -2,9 +2,9 @@
 %\subsection{Task 2}
 %\label{sub:task2}
 
-Task 2 consists in finding all `couples' from a given model, given that two persons are a `couple' if they played together in at least three movies~\cite{imdbcase}. Couples are to be obtained using either from the model obtained in Task 1 or from the IMBd database~\cite{imdbsources}. Once again, we present solutions using e-Motions and Maude.
+Task 2 consists in finding all `couples' from a given model, given that two persons are a `couple' if they played together in at least three movies~\cite{imdbcase}. Couples are to be obtained either from the model obtained in Task 1 or from the IMBd database~\cite{imdbsources}. Once again, we present solutions using e-Motions and Maude.
 
-\subsubsection{e-Motions-based solution}
+\subsubsection{e-Motions-based solution.}
 
 The solution for this task is implemented with one single rule, \code{createCouple}, shown in Fig.~\ref{fig:createCouple}. \code{Person} objects are shown using square shapes because \code{Person} is an abstract class and it does not have attached image. The \code{createCouple} rule models the creation of a couple by taking two persons and generating a couple with them. The rule has two conditions: a positive condition stating that \textit{``the number of movies in the intersection between the movies of \code{per1} and \code{per2} is greater or equal than 3''}; and a negative condition, the \code{coupleHasNotBeenCreated} NAC, requiring that the couple does not exists yet. 
 
@@ -38,7 +38,7 @@ We have implemented another solution in which we limit the number of matchings u
 %  \item Given a \code{Person}, we look for all couples.
 %  \item Whether the current \code{Person} set has been gone over all the other persons, we set the next person, and the current person is move to the resulting collection.
 %\end{enumerate}
-With this algorithm, the number of persons to match as candidate couple decreases significantly. To model this solution, we extend the metamodel and its concrete syntax with a so-called \code{Collection} concept. This class has three attributes, namely \code{people}, with the set of persons to be handled, \code{fixedPerson}, to iterate on each person, and \code{peopleDealtWith}, to keep the persons already considered to create a couple with the current `fixed person'. Figures~\ref{fig:initialRule}-\ref{fig:nextPerson} show the rules specifying this solution: 
+With this algorithm, the number of persons to match as candidate couples decreases significantly. To model this solution, we extend the metamodel and its concrete syntax with a so-called \code{Collection} concept. This class has three attributes, namely \code{people}, with the set of persons to be handled, \code{fixedPerson}, to iterate on each person, and \code{peopleDealtWith}, to keep the persons already considered to create a couple with the current `fixed person'. Figures~\ref{fig:initialRule}-\ref{fig:nextPerson} show the rules specifying this solution: 
 \begin{itemize}
 \item
 Rule \code{initialRule} in Figure~\ref{fig:initialRule} initializes the collection object assigning the set of all actors and actresses to its \code{people} attribute (the other attributes get default values). This rule is only fired if there is no collection object in the model. 
@@ -46,8 +46,10 @@ Rule \code{initialRule} in Figure~\ref{fig:initialRule} initializes the collecti
 Rule \code{fixPerson} in Figure~\ref{fig:fixPerson} takes a person from the \code{people} set and takes it as \code{fixedPerson}. Notice that \code{p} is removed from the \code{people} set.
 \item
 Rules \code{doingCouples-AreCouple} and \code{doingCouples-AreNotCouple} in Figures~\ref{fig:areCouple} and \ref{fig:areNotCouple} take a person from the set \code{people} and the \code{fixedPerson} and make a couple if the number of movies they share is greater or equal than three. In both cases the person considered is passed to the \code{peopleDealtWith} set. 
+\item
+When all persons has been considered as couple of the current \code{fixedPerson}, the \code{nextPerson} rule in Figure~\ref{fig:nextPerson}, takes the \code{peopleDealtWith} as new \code{people} set. 
 \end{itemize}
-When all persons has been considered as couple of the current \code{fixedPerson}, the \code{nextPerson} rule, takes the \code{peopleDealtWith} as new \code{people} set. 
+
 
 \begin{figure}[htp]
   \centering
@@ -96,7 +98,7 @@ When all persons has been considered as couple of the current \code{fixedPerson}
 
 Again, we specify directly in Maude both solutions. As for Task 1, the solutions match very closely their e-Motions counterparts. 
 
-The Maude solution for the first alternative solution to Task 1 is shown in Listing~\ref{lst:oneRuleCouples}. The rules takes two persons and creates a new couple if they share three movies and such couple has not been previously created. Some numbers for its execution are shown in Table~\ref{table:maudetask21}.
+The Maude specification of the first alternative solution to Task 1 is shown in Listing~\ref{lst:oneRuleCouples}. The rules takes two persons and creates a new couple if they share three movies and such couple has not been previously created. Some numbers for its execution are shown in Table~\ref{table:maudetask21}.
  
 \begin{lstlisting}[caption=\code{createCouples} Maude rule., label=lst:oneRuleCouples]
 crl [findCouples] :
@@ -133,7 +135,7 @@ if | intersection((MS1), (MS2)) | >= 3
 	\caption{Maude times for Task 2 First Version.}\label{table:maudetask21}
 \end{table*}
 
-As for e-Motions, the second solutions consists of several rules. In this case, our collection object is model by an operator \code{\{\_\}\{\_\}\{\_\}\{\_\}\{\_\}\{\_\}} representing an object with six attributes as its e-Motions counterpart: the first argument takes the starting argument, the second the people set, the movies set, the dealt people, the fixed person on which to iterate, and the result configuration. We show in Listing~\ref{lst:task2SecondVersion} the code for the \code{doingPairs} rule. In the case of Maude, we only need one rule to consider the positive and negative cases. The number of rewrites and execution times for executions of different sizes are shown in Table~\ref{table:maudetask22}.
+As for e-Motions, the second solution consists of several rules. In this case, our collection object is model by an operator \code{<\{\_\}\{\_\}\{\_\}\{\_\}\{\_\}\{\_\}>} representing an object with six attributes as its e-Motions counterpart: its arguments take, respectively, the starting argument, the people set, the movies set, the dealt people, the fixed person on which to iterate, and the result configuration. We show in Listing~\ref{lst:task2SecondVersion} the code for the \code{doingPairs} rule. In the case of Maude, we only need one rule to consider the positive and negative cases. The number of rewrites and execution times for executions of different sizes are shown in Table~\ref{table:maudetask22}.
 
 \begin{lstlisting}[caption=\code{doingCouples} Maude rule., label=lst:task2SecondVersion]
 
