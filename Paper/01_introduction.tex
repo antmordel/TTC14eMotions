@@ -2,7 +2,7 @@
 %  INTRODUCTION
 %-------------------------------------------------------------
 
-Maude~\cite{CDELMMQ:02,CDELMMT:07-book} is an executable formal specification language based on rewriting logic, which counts with a rich set of validation and verification tools~\cite{CDELMMT:07-book,CDHLMO:07}, increasingly used as support to the development of UML, MDA, and OCL tools (see, e.g., \cite{Boronat-Meseguer:08,RRDV:07-jot,Clavel-Egea:2006}). Furthermore, Maude has demonstrated to be a good environment for rapid prototyping, and also for application development (see surveys~\cite{CDELMMT:07-book,Meseguer:2012}). 
+Maude~\cite{CDELMMQ:2002,CDELMMT:2007-book} is an executable formal specification language based on rewriting logic, which counts with a rich set of validation and verification tools~\cite{CDELMMT:2007-book,CDHLMO:2007}, increasingly used as support to the development of UML, MDA, and OCL tools (see, e.g., \cite{Boronat-Meseguer:08,RRDV:07-jot,Clavel-Egea:06}). Furthermore, Maude has demonstrated to be a good environment for rapid prototyping, and also for application development (see surveys~\cite{CDELMMT:2007-book,Meseguer:2012}). 
 
 Maude may be seen as a general framework where to develop model transformations. Thus, Meseguer and Boronat use it to implement their model transformation framework MOMENT2; Dur\'an, Vallecillo and others have used it to develop e-Motions~\cite{RiveraDV10}, a tool that supports the definition and simulation of real-time Domain-Specific Modeling Languages (DSMLs); and similar approaches have later been used to give semantics to ATL~\cite{TroyaV10} and other transformation languages. 
 
@@ -10,7 +10,7 @@ The e-Motions tool is a DSML and graphical framework developed for Eclipse that 
 
 In e-Motions, MOF metamodels are formalized in rewriting logic, providing a representation of the structural aspects of any modeling language with a MOF metamodel. Then, given a description of the behavior of such modeling language as in-place transformation rules, e-Motions may be used to define both the syntax and the operational semantics of DSMLs. Artifacts developed in e-Motions are automatically translated into Maude.
 
-As we will see in the following sections, e-Motions provides a very rich set of features, that enables the formal and precise definition of real-time DSMLs as models in a graphical and intuitive way. It makes use of an extension of in-place model transformation with a model of timed behavior and a mechanism to state action properties. The extension is defined in such a way that it avoids artificially modifying the DSML's metamodel to include time and action properties, supports attribute computations and ordered collections, which are specified by means of OCL
+As we will see in the following sections, e-Motions provides a very rich set of features, that enables the formal and precise definition of real-time DSMLs as models in a graphical and intuitive way. It makes use of an extension of in-place model transformation with a model of timed behavior and a mechanism to state action properties. The extension is defined in such a way that it avoids artificially modifying the DSML's metamodel to include time and action properties\delete{,}\tbc{. Moreover, it} supports attribute computations and ordered collections, which are specified by means of OCL
 expressions, thanks to mOdCL~\cite{Roldan-Duran:2008-tr}. All these features makes the language very expressive, but directly impact on performance. To gain an idea of this impact, we provide below solutions to the proposed problems both in e-Motions and directly in Maude and compare them. 
 
 The e-Motions system documentation and several examples are available at \url{http://atenea.lcc.uma.es/e-Motions}. The Maude web site is at \url{http://maude.cs.uiuc.edu}.
@@ -21,11 +21,11 @@ The definition of a Domain-Specific Language (DSL) typically comprises three tas
 
 In e-Motions the abstract syntax is defined by means of an Ecore metamodel, in which all the language concepts and the relations between them are specified. The concrete syntax is provided by defining the so-called Graphical Concrete Syntax (GCS). A GCS is a model (conforms the GCS metamodel) where an image is attached to each concept defined in the abstract syntax.
 
-In e-Motions the behavior of a DSL is specified using visual graph-transformation rules. An e-Motions rule consists of a---possibly conditional---Left-Hand Side (LHS), a Right-Hand Side (RHS) and zero or more Negative Application Conditions (NACs). The LHS defines a (sub)-graph matching, optionally conditional. The RHS specifies a (sub)-graph replacement, which if the rule is applied, every object in the LHS that is not in the RHS is deleted, new objects in the RHS that are not in the LHS are created, and those objects whose attributes (or links) are changed are updated. NACs specify conditions or (sub)-graphs such that if there is a matching, the rule cannot be fired.
+In e-Motions the behavior of a DSL is specified using visual graph-transformation rules. An e-Motions rule consists of a\delete{---possibly conditional---} Left-Hand Side (LHS), a Right-Hand Side (RHS) and zero or more Negative Application Conditions (NACs). The LHS defines a (sub)-graph matching, optionally conditional. The RHS specifies a (sub)-graph replacement, which if the rule is applied, every object in the LHS that is not in the RHS is deleted, new objects in the RHS that are not in the LHS are created, and those objects whose attributes (or links) are changed are updated. NACs specify conditions or (sub)-graphs such that if there is a matching, the rule cannot be fired.
 
 Figure~\ref{fig:assemble} shows an example of an e-Motions rule. The objects in both the RHS and LHS are represented by their associated images, as defined in the GCS model. Rule \code{Assemble}'s LHS defines the precondition of the rule. It models an assemble machine who needs both a head and a handle in its connected conveyor. If \code{NAC1}, stating that the current matched \code{Assemble} object is not involved in other \code{Assemble} action, is not satisfied, the rule can be applied. The rule is applied as follows. All objects in its LHS which do not appear in its RHS are deleted, i.e., objects \code{he} and \code{ha}. Those objects in its RHS which do not appear in its LHS are created, properly setting their attributes, i.e., the \code{ham} object with its three attributes. The rest of the objects remain changeless. Moreover, as e-Motions is a framework where to define real-time systems, each rule is applied in a established time, i.e. \code{[prodTime,prodTime]} in the \code{Assemble} rule. A rule with execution time \code{[0,0]} is considered instantaneous. A rule may contain zero or more local or auxiliary variables. All attribute or variable assignments and conditions are expressed using Object-Constraint Language (OCL)~\cite{ocl}.
 
-The abstract and concrete syntax, and the behavior of a DSL are models, and the e-Motions tool has been developed following MDE principles. The Maude code corresponding to a system defined in e-Motions is generated by an ATL/TCS transformation~\cite{atl}.
+The abstract and concrete syntax, and the behavior of a DSL are models, and the e-Motions tool has been developed following MDE principles. The Maude code corresponding to a system defined in e-Motions is generated by an ATL/TCS transformation~\cite{ATL}.
 
 \begin{figure}[htp]
   \centering
@@ -54,7 +54,7 @@ Notice the potential of this type of rewriting, and the very high-level of
 abstraction at which systems may be specified, to perform, e.g.,
 rewriting modulo associativity or associativity-commutativity.
 
-Maude~\cite{CDELMMQ:02,CDELMMT:07-book} is a
+Maude~\cite{CDELMMQ:2002,CDELMMT:2007-book} is a
 wide spectrum programming language directly based on RL.
 Thus, Maude integrates an
 equational style of functional programming with RL computation.
@@ -81,7 +81,7 @@ v_1 \texttt{,} \; ... \texttt{,} \; a_n \texttt{:} v_n \;
 
 \noindent where $O$ is the identifier of the object, and $v_i$
 are the current values of its attributes (with appropriate types).
-See \cite{CDELMMT:07-book} for additional details on how
+See \cite{CDELMMT:2007-book} for additional details on how
 object-oriented systems are represented in Maude, including
 explanations on how to represent inheritance, syntax for
 object-oriented modules, different forms of object communication,

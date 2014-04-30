@@ -78,7 +78,7 @@
       </children>
       <styles xmi:type="notation:ShapeStyle" xmi:id="_2cwANLsGEeOnur3nhcInFg" fontName="Segoe UI"/>
       <element xmi:type="behavior:Pattern" href="Task3.behavior#//@rules.0/@patterns.1"/>
-      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_2cwANbsGEeOnur3nhcInFg" x="275" y="15" width="381" height="136"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_2cwANbsGEeOnur3nhcInFg" x="270" y="15" width="381" height="136"/>
     </children>
     <children xmi:type="notation:Node" xmi:id="_U8hVULsHEeOnur3nhcInFg" type="2002">
       <children xmi:type="notation:Node" xmi:id="_U8h8YLsHEeOnur3nhcInFg" type="5017"/>
@@ -117,7 +117,7 @@
       </children>
       <styles xmi:type="notation:ShapeStyle" xmi:id="_xK9IItCLEeOGLNVVXxP5sg" fontName="Segoe UI"/>
       <element xmi:type="behavior:Pattern" href="Task3.behavior#//@rules.0/@patterns.2"/>
-      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_xK9II9CLEeOGLNVVXxP5sg" x="660" y="15" width="196" height="111"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_xK9II9CLEeOGLNVVXxP5sg" x="655" y="15" width="196" height="111"/>
     </children>
     <styles xmi:type="notation:DiagramStyle" xmi:id="_2Z3EQbsGEeOnur3nhcInFg"/>
     <element xmi:type="behavior:AtomicRule" href="Task3.behavior#ComputingAvg"/>
