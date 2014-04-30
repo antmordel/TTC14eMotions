@@ -2,7 +2,7 @@
 <behavior:Behavior xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:behavior="http://www.lcc.uma.es/Behavior/1.0">
   <metamodelGD href="../Task1/ParameterWoven/parameterwoven.gcs#/"/>
   <rules xsi:type="behavior:AtomicRule" name="ComputingAvg" lhs="//@rules.0/@patterns.0" rhs="//@rules.0/@patterns.1" maxDuration="0">
-    <vbles name="accumulator" type="Int" value="couple.commonMovies->asSequence()->iterate(c; res : Integer = 0 | res + c)"/>
+    <vbles name="accumulator" type="Float" value="1.0"/>
     <patterns name="LHS">
       <els xsi:type="behavior:Object" id="couple">
         <sfs oclValue="0.0">
@@ -13,7 +13,7 @@
     </patterns>
     <patterns name="RHS">
       <els xsi:type="behavior:Object" id="couple">
-        <sfs oclValue="accumulator">
+        <sfs oclValue="1.0">
           <sf href="../Task1/ParameterWoven/parameterwoven.ecore#//Group/avgRating"/>
         </sfs>
         <classGD href="../Task1/ParameterWoven/parameterwoven.gcs#//@packagesGD.0/@classesGD.3"/>
