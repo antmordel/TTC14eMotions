@@ -1,0 +1,18 @@
+		     \||||||||||||||||||/
+		   --- Welcome to Maude ---
+		     /||||||||||||||||||\
+	    Maude 2.4 built: Nov  6 2008 17:14:50
+	    Copyright 1997-2008 SRI International
+		   Fri Apr 25 15:46:14 2014
+==========================================
+rewrite in EJECUCION : init(n2000) .
+rewrites: 4858482 in 307531ms cpu (307512ms real) (15798 rewrites/second)
+result ClockedSystem: {@movies@{__(...)}}  in time 0
+
+inputModel
+loadAllFiles.maude
+output2000N.maude
+parameterwoven.ecore.maude
+task1.behavior.maude
+task1-tuned.behavior.maude
+Bye.

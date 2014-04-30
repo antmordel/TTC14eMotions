@@ -1,6 +1,6 @@
 ==========================================
 rewrite in EJECUCION : init(n2) .
-rewrites: 524781 in 1597ms cpu (1602ms real) (328491 rewrites/second)
+rewrites: 524781 in 676ms cpu (675ms real) (776255 rewrites/second)
 result ClockedSystem: {@movies@{< '/ : Parameter@movies | nP@Parameter@movies :
     -1 # nN@Parameter@movies : -1 > < '10 : Actress@movies |
     movies@Person@movies : Set{'3 ; '4 ; '5 ; '6} # name@Person@movies : "a23"

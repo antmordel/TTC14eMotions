@@ -406,7 +406,7 @@ rewrite in TASK2-FIRST-VERSION : {freshOid(400) findCouples (((((((((((((((((((
 <  2 : Movie | rating : 2.0 >) 
 <  1 : Movie | rating : 1.0 >) 
 <  0 : Movie | rating : 0.0 >} .
-rewrites: 89276000 in 109485ms cpu (110370ms real) (815415 rewrites/second)
+rewrites: 89276000 in 67448ms cpu (67442ms real) (1323622 rewrites/second)
 result Configuration: {findCouples freshOid(600) 
 <  0 : Movie | rating : 0.0 > 
 <  1 : Movie | rating : 1.0 > 

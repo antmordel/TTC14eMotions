@@ -1,6 +1,6 @@
 ==========================================
 rewrite in TASK1 : freshOid(0) createExample(1000) .
-rewrites: 67001 in 1604ms cpu (1601ms real) (41768 rewrites/second)
+rewrites: 67001 in 1816ms cpu (1815ms real) (36892 rewrites/second)
 result Configuration: freshOid(20000) 
 <  0 : Movie | rating : 0.0 > 
 <  1 : Movie | rating : 1.0 > 
