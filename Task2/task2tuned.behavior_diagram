@@ -294,7 +294,7 @@
       </children>
       <styles xmi:type="notation:ShapeStyle" xmi:id="_rvKDcbDyEeOdhMtpfbXohA" fontName="Segoe UI"/>
       <element xmi:type="behavior:Pattern" href="task2tuned.behavior#//@rules.2/@patterns.0"/>
-      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_rvKDcrDyEeOdhMtpfbXohA" x="65" y="15" width="331" height="241"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_rvKDcrDyEeOdhMtpfbXohA" x="65" y="15" width="331" height="251"/>
     </children>
     <children xmi:type="notation:Node" xmi:id="_rvKqhLDyEeOdhMtpfbXohA" type="2005">
       <children xmi:type="notation:Node" xmi:id="_rvKqh7DyEeOdhMtpfbXohA" type="5050"/>
