@@ -1,0 +1,18 @@
+
+mod TEST-TASK1 is
+  pr TASK1 .
+  
+  op numOfMovies : Configuration -> Nat .
+  
+  var C : Configuration .
+  var Atts : AttributeSet .
+  
+  eq numOfMovies(< O:Oid : Movie | Atts > C) = 1 + numOfMovies(C) .
+  eq numOfMovies(C) = 0 [owise] .
+  
+
+endm
+
+search in TEST-TASK1 : 
+  createExample(8) freshOid(0) =>! C:Configuration 
+  such that numOfMovies(C:Configuration) =/= 8 * 10 .

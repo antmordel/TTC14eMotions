@@ -1,0 +1,24 @@
+
+load ../CommonFiles/mOdCL.maude
+load ../CommonFiles/model-checker.maude
+load ../CommonFiles/MGDefinitions.maude
+load ../CommonFiles/MGRealTimeMaude24.maude
+load ../CommonFiles/EcoreMM.maude
+load ../CommonFiles/e-Motions.maude
+
+load parameterwoven.ecore.maude
+load Task3.behavior.maude
+load inputModel/n10.xmi.maude
+
+mod EJECUCION is
+  protecting @MOVIES@BEHAVIOR@ .
+  protecting OUT10 .
+
+  op result1 : -> Set{@Object} .
+  op s : -> Vid .
+endm
+
+---Simulation
+rew init(out10) .
+
+load ../quit.maude
