@@ -133,20 +133,29 @@ if | intersection((MS1), (MS2)) | >= 3
 	\caption{Maude times for Task 2 First Version.}\label{table:maudetask21}
 \end{table*}
 
-\todo{second version} \todo{el que no se partan los listings lo podemos arreglar al final}
+As for e-Motions, the second solutions consists of several rules. In this case, our collection object is model by an operator \code{\{\_\}\{\_\}\{\_\}\{\_\}\{\_\}\{\_\}} representing an object with six attributes as its e-Motions counterpart: the first argument takes the starting argument, the second the people set, the movies set, the dealt people, the fixed person on which to iterate, and the result configuration. We show in Listing~\ref{lst:task2SecondVersion} the code for the \code{doingPairs} rule. In the case of Maude, we only need one rule to consider the positive and negative cases. 
 
 \begin{lstlisting}[caption=\code{doingCouples} Maude rule., label=lst:task2SecondVersion]
 
 rl [doingPairs] :
-  <{ none }{ < O1 : V1@Person | movies : MS1, Atts1 >  C1 }{ C2 }{ C3 }
-   { < O2 : V2@Person | movies : MS2, Atts2 > }{ freshOid(New) C4 }>
+  < { none }
+    { < O1 : V1@Person | movies : MS1, Atts1 >  C1 }
+    { C2 }
+    { C3 }
+    { < O2 : V2@Person | movies : MS2, Atts2 > }
+    { freshOid(New) C4 } >
 => 
-  <{ none }{ C1 }{ C2 }{ < O1 : V1@Person | movies : MS1, Atts1 > C3 }
-   { < O2 : V2@Person | movies : MS2, Atts2 > }
-   { if | intersection(MS1, MS2) | >= 3 
-     then < New : Couple | p1 : O1, p2 : O2, 
-            commonMovies : intersection(MS1, MS2), avgRating : 0.0 >
-          freshOid(s New)
-     else freshOid(New)
-     fi C4 }> .
+  < { none }
+    { C1 }
+    { C2 }
+    { < O1 : V1@Person | movies : MS1, Atts1 > C3 }
+    { < O2 : V2@Person | movies : MS2, Atts2 > }
+    { if | intersection(MS1, MS2) | >= 3 
+      then < New : Couple | p1 : O1, p2 : O2, 
+              commonMovies : intersection(MS1, MS2), 
+              avgRating : 0.0 >
+           freshOid(s New)
+      else freshOid(New)
+      fi 
+      C4 } > .
 \end{lstlisting}
