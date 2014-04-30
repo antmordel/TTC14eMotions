@@ -15,7 +15,7 @@ As it has been introduced in Section~\ref{sub:emotions}, the abstract syntax of 
 
 For the concrete syntax, Figure~\ref{fig:concreteSyntax} shows how an image has been attached to each concept modeled in the Movies* MM. 
 
-The behavior of this \textit{Task 1 DSL} is then given by means of two in-place transformation rules: \code{createPositive} and \code{createNegative}. Figure~\ref{fig:createPositive} shows the \code{createPositive} rule, which takes an object \code{p} of type \textit{Parameter}, with \textit{nP} attribute greater or equal than $0$, and produces synthetic data conforming to the Henshing rules~\cite{Henshin:10}. Figure~\ref{fig:createNegative} shows the \code{createNegative} rule, which is analogously defined.
+The behavior of this \textit{Task 1 DSL} is then given by means of two in-place transformation rules: \code{createPositive} and \code{createNegative}. Figure~\ref{fig:createPositive} shows the \code{createPositive} rule, which takes an object \code{p} of type \textit{Parameter}, with \textit{nP} attribute greater or equal than $0$, and produces synthetic data conforming to the Henshin rules~\cite{Henshin:10}. Figure~\ref{fig:createNegative} shows the \code{createNegative} rule, which is analogously defined.
 
 \begin{figure}[tb]
   \subfloat[Actor.\label{fig:actor}]{
@@ -60,8 +60,8 @@ Once the syntax and the behavior of the system has been coded, the user may spec
 
 Please, note that this solution is really close to the problem specification in~\cite{imdbcase}. Figure~\ref{fig:task1} and~\cite[Figure~2]{imdbcase}, specifying the data generation, are almost the same. This demonstrates how close the solution by e-Motions is to the problem domain, and how convenient its graphical facilities are.
 
-\subsubsection{Maude version.}
-Our Maude-based solution for Task 1 consists of an object-based Maude specification, consisting of two modules: the \code{MOVIES@MM} module defining the classes structure, and the \code{TASK1} module defining the rewrite rules to calculate the solution. As in the e-Motions solution, we have two rewrite rules: \code{createPositive} and \code{createNegative}. Listing \ref{lst:createPositive} shows the \code{createPositive} Maude rule, that takes the \code{createPositive(s(N:Nat))} message and a \code{freshOid} auxiliary message---used to create new object identifiers---and returns such a object configuration conforming the Henshin specification~\cite{imdbcase}. A similar rule generates the negative cases. Please notice that the Maude version is very much like the e-Motions version. In fact, the former is almost the textual version of the latter. 
+\subsubsection{Maude solution.}
+Our Maude-based solution for Task 1 consists of an object-based Maude specification, consisting of two modules: the \code{MOVIES@MM} module defining the classes structure, and the \code{TASK1} module defining the rewrite rules to calculate the solution. As in the e-Motions solution, we have two rewrite rules: \code{createPositive} and \code{createNegative}. Listing \ref{lst:createPositive} shows the \code{createPositive} Maude rule, that takes the \code{createPositive(s(N:Nat))} message and a \code{freshOid} auxiliary message---used to create new object identifiers---and returns such a object configuration conforming the Henshin specification~\cite{imdbcase}. A similar rule generates the negative cases. Please notice that the Maude solution is very much like the e-Motions solution. In fact, the former could be seen as the textual version of the latter. 
 
 \begin{lstlisting}[caption=\code{createPositive} Maude rule., label=lst:createPositive]
 rl [createPositive] :
@@ -90,7 +90,7 @@ rl [createPositive] :
 
 \subsubsection{Execution performance for both solutions.}
 
-Table \ref{table:task1} shows the number of rewrites and execution times for both solutions. As explained above, the the execution times for the Maude specification obtained from the e-Motions definition grows very quickly. Notice that, although the number of rewrites grows linearly with respect to $N$, the time is exponential due to the infrastructure to deal with all the extra features in e-Motions. However, notice how the number of rewrites for the Maude solution grows linearly as well, but in this case the execution times grows more slowly, being able to handle problems of much bigger sizes.
+Table \ref{table:task1} shows the number of rewrites and execution times for both solutions. As explained above, the execution times for the Maude specification obtained from the e-Motions definition grows very quickly. Notice that, although the number of rewrites grows linearly with respect to $N$, the time is exponential due to the infrastructure to deal with all the extra features in e-Motions. However, notice how the number of rewrites for the Maude solution grows linearly as well, but in this case the execution times grow more slowly, being able to handle problems of much bigger sizes.
 
 \begin{table*}[tb]
 \renewcommand{\tabcolsep}{6pt}
@@ -126,11 +126,11 @@ Table \ref{table:task1} shows the number of rewrites and execution times for bot
 
 \subsubsection{On the correctness of the transformation}
 
-Maude provides a whole formal environment where we can perform proofs of correctness of our solution. In addition to tools to verify the termination, confluence, etc. of our rewrite systems, Maude provides a reachability analysis tool and a model checker, which are particularly attractive for performing checks on the correctness of systems. Let us consider here the Maude \code{search} command, which allows us to explore the whole reachable state space, or up to a given depth, looking for states satisfying a given condition. 
+Maude provides a whole formal environment where we can perform proofs of correctness of our solutions. In addition to tools to verify the termination, confluence, etc. of our rewrite systems, Maude provides a reachability analysis tool and a model checker, which are particularly convenient for performing checks on the correctness of systems. Let us consider here the Maude \code{search} command, which allows us to explore the whole reachable state space, or up to a given depth, looking for states satisfying a given condition. 
 
 For instance, following the results given in~\cite{imdbcase}, for some $N$, the above rules \code{createPositive} and \code{createNegative} create $20N$ objects, specifically, $10N$ movies, $5N$ actresses, and $5N$ actors. We could check that the solution found satisfies this condition, but we can do something more interesting by checking that no final reachable state fails to satisfy it. Of course, if the rewrite system is confluent and terminating the solution would be unique. 
 
-Given the \code{numOfMovies} operation, which takes an object configuration as input and returns the number of movies in it, we may look for those final states in which the number of movies will be different than $10N$ (being N the parameter of the operation \code{createExample}):
+Given the \code{numOfMovies} operation, which takes an object configuration as input and returns the number of movies in it, we may look for those final states in which the number of movies will be different than $10N$:
 \begin{verbatim}
   search createPositive(8) createNegative(8) freshOid(0) 
     =>! C:Configuration
