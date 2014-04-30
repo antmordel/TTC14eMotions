@@ -15,6 +15,30 @@ As it has been introduced in Section~\ref{sub:emotions}, the abstract syntax of 
 
 For the concrete syntax, Fig.~\ref{fig:concreteSyntax} shows how an image has been attached to each concept modeled in the Movies* MM. The behavior of this \textit{Task 1 DSL} is given by means of two in-place rules: \code{createPositive} and \code{createNegative}. Figure~\ref{fig:createPositive} shows the \code{createPositive} rule, which takes an object \code{p} of type \textit{Parameter} with \textit{nP} attribute greater or equal than $0$ and, after the rule application, synthetic data conforming to the Henshin rules~\cite{henshing} are created. Fig.~\ref{fig:createNegative} shows the \code{createNegative} rule, which is analogously defined.
 
+\begin{figure}[htp]
+  \subfloat[Actor.\label{fig:actor}]{
+    \makebox[60px][c]{\includegraphics[scale=1]{imgs/actor}}
+  }
+  \hfill
+  \subfloat[Actress.\label{fig:actress}]{
+    \makebox[60px][c]{\includegraphics[scale=1]{imgs/actress}}
+  }
+  \hfill
+  \subfloat[Movie.\label{fig:movie}]{
+    \makebox[60px][c]{\includegraphics[scale=1]{imgs/movie}}
+  }
+  \hfill
+  \subfloat[Couple.\label{fig:couple}]{
+    \makebox[60px][c]{\includegraphics[scale=1]{imgs/couple}}
+  }
+  \hfill
+  \subfloat[Parameter.\label{fig:parameter}]{
+    \makebox[60px][c]{\includegraphics[scale=1]{imgs/parameter}}
+  }
+  \caption{Concrete syntax for \textit{Movies* MM}.}
+  \label{fig:concreteSyntax}
+\end{figure}
+
 Once the syntax and the behavior of the system has been coded, the user may specify a model, which conforms to \textit{Movies* MM}, containing an object \code{Parameter} with its two attributes \code{nP} and \code{nN} properly set. This model is used as initial model of the execution.
 
 This solution is really close to the problem specification~\cite{imdbcase}. Both Fig.~\ref{fig:task1} and Fig.~2 in~\cite{imdbcase} specifying the data generation are almost the same. This solution demonstrates how close is the solution to the problem domain, and how user-friendly is e-Motions.
@@ -55,30 +79,9 @@ eq createExample(s(N)) = createPositive(N)
                          createExample(N) .
 \end{lstlisting}
 
+Maude provides a whole formal environment where we can perform proofs of correctness of our solution. For instance, following the results given in~\cite{imdbcase}, \code{createExample($N$)} creates $20N$ objects: $10N$ movies, $5N$ actresses and $5N$ actors. The Maude \code{search} command allows to explore the whole reachable state. A starting term is rewritten a number of steps given, and optionally, a condition can be evaluated in the reached term. As 
 
-\begin{figure}[htp]
-  \subfloat[Actor.\label{fig:actor}]{
-    \makebox[60px][c]{\includegraphics[scale=1]{imgs/actor}}
-  }
-  \hfill
-  \subfloat[Actress.\label{fig:actress}]{
-    \makebox[60px][c]{\includegraphics[scale=1]{imgs/actress}}
-  }
-  \hfill
-  \subfloat[Movie.\label{fig:movie}]{
-    \makebox[60px][c]{\includegraphics[scale=1]{imgs/movie}}
-  }
-  \hfill
-  \subfloat[Couple.\label{fig:couple}]{
-    \makebox[60px][c]{\includegraphics[scale=1]{imgs/couple}}
-  }
-  \hfill
-  \subfloat[Parameter.\label{fig:parameter}]{
-    \makebox[60px][c]{\includegraphics[scale=1]{imgs/parameter}}
-  }
-  \caption{Concrete syntax for \textit{Movies* MM}.}
-  \label{fig:concreteSyntax}
-\end{figure}
+
 
 \todo{Correctness?}
 
