@@ -79,13 +79,56 @@ eq createExample(s(N)) = createPositive(N)
                          createExample(N) .
 \end{lstlisting}
 
-Maude provides a whole formal environment where we can perform proofs of correctness of our solution. For instance, following the results given in~\cite{imdbcase}, \code{createExample($N$)} creates $20N$ objects: $10N$ movies, $5N$ actresses and $5N$ actors. The Maude \code{search} command allows to explore the whole reachable state. A starting term is rewritten a number of steps given, and optionally, a condition can be evaluated in the reached term. As 
+Maude provides a whole formal environment where we can perform proofs of correctness of our solution. For instance, following the results given in~\cite{imdbcase}, \code{createExample($N$)} creates $20N$ objects: $10N$ movies, $5N$ actresses and $5N$ actors. The Maude \code{search} command allows to explore the whole reachable state. A starting term is rewritten a number of steps given, and optionally, a condition can be evaluated in the reached term.
 
+For example, given the \code{numOfMovies} operation which takes an object configuration as input and returns the number of movies in it, we may look for those final states in which the number of moves will be different than $10N$ (being N the parameter of the operation \code{createExample}):
+\begin{verbatim}
+  search createExample(1) freshOid(0) =>! C:Configuration
+    such that numOfMovies(C:Configuration) =/= 10 * 1 .
+\end{verbatim}
 
+The arrow \code{=>!} means that it rewrites the initial term to a final term. Maude returns no solution for the above code, that means all final states reached have exactly 10 movies:
+\begin{verbatim}
+  No solution.
+  states: 5  rewrites: 180 in 0ms cpu (0ms real)
+\end{verbatim}
 
-\todo{Correctness?}
+\todo{mejorar el aspecto de la tabla}
+\begin{table}
+  \begin{center}
+	\begin{tabular}{r r r}
+	$N$ & Time (s) & \# Rewrites \\
+	\hline
+	2 & 0.004 & 4910 \\
+	10 & 0.016 & 24334 \\
+	20 & 0.036 & 48614 \\
+	100 & 0.604 & 242854 \\
+	1000 & 55.747 & 2428054 \\
+	2000 & 395.016 & 4856054 \\
+	\hline \\
+	\end{tabular}
+	\caption{e-Motions times for Task 1.}\label{table:emotionstask1}
+	\end{center}
+\end{table}
 
-\todo{Tiempos}
+\begin{table}
+  \begin{center}
+	\begin{tabular}{r r r}
+	$N$ & Time (s) & \# Rewrites \\
+	\hline
+	1 & 0.0 & 68 \\
+	1000 & 1.908 & 67001 \\
+	2000 & 12.74 & 134001 \\
+	3000 & 33.866 & 201001 \\
+	4000 & 64.06 & 268001 \\
+	5000 & 104.442 & 335001 \\
+	6000 & 109.614 & 402001 \\
+	7000 & 144.521 & 469001 \\
+	\hline \\
+	\end{tabular}
+	\caption{Maude times for Task 1.}\label{table:maudetask1}
+	\end{center}
+\end{table}
 
 \begin{figure}[htp]
   \subfloat[The \code{createPositive} rule.\label{fig:createPositive}]{%
