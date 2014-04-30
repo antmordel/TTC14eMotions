@@ -12112,7 +12112,7 @@ rewrite in TASK3 : {couplesCalculated(empty) freshOid(9000) (((((((((((((((((((
 <  2 : Movie | rating : 2.0 >) 
 <  1 : Movie | rating : 1.0 >) 
 <  0 : Movie | rating : 0.0 >} .
-rewrites: 65400 in 32791ms cpu (32903ms real) (1994 rewrites/second)
+rewrites: 65400 in 14920ms cpu (14919ms real) (4383 rewrites/second)
 result Configuration: {freshOid(9000) couplesCalculated((6000, 6001, 6002,
     6003, 6004, 6005, 6006, 6007, 6008, 6009, 6010, 6011, 6012, 6013, 6014,
     6015, 6016, 6017, 6018, 6019, 6020, 6021, 6022, 6023, 6024, 6025, 6026,

@@ -1,7 +1,7 @@
 ==========================================
 rewrite in TASK1 : freshOid(0) createExample(1) .
-rewrites: 68 in 0ms cpu (0ms real) (~ rewrites/second)
-result Configuration: freshOid(20) 
+rewrites: 67 in 0ms cpu (0ms real) (~ rewrites/second)
+result Configuration: freshOid(20) createPositive(0) createNegative(0) 
 <  0 : Movie | rating : 0.0 > 
 <  1 : Movie | rating : 1.0 > 
 <  2 : Movie | rating : 2.0 > 
