@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <behavior:Behavior xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:behavior="http://www.lcc.uma.es/Behavior/1.0">
   <metamodelGD href="../Task1/ParameterWoven/parameterwoven.gcs#/"/>
-  <rules xsi:type="behavior:AtomicRule" name="ComputingAvg" lhs="//@rules.0/@patterns.0" rhs="//@rules.0/@patterns.1" maxDuration="0">
-    <vbles name="accumulator" type="Float" value="1.0"/>
+  <rules xsi:type="behavior:AtomicRule" name="ComputingAvg" lhs="//@rules.0/@patterns.0" rhs="//@rules.0/@patterns.1" nacs="//@rules.0/@patterns.2" maxDuration="0">
+    <vbles name="accumulator" type="Real" value="couple.commonMovies->asSequence()->iterate(c; res : Real = 0.0 | res + c.rating)"/>
     <patterns name="LHS">
       <els xsi:type="behavior:Object" id="couple">
         <sfs oclValue="0.0">
@@ -13,10 +13,15 @@
     </patterns>
     <patterns name="RHS">
       <els xsi:type="behavior:Object" id="couple">
-        <sfs oclValue="1.0">
+        <sfs oclValue="accumulator / (couple.commonMovies->size() * 1.0)">
           <sf href="../Task1/ParameterWoven/parameterwoven.ecore#//Group/avgRating"/>
         </sfs>
         <classGD href="../Task1/ParameterWoven/parameterwoven.gcs#//@packagesGD.0/@classesGD.3"/>
+      </els>
+    </patterns>
+    <patterns name="NoCalculated">
+      <els xsi:type="behavior:ActionExec" action="ComputingAvg" id="noCal" status="realized">
+        <participants actualObject="//@rules.0/@patterns.0/@els.0"/>
       </els>
     </patterns>
   </rules>
