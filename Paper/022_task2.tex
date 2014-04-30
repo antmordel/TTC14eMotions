@@ -17,6 +17,20 @@ However, although this solution works, one can notice that the number of matchin
   \caption{\code{createCouple} rule.}\label{fig:createCouple}
 \end{figure}
 
+\begin{table}
+  \begin{center}
+	\begin{tabular}{r r r}
+	$N$ & Time (s) & \# Rewrites \\
+	\hline
+	2 & 0.66 & 524781 \\
+	10 & 46.738 & 19453091 \\
+	20 & 660.061 & 161741321 \\
+	\hline \\
+	\end{tabular}
+	\caption{e-Motions times for Task 2 First Version.}\label{table:emotionstask1}
+	\end{center}
+\end{table}
+
 We have implemented another solution in which we limit the number of matchings using the next algorithm:
 \begin{enumerate}
   \item We split \code{Person}s and \code{Movie}s into separate configurations.
@@ -57,11 +71,72 @@ Following this approach the number of persons to match as possible couple decrea
   \caption{\code{nextPerson} rule.}\label{fig:nextPerson}
 \end{figure}
 
+\begin{table}
+  \begin{center}
+	\begin{tabular}{r r r}
+	$N$ & Time (s) & \# Rewrites \\
+	\hline
+	2 & 30.105 & 27725365 \\
+	\hline \\
+	\end{tabular}
+	\caption{e-Motions times for Task 2 Second Version.}\label{table:emotionstask1}
+	\end{center}
+\end{table}
+
 \todo{add numbers}
 
-\subsubsection{Maude-based solution}
-
-
+\subsubsection{Maude-based solution.}
 
 \todo{Otra vez hacemos dos soluciones, la primera solo consta de una regla y la segunda, de los diferentes pasos. Para la primera, se tienen combinaciones de 2 sobre \#Persons matchings, lo que lo hace muy ineficiente. El número de reescrituras se debe a las llamadas a intersection. Para la segunda se crea con el mismo procedimiento que el anterior.}
 
+\begin{lstlisting}[caption=\code{createCouples} Maude rule., label=lst:oneRuleCouples]
+crl [findCouples] :
+ { freshOid(N) findCouples
+   < O1 : V1:Person | movies : MS1, Atts1 >
+   < O2 : V2:Person | movies : MS2, Atts2 > Conf }
+=>
+ { freshOid(s(N)) findCouples
+   < O1 : V1:Person | movies : MS1, Atts1 >
+   < O2 : V2:Person | movies : MS2, Atts2 >
+   C Conf }
+if | intersection((MS1), (MS2)) | >= 3
+ /\ C := < N : Couple | 
+           commonMovies : (intersection((MS1), (MS2))),
+           p1 : O1, p2 : O2 >
+ /\ not coupleInConf(C, Conf) .
+\end{lstlisting}
+
+\begin{table}
+  \begin{center}
+	\begin{tabular}{r r r}
+	$N$ & Time (s) & \# Rewrites \\
+	\hline
+	1 & 0.004 & 8680 \\
+	5 & 0.528 & 1343000 \\
+	10 & 5.032 & 11020000 \\
+	20 & 66.277 & 89276000 \\
+	30 & 314.011 & 302568000 \\
+	\hline \\
+	\end{tabular}
+	\caption{Maude times for Task 2 First Version.}\label{table:emotionstask1}
+	\end{center}
+\end{table}
+
+\todo{second version} \todo{el que no se partan los listings lo podemos arreglar al final}
+
+\begin{lstlisting}[caption=\code{doingCouples} Maude rule., label=lst:task2SecondVersion]
+
+rl [doingPairs] :
+  <{ none }{ < O1 : V1@Person | movies : MS1, Atts1 >  C1 }{ C2 }{ C3 }
+   { < O2 : V2@Person | movies : MS2, Atts2 > }{ freshOid(New) C4 }>
+=> 
+  <{ none }{ C1 }{ C2 }{ < O1 : V1@Person | movies : MS1, Atts1 > C3 }
+   { < O2 : V2@Person | movies : MS2, Atts2 > }
+   { if | intersection(MS1, MS2) | >= 3 
+     then < New : Couple | p1 : O1, p2 : O2, 
+            commonMovies : intersection(MS1, MS2), avgRating : 0.0 >
+          freshOid(s New)
+     else freshOid(New)
+     fi C4 }> .
+\end{lstlisting}
+He probado lo que dijimos del caso positivo, pero no se tiene practicamente ninguna ganancia.
