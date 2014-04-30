@@ -21,9 +21,9 @@ for line in ifile:
   else:
     if 'rewrite in' in line: # 1st line
       if arguments.verbose:
-        print('   '+line[0:len(line)-2].replace('rewrite', 'Rewritten'))
+        print('   '+line[0:line.find(':')].replace('rewrite', 'Rewritten')+'.')
     elif 'rewrites:' in line: # 2nd line
-      time = int(line[line.find('(')+1:line.find('ms', line.find('('))])
+      time = int(line[line.find('in')+3:line.find('ms')])
       time = time/1000.0
       if arguments.verbose:
         print('   Rewrites: '+line[line.find(' ')+1:line.find(' ', line.find(' ')+1)]
@@ -36,9 +36,9 @@ for line in ifile:
       else:
         modelStarted = True
         ofile.write(line[line.find(':')+2:])
-    else:
-      if not('==========================================' in line) and not('Bye.' in line):
-        print('   Ouch! There was an error in the parsing, maybe in the Maude execution?')
+#    else:
+#      if not('==========================================' in line) and not('Bye.' in line):
+#        print('   Ouch! There was an error in the parsing, maybe in the Maude execution?')
 
 ifile.close()
 ofile.close()
