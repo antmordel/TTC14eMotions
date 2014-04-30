@@ -9,12 +9,11 @@ mod TASK1 is
   vars N N' : Nat .
   
   eq createExample(0) = none .
-  eq createExample(s(N)) = createPositive(N)
-                           createNegative(N)
-                           createExample(N) .
+  eq createExample(N) = createPositive(N)
+                           createNegative(N) .
   
   rl [createPositive] :
-    createPositive(N)
+    createPositive(s(N))
     freshOid(N')
   =>
     < N'      : Movie | rating : (10.0 * float(N)) >
@@ -33,11 +32,11 @@ mod TASK1 is
                         movies : (N' + 1, N' + 2, N' + 3, N' + 4) >
     < N' + 9  : Actress | name : ("a" + string((10 * N + 4), 10)),
                         movies : (N' + 1, N' + 2, N' + 3, N' + 4) >
-                        
+    createPositive(N)
     freshOid(N' + 10) .
     
   rl [createNegative] :
-    createNegative(N)
+    createNegative(s(N))
     freshOid(N')
   =>
     < N'      : Movie | rating : (10.0 * float(N) + 5.0) >
@@ -56,7 +55,7 @@ mod TASK1 is
                         movies : (N' + 2, N' + 3, N' + 4) >
     < N' + 9  : Actress | name : ("a" + string((10 * N + 9), 10)),
                         movies : (N' + 3, N' + 4) >
-                      
+    createNegative(N)
     freshOid(N' + 10) .
   
 endm
