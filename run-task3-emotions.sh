@@ -25,3 +25,12 @@ echo " Done!"
 echo " Starting parsing..."
 python parse_output.py -i MaudeExecution/Task3/outputModel/out-n10.xmi.maude -o MaudeExecution/Task3/outputModel/out-n10-parsed.xmi.maude --verbose
 echo " Success!"
+
+echo " Task 3: N = 20";
+echo "   loading..."
+maude2.4 -no-banner MaudeExecution/Task3/loadAllFilesN20.maude > MaudeExecution/Task3/outputModel/out-n20.xmi.maude
+echo " Done!"
+echo " Starting parsing..."
+python parse_output.py -i MaudeExecution/Task3/outputModel/out-n20.xmi.maude -o MaudeExecution/Task3/outputModel/out-n20-parsed.xmi.maude --verbose
+echo " Success!"
+
