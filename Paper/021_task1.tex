@@ -11,7 +11,7 @@ Task 1 comprises the generation of synthetic models (conforming the movie databa
 
 Following an e-Motions based approach, we define the abstract and concrete syntax and the behavior of our so-called \textit{Task 1 DSL}. Taking a parameter $N$ as input model, \textit{Task 1 DSL} generates a model containing synthetic data.
 
-As it has been introduced in Section~\ref{sub:emotions}, the abstract syntax of a DSL is given in e-Motions by means of an Ecore metamodel. Since we model the solution of the task as a model that evolves until reaching its final solution, we take as metamodel the one provided beforehand in~\cite{imdbsources}, which we call \textit{Movies MM}, extended with a \code{Parameter} concept. This results in a so-called \textit{Movies* MM}. The class \code{Parameter} has two integer attributes, namely \code{nP} and \code{nN}, which represent positive graphs and negative graphs, respectively, for the generation following Henshing graphs~\cite{henshing}.
+As it has been introduced in Section~\ref{sub:emotions}, the abstract syntax of a DSL is given in e-Motions by means of an Ecore metamodel. Since we model the solution of the task as a model that evolves until reaching its final solution, we take as metamodel the one provided beforehand in~\cite{imdbsources}, which we call \textit{Movies MM}, extended with a \code{Parameter} concept. This results in a so-called \textit{Movies* MM}. The class \code{Parameter} has two integer attributes, namely \code{nP} and \code{nN}, which represent positive graphs and negative graphs, respectively, for the generation following Henshin graphs~\cite{henshing}.
 
 For the concrete syntax, Figure~\ref{fig:concreteSyntax} shows how an image has been attached to each concept modeled in the Movies* MM. 
 
@@ -41,7 +41,7 @@ The behavior of this \textit{Task 1 DSL} is then given by means of two in-place 
   \label{fig:concreteSyntax}
 \end{figure}
 
-\begin{figure}[tb]
+\begin{figure}
   \subfloat[The \code{createPositive} rule.\label{fig:createPositive}]{%
     \includegraphics[width=\textheight, angle=90]{imgs/createPositiveRule}
   }
@@ -95,11 +95,9 @@ Table \ref{table:task1} shows the number of rewrites and execution times for bot
 \begin{table*}[tb]
 \renewcommand{\tabcolsep}{6pt}
 \renewcommand{\arraystretch}{1.2}
-	\caption{Times for the e-Motions and Maude solutions to Task 1}
-	\label{table:task1}
     \centering
 	\begin{tabular}[tb]{r|r|r|r|r|}
-	\hline
+%	\hline
 	    & \multicolumn{2}{|c|}{e-Motions} & \multicolumn{2}{|c|}{Maude} \\
 	\hline
 	$N$ & Time (s) & \# Rewrites & Time (s) & \# Rewrites \\
@@ -116,9 +114,11 @@ Table \ref{table:task1} shows the number of rewrites and execution times for bot
 	5000 &       &           & 104.4 & 335,001 \\
 	6000 &       &           & 109.6 & 402,001 \\
 	7000 &       &           & 144.5 & 469,001 \\
-	\hline 
+%	\hline 
 	\end{tabular}
-	\vspace{1cm}
+	\vspace{.5cm}
+	\caption{Times for the e-Motions and Maude solutions to Task 1}
+	\label{table:task1}
 \end{table*}
 
 \subsubsection{On the correctness of the transformation}
