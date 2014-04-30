@@ -133,7 +133,7 @@ if | intersection((MS1), (MS2)) | >= 3
 	\caption{Maude times for Task 2 First Version.}\label{table:maudetask21}
 \end{table*}
 
-As for e-Motions, the second solutions consists of several rules. In this case, our collection object is model by an operator \code{\{\_\}\{\_\}\{\_\}\{\_\}\{\_\}\{\_\}} representing an object with six attributes as its e-Motions counterpart: the first argument takes the starting argument, the second the people set, the movies set, the dealt people, the fixed person on which to iterate, and the result configuration. We show in Listing~\ref{lst:task2SecondVersion} the code for the \code{doingPairs} rule. In the case of Maude, we only need one rule to consider the positive and negative cases. 
+As for e-Motions, the second solutions consists of several rules. In this case, our collection object is model by an operator \code{\{\_\}\{\_\}\{\_\}\{\_\}\{\_\}\{\_\}} representing an object with six attributes as its e-Motions counterpart: the first argument takes the starting argument, the second the people set, the movies set, the dealt people, the fixed person on which to iterate, and the result configuration. We show in Listing~\ref{lst:task2SecondVersion} the code for the \code{doingPairs} rule. In the case of Maude, we only need one rule to consider the positive and negative cases. The number of rewrites and execution times for executions of different sizes are shown in Table~\ref{table:maudetask22}.
 
 \begin{lstlisting}[caption=\code{doingCouples} Maude rule., label=lst:task2SecondVersion]
 
@@ -175,5 +175,5 @@ rl [doingPairs] :
 	400 & 640.1 & 132,799,203 \\
 	\hline \\
 	\end{tabular}
-	\caption{Maude times for Task 2 First Version.}\label{table:maudetask21}
+	\caption{Maude times for Task 2 Second Version.}\label{table:maudetask22}
 \end{table*}
