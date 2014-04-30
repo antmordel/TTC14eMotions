@@ -14,5 +14,5 @@ mod TEST-TASK1 is
 endm
 
 search in TEST-TASK1 : 
-  createExample(1) freshOid(0) =>! C:Configuration 
-  such that numOfMovies(C:Configuration) =/= 1 * 10 .
+  createExample(8) freshOid(0) =>! C:Configuration 
+  such that numOfMovies(C:Configuration) =/= 8 * 10 .
