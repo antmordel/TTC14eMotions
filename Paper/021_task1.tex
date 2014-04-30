@@ -92,7 +92,6 @@ rl [createPositive] :
 
 Table \ref{table:task1} shows the number of rewrites and execution times for both solutions. As explained above, the the execution times for the Maude specification obtained from the e-Motions definition grows very quickly. Notice that, although the number of rewrites grows linearly with respect to $N$, the time is exponential due to the infrastructure to deal with all the extra features in e-Motions. However, notice how the number of rewrites for the Maude solution grows linearly as well, but in this case the execution times grows more slowly, being able to handle problems of much bigger sizes.
 
-<<<<<<< HEAD
 \begin{table*}[tb]
 \renewcommand{\tabcolsep}{6pt}
 \renewcommand{\arraystretch}{1.2}
@@ -100,30 +99,11 @@ Table \ref{table:task1} shows the number of rewrites and execution times for bot
 	\label{table:task1}
     \centering
 	\begin{tabular}[tb]{r|r|r|r|r|}
+	\hline
 	    & \multicolumn{2}{|c|}{e-Motions} & \multicolumn{2}{|c|}{Maude} \\
-=======
-For example, given the \code{numOfMovies} operation which takes an object configuration as input and returns the number of movies in it, we may look for those final states in which the number of moves will be different than $10N$ (being N the parameter of the operation \code{createExample}):
-\begin{verbatim}
-  search createExample(1) freshOid(0) =>! C:Configuration
-    such that numOfMovies(C:Configuration) =/= 10 * 1 .
-\end{verbatim}
-
-The arrow \code{=>!} means that it rewrites the initial term to a final term. Maude returns no solution for the above code, that means all final states reached have exactly 10 movies:
-\begin{verbatim}
-  No solution.
-  states: 5  rewrites: 180 in 0ms cpu (0ms real)
-\end{verbatim}
-
-\todo{mejorar el aspecto de las tablas}
-\begin{table}
-  \begin{center}
-	\begin{tabular}{r r r}
-	$N$ & Time (s) & \# Rewrites \\
->>>>>>> c18d8706971d7be9b2fc330a847ad43bc0f12d4d
 	\hline
 	$N$ & Time (s) & \# Rewrites & Time (s) & \# Rewrites \\
 	\hline
-<<<<<<< HEAD
 	1    &       &           & 0.0 &       68 \\
 	2    &   0.0 &     4,910 && \\
 	10   &   0.0 &    24,334 && \\
@@ -137,20 +117,6 @@ The arrow \code{=>!} means that it rewrites the initial term to a final term. Ma
 	6000 &       &           & 109.6 & 402,001 \\
 	7000 &       &           & 144.5 & 469,001 \\
 	\hline 
-=======
-	1 & 0.0 & 68 \\
-	1000 & 1.908 & 67001 \\
-	2000 & 12.740 & 134001 \\
-	3000 & 33.866 & 201001 \\
-	4000 & 64.060 & 268001 \\
-	5000 & 104.442 & 335001 \\
-	6000 & 109.614 & 402001 \\
-	7000 & 144.521 & 469001 \\
-	8000 & 197.340 & 536001 \\
-	9000 & 256.984 & 603001 \\
-	10000 & 318.271 & 670001 \\
-	\hline \\
->>>>>>> c18d8706971d7be9b2fc330a847ad43bc0f12d4d
 	\end{tabular}
 	\vspace{1cm}
 \end{table*}
