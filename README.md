@@ -18,3 +18,7 @@ Together with the e-Motions solution, we give the corresponding Maude solution, 
 - `run-task2-1-maude.sh`: Task 2 (First approach).
 - `run-task2-2-maude.sh`: Task 2 (Second approach).
 - `run-task3-maude.sh`: Task 3.
+
+The [SHARE image](http://share20.eu/?page=ConfigureNewSession&vdi=Ubuntu12LTS_TTC14_64bit_emotions.vdi) 
+
+# PAPER
