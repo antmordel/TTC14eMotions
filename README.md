@@ -19,6 +19,15 @@ Together with the e-Motions solution, we give the corresponding Maude solution, 
 - `run-task2-2-maude.sh`: Task 2 (Second approach).
 - `run-task3-maude.sh`: Task 3.
 
-The [SHARE image](http://share20.eu/?page=ConfigureNewSession&vdi=Ubuntu12LTS_TTC14_64bit_emotions.vdi) 
+Maude system is installed in the [SHARE image](http://share20.eu/?page=ConfigureNewSession&vdi=Ubuntu12LTS_TTC14_64bit_emotions.vdi). To run the scripts above mentioned you could either clone this repository or go to `~/TTC14eMotions` folder where this repository is cloned.
 
 # PAPER
+
+The full description of this solution is detailed in [this paper](MDemotions14.pdf).
+
+
+### Authors
+Antonio Moreno-Delgado and Francisco Durán
+`{amoreno,duran} at lcc.uma.es`
+
+Modified: May 12 2014
